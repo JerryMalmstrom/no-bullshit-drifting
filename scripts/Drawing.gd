@@ -2,27 +2,31 @@ extends Node2D
 
 const TRACK_LENGTH = 400
 
-var track01_back   = PoolIntArray()
+#var track_size = PoolIntArray()
+#var track_right = PoolVector2Array()
+#var track_left = PoolVector2Array()
 
-var track11 = PoolVector2Array()
-var track12 = PoolVector2Array()
+var track = []
 
-onready var car1 = get_parent().get_node("car")
-onready var left_back_wheel1 = car1.get_node("Pivot/rubber_left")
-onready var right_back_wheel1 = car1.get_node("Pivot/rubber_right")
-
-#var TMoffset = Vector2(525,300)
-var TMoffset = Vector2(0,0)
+onready var car = get_parent().get_node("car")
+onready var left_back_wheel = car.get_node("Pivot/rubber_left")
+onready var right_back_wheel = car.get_node("Pivot/rubber_right")
 
 func _process(_delta):
-	if( track01_back.size() >= TRACK_LENGTH ):
-		track01_back.remove(0)
-		track11.remove(0)
-		track12.remove(0)
+	#if( track_size.size() >= TRACK_LENGTH ):
+	#	track_size.remove(0)
+	#	track_right.remove(0)
+	#	track_left.remove(0)
 
-	track11.append(right_back_wheel1.global_position - TMoffset)
-	track12.append(left_back_wheel1.global_position - TMoffset)
-	track01_back.append(car1.skid_size_back)
+	if (track.size() >= TRACK_LENGTH):
+		track.remove(0)
+
+	track.append({"right": right_back_wheel.global_position, "left": left_back_wheel.global_position, "size": car.skid_size_back)
+
+	#track_right.append(right_back_wheel.global_position)
+	#track_left.append(left_back_wheel.global_position)
+	#track_size.append(car.skid_size_back)
+	
 	update()
 	
 func _draw():
@@ -35,8 +39,12 @@ func _draw():
 		for x in range(globals.best_lap_ghost_array.size() -1 ):
 			draw_line(globals.best_lap_ghost_array[x].pos, globals.best_lap_ghost_array[x+1].pos, Color(1, 0, 0, 0.2), 10)
 	
-	for i in range(track01_back.size() -1 ):
-		if track01_back[i] > 0:
-			draw_line(track11[i], track11[i+1], Color(0, 0, 0, 0.7), track01_back[i])
-			draw_line(track12[i], track12[i+1], Color(0, 0, 0, 0.7), track01_back[i])
+	#for i in range(track_size.size() -1 ):
+	#	if track_size[i] > 0:
+	#		draw_line(track_right[i], track_right[i+1], Color(0, 0, 0, 0.7), track_size[i])
+	#		draw_line(track_left[i], track_left[i+1], Color(0, 0, 0, 0.7), track_size[i])
 	
+	for i in range(track.size() -1 ):
+		if track[i].size > 0:
+			draw_line(track[i].right, track[i+1].right, Color(0, 0, 0, 0.7), track[i].size)
+			draw_line(track[i].left, track[i+1].left, Color(0, 0, 0, 0.7), track[i].size)

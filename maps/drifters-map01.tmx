@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="128" tileheight="128" infinite="1" nextlayerid="12" nextobjectid="20">
- <tileset firstgid="1" source="../../../Media/MAPS/spritesheet_tiles.tsx"/>
- <tileset firstgid="466" source="../../../Media/MAPS/objects.tsx"/>
+ <tileset firstgid="1" source="spritesheet_tiles.tsx"/>
+ <tileset firstgid="466" source="objects.tsx"/>
  <layer id="9" name="Back" width="20" height="20">
   <data encoding="csv">
    <chunk x="0" y="0" width="16" height="16">

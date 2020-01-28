@@ -33,12 +33,10 @@ func get_ghost_point(index : int, best : bool):
 	else:
 		return current_lap_ghost_array[index]
 	
-
 func update_ghost():
 	best_lap_ghost_array = current_lap_ghost_array.duplicate(true)
 	
 func reset_ghost():
-#	current_lap_ghost.resize(0)
 	current_lap_ghost_array.clear()
 
 func reset_best_ghost():

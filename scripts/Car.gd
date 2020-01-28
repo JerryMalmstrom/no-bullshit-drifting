@@ -1,70 +1,53 @@
 extends KinematicBody2D
 
-var velocity 	= Vector2( 0.0, 0.0 )
-var thrust   	= 0.0
-var speed    	= 0.0
-var reversing 	= false
+const MAX_ANGULAR_ACCELERATION = 0.06
+const ANGULAR_ACCELERATION = 0.009
+const STEERIN_TURNING = 0.1
+const AGILITY_RATIO = 0.5
+const ACCELERATION = 0.15
+const WOBBLE_RATE = 0.005
+const BREAKING = 4.5
+const MAX_SPEED = 900.0
+const ANGULAR_DAMPENING = 0.85
+const GHOST_SAVE_INTERVAL = 0.1
 
-export (int) var car_texture_number = 0
-export (int) var player = 1
-
-const MAX_ANGULAR_ACCELERATION = 0.04	* 1.5
-const ANGULAR_ACCELERATION     = 0.006	* 1.5
-const STEERIN_TURNING          = 0.1	* 1.0
-const AGILITY_RATIO            = 0.5	* 1.0
-const ACCELERATION             = 0.1	* 1.5
-const WOBBLE_RATE              = 0.005	* 1.0
-const BREAKING                 = 3.0	* 1.5
-const MAX_SPEED                = 900
-const ANGULAR_DAMPENING 	   = 0.85	* 1.0
-
+var velocity = Vector2( 0.0, 0.0 )
+var thrust = 0.0
+var speed = 0.0
+var reversing = false
 var angular_friction = 0.0
 var angular_velocity = 0.0
-var orientation      = 0.0
-var turning          = 0.0
-var facing           = Vector2 ( 0.0, 0.0 )
-var wheel_facing     = Vector2 ( 0.0, 0.0 )
-var drag_vector      = Vector2 ( 0.0, 0.0 )
-var drag             = 0.0
-var skid_size_front  = 0.0
-var skid_size_back   = 0.0
-
+var orientation = 0.0
+var turning = 0.0
+var facing = Vector2 ( 0.0, 0.0 )
+var wheel_facing = Vector2 ( 0.0, 0.0 )
+var drag_vector = Vector2 ( 0.0, 0.0 )
+var drag = 0.0
+var skid_size_front = 0.0
+var skid_size_back = 0.0
 var collision_time = 0.0
-
-const GHOST_SAVE_INTERVAL = 0.1
 var ghost_save_time = 0.0
-
-#var drift_size = 0.0
-
 var active = true
-var car_texture1 = preload("res://assets/car_black_small_5.png")
-
 
 func _ready():
-	velocity 	= Vector2( 0.0, 0.0 )
-	thrust   	= 0.0
-	speed    	= 0.0
-	reversing 	= false
+	velocity = Vector2( 0.0, 0.0 )
+	thrust = 0.0
+	speed = 0.0
+	reversing = false
 	angular_friction = 0.0
 	angular_velocity = 0.0
-	orientation      = 0.0
-	turning          = 0.0
-	facing           = Vector2 ( 0.0, 0.0 )
-	wheel_facing     = Vector2 ( 0.0, 0.0 )
-	drag_vector      = Vector2 ( 0.0, 0.0 )
-	drag             = 0.0
-	skid_size_front  = 0.0
-	skid_size_back   = 0.0
+	orientation = 0.0
+	turning = 0.0
+	facing = Vector2 ( 0.0, 0.0 )
+	wheel_facing = Vector2 ( 0.0, 0.0 )
+	drag_vector = Vector2 ( 0.0, 0.0 )
+	drag = 0.0
+	skid_size_front = 0.0
+	skid_size_back = 0.0
 	collision_time = 0.0
 	ghost_save_time = 0.0
 	active = true
-	
-	
-	match car_texture_number:
-		1:
-			$Pivot/body.texture = car_texture1
-
-	
+		
 	$Pivot/body.rotation_degrees = 90
 
 
@@ -76,7 +59,6 @@ func _physics_process(delta):
 		if ghost_save_time > GHOST_SAVE_INTERVAL:
 			globals.add_ghost_point(global_position, rotation, ghost_save_time)
 			ghost_save_time = 0.0
-#			print("Test" + String(globals.current_lap_ghost.size()))
 	
 	if speed > 10:
 		skid_size_front = round( ( 1 - abs( wheel_facing.dot(velocity.normalized()) ) ) * 8 )
@@ -87,7 +69,7 @@ func _physics_process(delta):
 	if active:
 		process_input()
 	
-	thrust  = min( thrust * 0.95, 0.9 )
+	thrust = min( thrust * 0.95, 0.9 )
 	turning = clamp( turning * 0.94, -1, 1 )
 	
 	angular_velocity += turning * ANGULAR_ACCELERATION
@@ -95,9 +77,9 @@ func _physics_process(delta):
 	angular_velocity = clamp( angular_velocity, -MAX_ANGULAR_ACCELERATION, MAX_ANGULAR_ACCELERATION )
 	angular_velocity *= angular_friction
 	
-	orientation      += angular_velocity * clamp ((facing * AGILITY_RATIO + wheel_facing * (1-AGILITY_RATIO) ).dot( velocity.normalized()), 0,1) * clamp(speed, 0, 1)
+	orientation += angular_velocity * clamp ((facing * AGILITY_RATIO + wheel_facing * (1-AGILITY_RATIO) ).dot( velocity.normalized()), 0,1) * clamp(speed, 0, 1)
 	wheel_facing = Vector2 ( cos( orientation + angular_velocity * 10 ), sin( orientation + angular_velocity * 10 ) )
-	facing       = Vector2 ( cos( orientation ), sin( orientation ) ) 
+	facing = Vector2 ( cos( orientation ), sin( orientation ) ) 
 
 	drag = ( 1 - abs( wheel_facing.dot(velocity.normalized()) )) * 0.02 + 0.01
 	
@@ -110,23 +92,20 @@ func _physics_process(delta):
 	if velocity.length() > MAX_SPEED:
 		velocity = velocity.normalized() * MAX_SPEED
 	
-	speed     = velocity.length()
+	speed = velocity.length()
 	
 	var collision = move_and_collide(velocity * delta, true, true, true)
 	if collision and collision_time > 1.0:
 		collision_time = 0.0
 		$Camera2D.add_trauma( velocity.length() / MAX_SPEED )
-		
 		velocity *= 0.2
 	velocity = move_and_slide(velocity)
-	
 	
 	rotation = orientation
 	$Pivot/pivot_left.rotation  = angular_velocity * 10
 	$Pivot/pivot_right.rotation = angular_velocity * 10
 	
 	globals.speed = speed
-#	get_parent().get_node("UI/Label").text = "Speed: %10.0f" % speed
 
 
 	
@@ -156,7 +135,7 @@ func process_input():
 			
 			else:
 				if velocity.length() >= BREAKING:
-					velocity       -= velocity.normalized() * BREAKING
+					velocity -= velocity.normalized() * BREAKING
 					skid_size_front = 2
 				else:
 					velocity *= 0.0
@@ -170,12 +149,9 @@ func process_input():
 		# accelerate
 		if Input.is_action_pressed("up"):
 			reversing = false
-			
-	#		if velocity.length() < MAX_SPEED:
 			thrust += 0.06
 			
 			var thrust_limited = thrust * 60
 			
 			velocity += facing * ACCELERATION * thrust_limited * min( 1, abs( facing.dot( velocity.normalized() ) ) + 0.5 )
 			skid_size_back = floor( max( 5 - speed / 2 , skid_size_back ) )
-	
