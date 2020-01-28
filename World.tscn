@@ -1,0 +1,170 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://car.tscn" type="PackedScene" id=2]
+[ext_resource path="res://drawing.gd" type="Script" id=3]
+[ext_resource path="res://Kenney Future.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://World.gd" type="Script" id=5]
+[ext_resource path="res://number.tres" type="DynamicFont" id=6]
+[ext_resource path="res://car_black_small_5.png" type="Texture" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 4 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[sub_resource type="Gradient" id=3]
+colors = PoolColorArray( 0, 1, 0.0390625, 1, 1, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+width = 200
+
+[sub_resource type="StyleBoxTexture" id=5]
+texture = SubResource( 4 )
+region_rect = Rect2( 0, 0, 2048, 1 )
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0, 0, 0, 0.313726 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 21, 300 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 21, 300 )
+
+[node name="World" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="car" parent="." instance=ExtResource( 2 )]
+position = Vector2( 728, 463 )
+
+[node name="Trackmarks" type="Node2D" parent="."]
+z_index = 1
+z_as_relative = false
+script = ExtResource( 3 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 400.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 390, 70 )
+theme = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UI/Control"]
+margin_right = 190.0
+margin_bottom = 50.0
+color = Color( 0, 0, 0, 0.313726 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="lbl_laptime" type="Label" parent="UI/Control/ColorRect"]
+margin_left = 5.0
+margin_top = 2.0
+margin_right = 92.0
+margin_bottom = 23.0
+text = "This lap"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="nbr_laptime" type="Label" parent="UI/Control/ColorRect"]
+margin_left = 5.0
+margin_top = 15.0
+margin_right = 185.0
+margin_bottom = 52.0
+custom_fonts/font = ExtResource( 6 )
+text = "0.00"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="UI/Control"]
+margin_left = 200.0
+margin_right = 390.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 190, 50 )
+color = Color( 0, 0, 0, 0.313726 )
+
+[node name="lbl_lastlap" type="Label" parent="UI/Control/ColorRect2"]
+margin_left = 5.0
+margin_top = 2.0
+margin_right = 100.0
+margin_bottom = 18.0
+text = "Last"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="nbr_lastlap" type="Label" parent="UI/Control/ColorRect2"]
+margin_left = 60.0
+margin_top = 2.0
+margin_right = 188.0
+margin_bottom = 17.6028
+text = "0.000"
+align = 2
+
+[node name="lbl_bestlap" type="Label" parent="UI/Control/ColorRect2"]
+margin_left = 5.0
+margin_top = 28.0
+margin_right = 185.0
+margin_bottom = 18.0
+text = "Best"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="nbr_bestlap" type="Label" parent="UI/Control/ColorRect2"]
+margin_left = 60.0
+margin_top = 28.0
+margin_right = 188.0
+margin_bottom = 44.0
+text = "0.000"
+align = 2
+
+[node name="pb_speed" type="ProgressBar" parent="UI"]
+margin_left = 10.0
+margin_top = 70.0
+margin_right = 200.0
+margin_bottom = 74.0
+rect_min_size = Vector2( 190, 16 )
+custom_styles/fg = SubResource( 5 )
+custom_styles/bg = SubResource( 6 )
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GoalLine" type="Area2D" parent="."]
+position = Vector2( 1600, 320 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalLine"]
+shape = SubResource( 7 )
+
+[node name="Checkpoint" type="Area2D" parent="."]
+position = Vector2( 3560, 960 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint"]
+shape = SubResource( 8 )
+
+[node name="ghost" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.588235 )
+position = Vector2( 1959.74, 1470.28 )
+texture = ExtResource( 7 )
+
+[node name="Tween" type="Tween" parent="."]
+[connection signal="body_entered" from="GoalLine" to="." method="_on_GoalLine_body_entered"]
+[connection signal="body_entered" from="Checkpoint" to="." method="_on_Checkpoint_body_entered"]

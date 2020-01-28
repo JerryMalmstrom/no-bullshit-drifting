@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://maps/drifters-map02_thumb.png" type="Texture" id=2]
+[ext_resource path="res://maps/drifters-map01_thumb.png" type="Texture" id=3]
+[ext_resource path="res://Kenney Future.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 4 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_top = -1.0
+margin_right = 1024.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 0, 100 )
+text = "Choose your track"
+align = 1
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 104.0
+margin_right = 1024.0
+margin_bottom = 304.0
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="map01" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+margin_right = 200.0
+margin_bottom = 200.0
+texture_normal = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/map01"]
+margin_right = 40.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 200, 0 )
+text = "Track 1"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="map02" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+margin_left = 250.0
+margin_right = 450.0
+margin_bottom = 200.0
+texture_normal = ExtResource( 2 )
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/map02"]
+margin_right = 200.0
+margin_bottom = 36.0
+text = "Track 2"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/map01" to="." method="_on_map01_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/map02" to="." method="_on_map02_pressed"]
