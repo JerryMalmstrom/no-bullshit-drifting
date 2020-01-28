@@ -37,7 +37,7 @@ var ghost_save_time = 0.0
 #var drift_size = 0.0
 
 var active = true
-var car_texture1 = preload("res://car_black_small_5.png")
+var car_texture1 = preload("res://assets/car_black_small_5.png")
 
 
 func _ready():
