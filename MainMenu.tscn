@@ -12,6 +12,24 @@ font_data = ExtResource( 4 )
 
 [sub_resource type="Theme" id=2]
 default_font = SubResource( 1 )
+CheckButton/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+CheckButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+CheckButton/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+CheckButton/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+CheckButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+CheckButton/constants/check_vadjust = 0
+CheckButton/constants/hseparation = 4
+CheckButton/fonts/font = null
+CheckButton/icons/off = null
+CheckButton/icons/off_disabled = null
+CheckButton/icons/on = null
+CheckButton/icons/on_disabled = null
+CheckButton/styles/disabled = null
+CheckButton/styles/focus = null
+CheckButton/styles/hover = null
+CheckButton/styles/hover_pressed = null
+CheckButton/styles/normal = null
+CheckButton/styles/pressed = null
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.262745, 0.317647, 0.356863, 1 )
@@ -128,6 +146,7 @@ __meta__ = {
 }
 
 [node name="Options" type="PopupPanel" parent="."]
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 496.0
