@@ -16,7 +16,6 @@ var current_lap_ghost_array = []
 
 var show_current_lap = true
 var show_best_lap = true
-
 var show_ghost = true
 
 var current_track = 0

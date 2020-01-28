@@ -163,6 +163,7 @@ shape = SubResource( 8 )
 [node name="ghost" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.588235 )
 position = Vector2( 1959.74, 1470.28 )
+z_index = 4
 texture = ExtResource( 7 )
 
 [node name="Tween" type="Tween" parent="."]

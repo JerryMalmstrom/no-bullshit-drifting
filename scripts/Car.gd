@@ -112,46 +112,45 @@ func _physics_process(delta):
 func process_input():
 	# turning
 	angular_friction = ANGULAR_DAMPENING
-	
-	if player == 1:
-		if Input.is_action_pressed("left"):
-			if turning > 0:
-				turning = 0
-			turning -= STEERIN_TURNING
-			angular_friction = 1
-	
-		if Input.is_action_pressed("right"):
-			if turning < 0:
-				turning = 0
-			turning += STEERIN_TURNING
-			angular_friction = 1
-			
-		# break
-		if Input.is_action_pressed("down"):
-			if reversing:
-				thrust -= 0.06
-				var thrust_limited = thrust * 60
-				velocity += facing * ACCELERATION * thrust_limited * min( 1, abs( facing.dot( velocity.normalized() ) ) + 0.5 )
-			
-			else:
-				if velocity.length() >= BREAKING:
-					velocity -= velocity.normalized() * BREAKING
-					skid_size_front = 2
-				else:
-					velocity *= 0.0
-					reversing = true
-		# handbrake
-		if Input.is_action_pressed("ui_select"):
-			if velocity.length() >= BREAKING / 2:
-				velocity -= velocity.normalized() * BREAKING / 2
-				orientation -= facing.angle_to( velocity ) * 0.02 * min( 2, speed )
-				skid_size_back = 5
-		# accelerate
-		if Input.is_action_pressed("up"):
-			reversing = false
-			thrust += 0.06
-			
+		
+	if Input.is_action_pressed("left"):
+		if turning > 0:
+			turning = 0
+		turning -= STEERIN_TURNING
+		angular_friction = 1
+
+	if Input.is_action_pressed("right"):
+		if turning < 0:
+			turning = 0
+		turning += STEERIN_TURNING
+		angular_friction = 1
+		
+	# break
+	if Input.is_action_pressed("down"):
+		if reversing:
+			thrust -= 0.06
 			var thrust_limited = thrust * 60
-			
 			velocity += facing * ACCELERATION * thrust_limited * min( 1, abs( facing.dot( velocity.normalized() ) ) + 0.5 )
-			skid_size_back = floor( max( 5 - speed / 2 , skid_size_back ) )
+		
+		else:
+			if velocity.length() >= BREAKING:
+				velocity -= velocity.normalized() * BREAKING
+				skid_size_front = 2
+			else:
+				velocity *= 0.0
+				reversing = true
+	# handbrake
+	if Input.is_action_pressed("ui_select"):
+		if velocity.length() >= BREAKING / 2:
+			velocity -= velocity.normalized() * BREAKING / 2
+			orientation -= facing.angle_to( velocity ) * 0.02 * min( 2, speed )
+			skid_size_back = 5
+	# accelerate
+	if Input.is_action_pressed("up"):
+		reversing = false
+		thrust += 0.06
+		
+		var thrust_limited = thrust * 60
+		
+		velocity += facing * ACCELERATION * thrust_limited * min( 1, abs( facing.dot( velocity.normalized() ) ) + 0.5 )
+		skid_size_back = floor( max( 5 - speed / 2 , skid_size_back ) )
