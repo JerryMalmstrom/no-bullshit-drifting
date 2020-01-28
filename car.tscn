@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://KinematicBody2D.gd" type="Script" id=1]
+[ext_resource path="res://Car.gd" type="Script" id=1]
 [ext_resource path="res://car_black_small_5.png" type="Texture" id=2]
 [ext_resource path="res://rubber.png" type="Texture" id=3]
 [ext_resource path="res://Camera2D.gd" type="Script" id=4]

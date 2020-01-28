@@ -5,16 +5,18 @@ var thrust   	= 0.0
 var speed    	= 0.0
 var reversing 	= false
 
-const MAX_ANGULAR_ACCELERATION = 0.04
-const ANGULAR_ACCELERATION     = 0.003
-const STEERIN_TURNING          = 0.05
-const AGILITY_RATIO            = 0.8   # 0-1
-const ACCELERATION             = 0.30
-const WOBBLE_RATE              = 0.001
-const BREAKING                 = 10.0
-const MAX_SPEED                = 1000.0
+export (int) var car_texture_number = 0
+export (int) var player = 1
 
-const ANGULAR_DAMPENING = 0.85
+const MAX_ANGULAR_ACCELERATION = 0.04	* 1.5
+const ANGULAR_ACCELERATION     = 0.006	* 1.5
+const STEERIN_TURNING          = 0.1	* 1.0
+const AGILITY_RATIO            = 0.5	* 1.0
+const ACCELERATION             = 0.1	* 1.5
+const WOBBLE_RATE              = 0.005	* 1.0
+const BREAKING                 = 3.0	* 1.5
+const MAX_SPEED                = 900
+const ANGULAR_DAMPENING 	   = 0.85	* 1.0
 
 var angular_friction = 0.0
 var angular_velocity = 0.0
@@ -28,63 +30,62 @@ var skid_size_front  = 0.0
 var skid_size_back   = 0.0
 
 var collision_time = 0.0
-var polygon_time = 0.0
 
-var polygon_track = PoolVector2Array()
+const GHOST_SAVE_INTERVAL = 0.1
+var ghost_save_time = 0.0
 
-var drift_size = 0.0
+#var drift_size = 0.0
 
-onready var color_tilemap = get_parent().get_node("Colors")
-onready var skid_label = get_parent().get_node("CanvasLayer/Label")
-onready var cover_label = get_parent().get_node("CanvasLayer/percent_covered")
-
+var active = true
+var car_texture1 = preload("res://car_black_small_5.png")
 
 
-func update_polygon(pos : Vector2):
-	polygon_track.append(pos)
-	get_parent().update_line(pos)
-
-func clear_polygon():
-	polygon_track.resize(0)
+func _ready():
+	velocity 	= Vector2( 0.0, 0.0 )
+	thrust   	= 0.0
+	speed    	= 0.0
+	reversing 	= false
+	angular_friction = 0.0
+	angular_velocity = 0.0
+	orientation      = 0.0
+	turning          = 0.0
+	facing           = Vector2 ( 0.0, 0.0 )
+	wheel_facing     = Vector2 ( 0.0, 0.0 )
+	drag_vector      = Vector2 ( 0.0, 0.0 )
+	drag             = 0.0
+	skid_size_front  = 0.0
+	skid_size_back   = 0.0
+	collision_time = 0.0
+	ghost_save_time = 0.0
+	active = true
 	
-func color_polygon():
-	if polygon_track.size() > 10:
-		get_parent().update_pol(polygon_track)
-	clear_polygon()
-	get_parent().clear_line()
+	
+	match car_texture_number:
+		1:
+			$Pivot/body.texture = car_texture1
+
+	
+	$Pivot/body.rotation_degrees = 90
+
 
 func _physics_process(delta):
 	collision_time += delta
-	polygon_time += delta
 	
-	if speed > 200:
+	if globals.started:
+		ghost_save_time += delta
+		if ghost_save_time > GHOST_SAVE_INTERVAL:
+			globals.add_ghost_point(global_position, rotation, ghost_save_time)
+			ghost_save_time = 0.0
+#			print("Test" + String(globals.current_lap_ghost.size()))
+	
+	if speed > 10:
 		skid_size_front = round( ( 1 - abs( wheel_facing.dot(velocity.normalized()) ) ) * 8 )
 	else:
 		skid_size_front = 0.0
-
 	skid_size_back  = skid_size_front
-
 	
-	if polygon_time > 0.2:
-		polygon_time = 0.0
-		skid_label.text = "Skid size: %.1f Speed: %.0f" % [drift_size, speed]
-		cover_label.text = "Cover: %.1f" % color_tilemap.get_used_cells_by_id(0).size()
-	
-	drift_size = skid_size_front * speed / 500
-	
-	if drift_size > 1:
-		color_tilemap.color_fixed_size(global_position, drift_size)
-		
-#
-#	if polygon_time > 0.1:
-#		polygon_time = 0.0
-##		print(skid_size_front)
-#		if skid_size_front > 1:
-#			update_polygon(global_position)
-#		else:
-#			color_polygon()
-
-	process_input()
+	if active:
+		process_input()
 	
 	thrust  = min( thrust * 0.95, 0.9 )
 	turning = clamp( turning * 0.94, -1, 1 )
@@ -116,81 +117,65 @@ func _physics_process(delta):
 		collision_time = 0.0
 		$Camera2D.add_trauma( velocity.length() / MAX_SPEED )
 		
-		velocity *= 0.9
+		velocity *= 0.2
 	velocity = move_and_slide(velocity)
 	
 	
 	rotation = orientation
-	$body/pivot_left.rotation  = angular_velocity * 10
-	$body/pivot_right.rotation = angular_velocity * 10
-#	update()
-
+	$Pivot/pivot_left.rotation  = angular_velocity * 10
+	$Pivot/pivot_right.rotation = angular_velocity * 10
 	
+	globals.speed = speed
+#	get_parent().get_node("UI/Label").text = "Speed: %10.0f" % speed
+
 
 	
 func process_input():
 	# turning
 	angular_friction = ANGULAR_DAMPENING
-	if Input.is_action_pressed("ui_left"):
-		if turning > 0:
-			turning = 0
-		turning -= STEERIN_TURNING
-		angular_friction = 1
-
-	if Input.is_action_pressed("ui_right"):
-		if turning < 0:
-			turning = 0
-		turning += STEERIN_TURNING
-		angular_friction = 1
-		
-	# break
-	if Input.is_action_pressed("ui_down"):
-		if reversing:
-			thrust -= 0.06
-			var thrust_limited = thrust * 60
-			velocity += facing * ACCELERATION * thrust_limited * min( 1, abs( facing.dot( velocity.normalized() ) ) + 0.5 )
-		
-		else:
-			if velocity.length() >= BREAKING:
-				velocity       -= velocity.normalized() * BREAKING
-				skid_size_front = 4
+	
+	if player == 1:
+		if Input.is_action_pressed("left"):
+			if turning > 0:
+				turning = 0
+			turning -= STEERIN_TURNING
+			angular_friction = 1
+	
+		if Input.is_action_pressed("right"):
+			if turning < 0:
+				turning = 0
+			turning += STEERIN_TURNING
+			angular_friction = 1
+			
+		# break
+		if Input.is_action_pressed("down"):
+			if reversing:
+				thrust -= 0.06
+				var thrust_limited = thrust * 60
+				velocity += facing * ACCELERATION * thrust_limited * min( 1, abs( facing.dot( velocity.normalized() ) ) + 0.5 )
+			
 			else:
-				velocity *= 0.0
-				reversing = true
-	# handbrake
-	if Input.is_action_pressed("ui_select"):
-		if velocity.length() >= BREAKING / 2:
-			velocity -= velocity.normalized() * BREAKING / 2
-			orientation -= facing.angle_to( velocity ) * 0.02 * min( 2, speed )
-			skid_size_back = 5
-	# accelerate
-	if Input.is_action_pressed("ui_up"):
-		reversing = false
-		
-#		if velocity.length() < MAX_SPEED:
-		thrust += 0.06
-		
-		var thrust_limited = thrust * 60
-		
-		velocity += facing * ACCELERATION * thrust_limited * min( 1, abs( facing.dot( velocity.normalized() ) ) + 0.5 )
-		skid_size_back = floor( max( 5 - speed / 2 , skid_size_back ) )
-
-#func _draw():
-#	draw_vector(Vector2(), velocity * 20, Color(1,1,1), 3)
-#	draw_vector($body/pivot_right.global_position-position, wheel_facing * 40, Color(0,1,1), 2)
-#	draw_vector($body/pivot_left.global_position-position, wheel_facing * 40, Color(0,1,1), 2)
-#	draw_vector(Vector2(), facing  * 100, Color(1,0,1), 3)
-#	draw_vector(Vector2(), drag_vector  * 1000, Color(0,1,0), 3)
-#
-#func draw_vector( origin, vector, color, arrow_size ):
-#	if vector.length_squared() > 1:
-#		var points    = []
-#		var direction = vector.normalized()
-#		vector += origin
-#		vector -= direction * arrow_size*2
-#		points.push_back( vector + direction * arrow_size*2  )
-#		points.push_back( vector + direction.rotated(  PI / 1.5 ) * arrow_size * 2 )
-#		points.push_back( vector + direction.rotated( -PI / 1.5 ) * arrow_size * 2 )
-#		draw_polygon( PoolVector2Array( points ), PoolColorArray( [color] ) )
-#		vector -= direction * arrow_size*1
-#		draw_line( origin, vector, color, arrow_size )
+				if velocity.length() >= BREAKING:
+					velocity       -= velocity.normalized() * BREAKING
+					skid_size_front = 2
+				else:
+					velocity *= 0.0
+					reversing = true
+		# handbrake
+		if Input.is_action_pressed("ui_select"):
+			if velocity.length() >= BREAKING / 2:
+				velocity -= velocity.normalized() * BREAKING / 2
+				orientation -= facing.angle_to( velocity ) * 0.02 * min( 2, speed )
+				skid_size_back = 5
+		# accelerate
+		if Input.is_action_pressed("up"):
+			reversing = false
+			
+	#		if velocity.length() < MAX_SPEED:
+			thrust += 0.06
+			
+			var thrust_limited = thrust * 60
+			
+			velocity += facing * ACCELERATION * thrust_limited * min( 1, abs( facing.dot( velocity.normalized() ) ) + 0.5 )
+			skid_size_back = floor( max( 5 - speed / 2 , skid_size_back ) )
+	
