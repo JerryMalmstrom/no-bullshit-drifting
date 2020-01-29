@@ -1,14 +1,14 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=1]
-[ext_resource path="res://maps/drifters-map02_thumb.png" type="Texture" id=2]
-[ext_resource path="res://maps/drifters-map01_thumb.png" type="Texture" id=3]
-[ext_resource path="res://assets/Kenney Future.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://assets/Menuback.png" type="Texture" id=5]
+[ext_resource path="res://assets/Kenney Future.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=2]
+[ext_resource path="res://assets/Menuback.png" type="Texture" id=3]
+[ext_resource path="res://maps/drifters-map01_thumb.png" type="Texture" id=4]
+[ext_resource path="res://maps/drifters-map02_thumb.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
-font_data = ExtResource( 4 )
+font_data = ExtResource( 1 )
 
 [sub_resource type="Theme" id=2]
 default_font = SubResource( 1 )
@@ -38,7 +38,7 @@ bg_color = Color( 0.262745, 0.317647, 0.356863, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = SubResource( 2 )
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -46,7 +46,7 @@ __meta__ = {
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 5 )
+texture = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -103,8 +103,8 @@ __meta__ = {
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_top = -100.0
-margin_bottom = 100.0
+margin_top = -227.0
+margin_bottom = 227.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -112,7 +112,7 @@ __meta__ = {
 [node name="map01" type="TextureButton" parent="TrackSelect/HBoxContainer"]
 margin_right = 200.0
 margin_bottom = 200.0
-texture_normal = ExtResource( 3 )
+texture_normal = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -131,7 +131,7 @@ __meta__ = {
 margin_left = 204.0
 margin_right = 404.0
 margin_bottom = 200.0
-texture_normal = ExtResource( 2 )
+texture_normal = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -159,37 +159,35 @@ __meta__ = {
 }
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Options"]
-margin_left = 123.0
-margin_top = 40.0
-margin_right = 617.0
-margin_bottom = 374.0
+margin_right = 783.0
+margin_bottom = 454.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="btn_ghost" type="CheckButton" parent="Options/VBoxContainer2"]
-margin_top = 74.0
-margin_right = 494.0
-margin_bottom = 118.0
+margin_top = 134.0
+margin_right = 783.0
+margin_bottom = 178.0
 text = "Best lap Ghost"
 
 [node name="btn_trail" type="CheckButton" parent="Options/VBoxContainer2"]
-margin_top = 122.0
-margin_right = 494.0
-margin_bottom = 166.0
+margin_top = 182.0
+margin_right = 783.0
+margin_bottom = 226.0
 text = "best lap trail"
 
 [node name="btn_trail2" type="CheckButton" parent="Options/VBoxContainer2"]
-margin_top = 170.0
-margin_right = 494.0
-margin_bottom = 214.0
+margin_top = 230.0
+margin_right = 783.0
+margin_bottom = 274.0
 text = "current lap trail"
 
 [node name="btn_save" type="Button" parent="Options/VBoxContainer2"]
-margin_top = 218.0
-margin_right = 494.0
-margin_bottom = 260.0
+margin_top = 278.0
+margin_right = 783.0
+margin_bottom = 320.0
 text = "Save"
 flat = true
 [connection signal="pressed" from="Control/VBoxContainer/btn_selectmap" to="." method="_on_btn_selectmap_pressed"]

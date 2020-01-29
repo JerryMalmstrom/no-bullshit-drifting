@@ -19,12 +19,19 @@ var tracks = [
 ]
 
 var map_info
+var userdata
 
 func _ready():
+	
+	reset_variables()
+	read_userdata()
+	read_trackdata(globals.current_track)
+	
+func reset_variables():
 	globals.started = false
 	globals.reset_ghost()
 	globals.current_laptime = 0.0
-	globals.best_laptime = 999.0
+	globals.best_laptime = 99999.0
 	globals.last_laptime = 0.0
 	globals.reset_best_ghost()
 	
@@ -33,11 +40,32 @@ func _ready():
 	ghost_point_time = 0.0
 	ghost_point_current_time = 0.0
 	
+func get_userdata(user, key):
+	return userdata[user].key
+
+func set_userdata(user, key, value):
+	userdata[user].key = value
+
+func read_userdata():
 	var file = File.new()
-	file.open(tracks[globals.current_track], file.READ)
+	file.open("res://userdata.cfg", file.READ)
+	userdata = parse_json(file.get_as_text())
+	file.close()
+	print(get_userdata("Jerry", "car"))
+	
+func write_userdata():
+	var file = File.new()
+	file.open("res://userdata.cfg", file.WRITE)
+	file.store_line(userdata.to_json())
+	userdata = parse_json(file.get_as_text())
+	file.close()
+
+func read_trackdata(track):
+	var file = File.new()
+	file.open(tracks[track], file.READ)
 	map_info = parse_json(file.get_as_text())
 	file.close()
-	
+
 	add_child(load(map_info.file).instance())
 	$car.global_position = Vector2(map_info.car_pos_x, map_info.car_pos_y)
 	$car.global_rotation = map_info.car_rot
@@ -49,8 +77,7 @@ func _ready():
 	
 	$car/Camera2D.limit_right = map_info.width
 	$car/Camera2D.limit_bottom = map_info.height
-	
-	
+
 
 func _process(delta):
 	if globals.started:
