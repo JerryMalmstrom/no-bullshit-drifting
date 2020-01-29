@@ -47,14 +47,23 @@ func set_userdata(user, key, value):
 
 func read_userdata():
 	var file = File.new()
-	file.open("res://userdata.cfg", file.READ)
-	userdata = JSON.parse(file.get_as_text()).result
-	file.close()
+	if file.file_exists("user://userdata.cfg"):
+		file.open("user://userdata.cfg", file.READ)
+		userdata = JSON.parse(file.get_as_text()).result
+		file.close()
+	else:
+		var template_file = File.new()
+		template_file.open("res://userdata.cfg", file.READ)
+		userdata = JSON.parse(template_file.get_as_text()).result
+		template_file.close()
+		userdata.username = globals.user
+		write_userdata()
 	
 func write_userdata():
 	var file = File.new()
-	file.open("res://userdata.cfg", file.WRITE)
-	file.store_line(userdata.to_json())
+	file.open("user://userdata.cfg", file.WRITE)
+	userdata["last_save"] = "TODO"
+	file.store_line(JSON.print(userdata))
 	file.close()
 
 func read_trackdata(track):
@@ -103,13 +112,13 @@ func _process(delta):
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel"):
-		get_tree().change_scene("res://MainMenu.tscn")
+		var _res = get_tree().change_scene("res://MainMenu.tscn")
 
-func _on_Checkpoint_body_entered(body):
+func _on_Checkpoint_body_entered(_body):
 	checkpoint_hit = true
 
 
-func _on_GoalLine_body_entered(body):
+func _on_GoalLine_body_entered(_body):
 	if !globals.started:
 		globals.started = true
 	else:
@@ -120,7 +129,8 @@ func _on_GoalLine_body_entered(body):
 			globals.current_laptime = 0.0
 			current_ghost_point = 0
 			if globals.last_laptime < globals.best_laptime:
-				#userdata[globals.user][], "best_lap")
+				userdata["trackdata"][map_info.name]["best_lap"] = globals.last_laptime
+				write_userdata()
 				globals.update_ghost()
 				globals.best_laptime = globals.last_laptime
 				nbr_bestlap.text = "%.3f" % globals.best_laptime

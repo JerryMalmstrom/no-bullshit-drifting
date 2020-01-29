@@ -20,6 +20,8 @@ var show_ghost = true
 
 var current_track = 0
 
+var user = "Jerry"
+
 func _ready():
 	pass
 
