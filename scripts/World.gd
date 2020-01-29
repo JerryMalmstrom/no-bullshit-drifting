@@ -22,7 +22,6 @@ var map_info
 var userdata
 
 func _ready():
-	
 	reset_variables()
 	read_userdata()
 	read_trackdata(globals.current_track)
@@ -41,23 +40,21 @@ func reset_variables():
 	ghost_point_current_time = 0.0
 	
 func get_userdata(user, key):
-	return userdata[user].key
+	return userdata[user][key]
 
 func set_userdata(user, key, value):
-	userdata[user].key = value
+	userdata[user][key] = value
 
 func read_userdata():
 	var file = File.new()
 	file.open("res://userdata.cfg", file.READ)
-	userdata = parse_json(file.get_as_text())
+	userdata = JSON.parse(file.get_as_text()).result
 	file.close()
-	print(get_userdata("Jerry", "car"))
 	
 func write_userdata():
 	var file = File.new()
 	file.open("res://userdata.cfg", file.WRITE)
 	file.store_line(userdata.to_json())
-	userdata = parse_json(file.get_as_text())
 	file.close()
 
 func read_trackdata(track):
@@ -123,6 +120,7 @@ func _on_GoalLine_body_entered(body):
 			globals.current_laptime = 0.0
 			current_ghost_point = 0
 			if globals.last_laptime < globals.best_laptime:
+				#userdata[globals.user][], "best_lap")
 				globals.update_ghost()
 				globals.best_laptime = globals.last_laptime
 				nbr_bestlap.text = "%.3f" % globals.best_laptime
