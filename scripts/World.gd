@@ -25,6 +25,8 @@ func _ready():
 	reset_variables()
 	read_userdata()
 	read_trackdata(globals.current_track)
+	print(OS.get_datetime())
+	print(get_current_date())
 	
 func reset_variables():
 	globals.started = false
@@ -110,6 +112,10 @@ func _process(delta):
 	pb_speed.value = (max(globals.speed,0.0001) / globals.MAX_SPEED) * 100
 	
 
+func get_current_date():
+	var dt = OS.get_datetime()
+	return "%4d-%02d-%02d %02d:%02d:%02d" % [dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second]
+
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel"):
 		var _res = get_tree().change_scene("res://MainMenu.tscn")
@@ -130,6 +136,7 @@ func _on_GoalLine_body_entered(_body):
 			current_ghost_point = 0
 			if globals.last_laptime < globals.best_laptime:
 				userdata["trackdata"][map_info.name]["best_lap"] = globals.last_laptime
+				userdata["last_save"] = get_current_date()
 				write_userdata()
 				globals.update_ghost()
 				globals.best_laptime = globals.last_laptime

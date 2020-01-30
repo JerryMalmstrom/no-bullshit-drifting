@@ -47,7 +47,7 @@ func _ready():
 	collision_time = 0.0
 	ghost_save_time = 0.0
 	active = true
-		
+	
 	$Pivot/body.rotation_degrees = 90
 
 
@@ -64,6 +64,12 @@ func _physics_process(delta):
 		skid_size_front = round( ( 1 - abs( wheel_facing.dot(velocity.normalized()) ) ) * 8 )
 	else:
 		skid_size_front = 0.0
+		
+	if skid_size_front > 1:
+		$Fumes.emitting = true
+	else:
+		$Fumes.emitting = false
+		
 	skid_size_back  = skid_size_front
 	
 	if active:

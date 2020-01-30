@@ -14,9 +14,9 @@ var best_lap_ghost = PoolVector3Array()
 var best_lap_ghost_array = []
 var current_lap_ghost_array = []
 
-var show_current_lap = true
-var show_best_lap = true
-var show_ghost = true
+var show_current_lap = false
+var show_best_lap = false
+var show_ghost = false
 
 var current_track = 0
 
