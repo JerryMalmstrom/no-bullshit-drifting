@@ -31,7 +31,7 @@ CheckButton/styles/hover_pressed = null
 CheckButton/styles/normal = null
 CheckButton/styles/pressed = null
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.262745, 0.317647, 0.356863, 1 )
 
 [node name="MainMenu" type="Control"]
@@ -94,7 +94,7 @@ margin_left = 496.0
 margin_top = 267.0
 margin_right = -1.0
 margin_bottom = 1.0
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -152,7 +152,7 @@ margin_left = 496.0
 margin_top = 267.0
 margin_right = -1.0
 margin_bottom = 1.0
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

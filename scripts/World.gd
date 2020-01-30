@@ -24,7 +24,7 @@ var userdata
 func _ready():
 	reset_variables()
 	read_userdata()
-	read_trackdata(globals.current_track)
+#	read_trackdata(globals.current_track)
 	print(OS.get_datetime())
 	print(get_current_date())
 	
