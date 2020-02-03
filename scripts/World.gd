@@ -21,12 +21,12 @@ var tracks = [
 var map_info
 var userdata
 
+onready var popup_sc = preload("res://PopoutText.tscn")
+
 func _ready():
 	reset_variables()
 	read_userdata()
-#	read_trackdata(globals.current_track)
-	print(OS.get_datetime())
-	print(get_current_date())
+	read_trackdata(globals.current_track)
 	
 func reset_variables():
 	globals.started = false
@@ -111,6 +111,11 @@ func _process(delta):
 		
 	pb_speed.value = (max(globals.speed,0.0001) / globals.MAX_SPEED) * 100
 	
+func popup_text(text, duration = 2):
+	var pop = popup_sc.instance()
+	pop.text = text
+	pop.duration = duration
+	$UI.add_child(pop)
 
 func get_current_date():
 	var dt = OS.get_datetime()
@@ -127,6 +132,7 @@ func _on_Checkpoint_body_entered(_body):
 func _on_GoalLine_body_entered(_body):
 	if !globals.started:
 		globals.started = true
+		popup_text("Go go go!", 0.1)
 	else:
 		if checkpoint_hit:
 			checkpoint_hit = false
@@ -135,13 +141,16 @@ func _on_GoalLine_body_entered(_body):
 			globals.current_laptime = 0.0
 			current_ghost_point = 0
 			if globals.last_laptime < globals.best_laptime:
+				popup_text("Great lap!\n%.2f" % globals.last_laptime, 3)
 				userdata["trackdata"][map_info.name]["best_lap"] = globals.last_laptime
 				userdata["last_save"] = get_current_date()
 				write_userdata()
 				globals.update_ghost()
 				globals.best_laptime = globals.last_laptime
 				nbr_bestlap.text = "%.3f" % globals.best_laptime
+			else:
+				popup_text("%.2f" % globals.last_laptime, 3)
 			globals.reset_ghost()
 		else:
-			print("Missed checkpoint")
+			popup_text("Checkpoint missed!", 2)
 			

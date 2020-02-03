@@ -95,6 +95,7 @@ margin_top = 267.0
 margin_right = -1.0
 margin_bottom = 1.0
 custom_styles/panel = SubResource( 3 )
+popup_exclusive = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -111,7 +112,9 @@ __meta__ = {
 
 [node name="map01" type="TextureButton" parent="TrackSelect/HBoxContainer"]
 margin_right = 200.0
-margin_bottom = 200.0
+margin_bottom = 454.0
+mouse_default_cursor_shape = 2
+action_mode = 0
 texture_normal = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -130,7 +133,9 @@ __meta__ = {
 [node name="map02" type="TextureButton" parent="TrackSelect/HBoxContainer"]
 margin_left = 204.0
 margin_right = 404.0
-margin_bottom = 200.0
+margin_bottom = 454.0
+mouse_default_cursor_shape = 2
+action_mode = 0
 texture_normal = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
