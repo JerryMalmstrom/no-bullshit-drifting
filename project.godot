@@ -100,6 +100,7 @@ right={
 
 [rendering]
 
+environment/default_clear_color=Color( 0.388235, 0.490196, 0.662745, 1 )
 environment/default_environment="res://default_env.tres"
 
 [tiled_importer]

@@ -131,6 +131,41 @@ margin_bottom = 44.0
 text = "0.000"
 align = 2
 
+[node name="ColorRect3" type="ColorRect" parent="UI/Control"]
+margin_left = 962.0
+margin_right = 1262.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 190, 50 )
+color = Color( 0, 0, 0, 0.313726 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="lbl_best_names" type="Label" parent="UI/Control/ColorRect3"]
+margin_left = 5.0
+margin_top = 2.0
+margin_right = 100.0
+margin_bottom = 18.0
+text = "1. Jerry
+2. Maja
+3. Louie"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="lbl_best_times" type="Label" parent="UI/Control/ColorRect3"]
+margin_left = 203.363
+margin_top = 2.0
+margin_right = 298.363
+margin_bottom = 20.0
+text = "58:000
+57:000
+56:000"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="pb_speed" type="ProgressBar" parent="UI"]
 margin_left = 10.0
 margin_top = 70.0

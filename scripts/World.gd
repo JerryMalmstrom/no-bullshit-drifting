@@ -21,6 +21,8 @@ var tracks = [
 var map_info
 var userdata
 
+var best_times = []
+
 onready var popup_sc = preload("res://PopoutText.tscn")
 
 func _ready():
@@ -85,7 +87,17 @@ func read_trackdata(track):
 	
 	$car/Camera2D.limit_right = map_info.width
 	$car/Camera2D.limit_bottom = map_info.height
+	
+	for time in map_info.best_laps:
+		best_times.append( time )
 
+	$UI/Control/ColorRect3/lbl_best_names.text = ""
+	$UI/Control/ColorRect3/lbl_best_times.text = ""
+	
+	for time in best_times:
+		$UI/Control/ColorRect3/lbl_best_names.text += str(time.pos) + ". " + time.name + "\n"
+		$UI/Control/ColorRect3/lbl_best_times.text += time.time + "\n"
+	
 
 func _process(delta):
 	if globals.started:
