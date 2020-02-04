@@ -1,0 +1,22 @@
+{
+	"name": "track01",
+	"file": "res://maps/drifters-map01.tmx",
+	"width": 5634,
+	"height": 3584,
+	"goal_pos_x": 1600,
+	"goal_pos_y": 1471,
+	"goal_width": 300,
+	"goal_height": 21,
+	"check_pos_x": 4672,
+	"check_pos_y": 2027,
+	"check_width": 300,
+	"check_height": 21,
+	"car_pos_x": 550,
+	"car_pos_y": 3120,
+	"car_rot": 0,
+	"best_laps": [
+		{ "pos": 1, "name": "Jerry", "time": "55:000" },
+		{ "pos": 2, "name": "Maja", "time": "56:300" },
+		{ "pos": 3, "name": "Louie", "time": "57:500" },
+	]
+}

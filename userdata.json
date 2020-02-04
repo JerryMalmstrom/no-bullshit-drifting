@@ -1,0 +1,24 @@
+{
+	"username": "default",
+	"car": "car_black_small_5.png",
+	"last_save": "2020-01-28 20:00",
+	"input": {
+		"device": "keyboard",
+		"accelerate": "key_up",
+		"brake": "key_down",
+		"left": "key_left",
+		"right": "key_right"
+	},
+	"trackdata": {
+		"track01": {
+			"best_lap": 9999.0,
+			"best_lap_set_on": "1970-01-01 20:00", 
+			"number_of_laps": 0
+		},
+		"track02": {
+			"best_lap": 9999.0,
+			"best_lap_set_on": "1970-01-01 20:00", 
+			"number_of_laps": 0
+		}
+	}
+}

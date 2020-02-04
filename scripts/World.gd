@@ -14,8 +14,8 @@ var ghost_point_time = 0.0
 var ghost_point_current_time = 0.0
 
 var tracks = [
-	"res://maps/drifters-map01.cfg",
-	"res://maps/drifters-map02.cfg",
+	"res://maps/drifters-map01.json",
+	"res://maps/drifters-map02.json",
 ]
 
 var map_info
@@ -51,13 +51,13 @@ func set_userdata(user, key, value):
 
 func read_userdata():
 	var file = File.new()
-	if file.file_exists("user://userdata.cfg"):
-		file.open("user://userdata.cfg", file.READ)
+	if file.file_exists("user://userdata.json"):
+		file.open("user://userdata.json", file.READ)
 		userdata = JSON.parse(file.get_as_text()).result
 		file.close()
 	else:
 		var template_file = File.new()
-		template_file.open("res://userdata.cfg", file.READ)
+		template_file.open("res://userdata.json", file.READ)
 		userdata = JSON.parse(template_file.get_as_text()).result
 		template_file.close()
 		userdata.username = globals.user
@@ -65,7 +65,7 @@ func read_userdata():
 	
 func write_userdata():
 	var file = File.new()
-	file.open("user://userdata.cfg", file.WRITE)
+	file.open("user://userdata.json", file.WRITE)
 	userdata["last_save"] = "TODO"
 	file.store_line(JSON.print(userdata))
 	file.close()

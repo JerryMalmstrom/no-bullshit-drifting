@@ -1,0 +1,17 @@
+{
+	"name": "track02",
+	"file": "res://maps/drifters-map02.tmx",
+	"width": 4992,
+	"height": 3328,
+	"goal_pos_x": 1600,
+	"goal_pos_y": 320,
+	"goal_width": 21,
+	"goal_height": 300,
+	"check_pos_x": 3560,
+	"check_pos_y": 960,
+	"check_width": 21,
+	"check_height": 300,
+	"car_pos_x": 728,
+	"car_pos_y": 463,
+	"car_rot": 0
+}
