@@ -13,22 +13,99 @@ var ghost_rot_offset = deg2rad(90)
 var ghost_point_time = 0.0
 var ghost_point_current_time = 0.0
 
-var tracks = [
-	"res://maps/drifters-map01.json",
-	"res://maps/drifters-map02.json",
-]
-
 var map_info
 var userdata
 
 var best_times = []
 
+#var http_request_track
+#var http_request_laptimes
+
+onready var sc = load("res://httpreq.gd")
+
 onready var popup_sc = preload("res://PopoutText.tscn")
 
 func _ready():
+	$UI/Loader.visible = true
+	
 	reset_variables()
 	read_userdata()
-	read_trackdata(globals.current_track)
+	
+	
+#	http_request_laptimes = HTTPRequest.new()
+#
+#	add_child(http_request_track)
+#	add_child(http_request_laptimes)
+	
+#	http_request_track.connect("request_completed", self, "_track_request_completed")
+#	http_request_laptimes.connect("request_completed", self, "_laptimes_request_completed")
+	
+	get_trackdata(globals.current_track)
+	get_laptimes(globals.current_track)
+	
+#	set_laptimes()
+	
+func get_trackdata(num):
+	var http_request_track = HTTPRequest.new()
+	http_request_track.set_script(sc)
+	add_child(http_request_track)
+	http_request_track.connect("request_completed", self, "_track_request_completed")
+	
+	var error = http_request_track.request("http://gg.jmns.se/api.php?type=track_info&track_id=%s" % num)
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+		
+	http_request_track.connect("request_completed", http_request_track, "destroy")
+		
+
+
+func set_laptime(track, json):
+	var http_set_laptime = HTTPRequest.new()
+	http_set_laptime.set_script(sc)
+	add_child(http_set_laptime)
+	http_set_laptime.connect("request_completed", self, "_laptime_set_completed")
+	http_set_laptime.connect("request_completed", http_set_laptime, "destroy")
+	
+	var error = http_set_laptime.request("http://gg.jmns.se/api.php?type=set_time&track_id=%s" % track, ["Content-Type: application/json"], false, HTTPClient.METHOD_POST, json)
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+		
+	
+
+func get_laptimes(track):
+	var http_request_laptimes = HTTPRequest.new()
+	http_request_laptimes.set_script(sc)
+	add_child(http_request_laptimes)
+	http_request_laptimes.connect("request_completed", self, "_laptimes_request_completed")
+	
+	var error = http_request_laptimes.request("http://gg.jmns.se/api.php?type=best_times&track_id=%s" % track)
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+		
+	http_request_laptimes.connect("request_completed", http_request_laptimes, "destroy")
+
+
+func _track_request_completed(result, response_code, headers, body):
+	var response = parse_json(body.get_string_from_utf8())
+	read_trackdata(response)
+	$Tween.interpolate_property($UI/Loader, "modulate", Color(1,1,1,1), Color(1,1,1,0), .5, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	$Tween.start()
+	
+func _laptime_set_completed(result, response_code, headers, body):
+	var response = parse_json(body.get_string_from_utf8())
+	print(response)
+	
+func _laptimes_request_completed(result, response_code, headers, body):
+	var response = parse_json(body.get_string_from_utf8())
+	
+	$UI/Control/ColorRect3/lbl_best_names.text = ""
+	$UI/Control/ColorRect3/lbl_best_times.text = ""
+	
+	for x in range(response.size()):
+		$UI/Control/ColorRect3/lbl_best_names.text += str(x+1) + ". " + response[x].name + "\n"
+		$UI/Control/ColorRect3/lbl_best_times.text += response[x].laptime + "\n"
+		globals.best_laptime = float(response[x].laptime)
+
 	
 func reset_variables():
 	globals.started = false
@@ -70,13 +147,11 @@ func write_userdata():
 	file.store_line(JSON.print(userdata))
 	file.close()
 
-func read_trackdata(track):
-	var file = File.new()
-	file.open(tracks[track], file.READ)
-	map_info = parse_json(file.get_as_text())
-	file.close()
 
-	add_child(load(map_info.file).instance())
+func read_trackdata(track):
+	map_info = parse_json(track.parameters)
+	
+	add_child(load("res://maps/" + track.file).instance())
 	$car.global_position = Vector2(map_info.car_pos_x, map_info.car_pos_y)
 	$car.global_rotation = map_info.car_rot
 	$GoalLine.global_position = Vector2(map_info.goal_pos_x, map_info.goal_pos_y)
@@ -85,18 +160,9 @@ func read_trackdata(track):
 	$GoalLine/CollisionShape2D.shape.extents = Vector2(map_info.goal_width, map_info.goal_height)
 	$Checkpoint/CollisionShape2D.shape.extents = Vector2(map_info.check_width, map_info.check_height)
 	
-	$car/Camera2D.limit_right = map_info.width
-	$car/Camera2D.limit_bottom = map_info.height
+	$car/Camera2D.limit_right = int(track.width)
+	$car/Camera2D.limit_bottom = int(track.height)
 	
-	for time in map_info.best_laps:
-		best_times.append( time )
-
-	$UI/Control/ColorRect3/lbl_best_names.text = ""
-	$UI/Control/ColorRect3/lbl_best_times.text = ""
-	
-	for time in best_times:
-		$UI/Control/ColorRect3/lbl_best_names.text += str(time.pos) + ". " + time.name + "\n"
-		$UI/Control/ColorRect3/lbl_best_times.text += time.time + "\n"
 	
 
 func _process(delta):
@@ -154,9 +220,10 @@ func _on_GoalLine_body_entered(_body):
 			current_ghost_point = 0
 			if globals.last_laptime < globals.best_laptime:
 				popup_text("Great lap!\n%.2f" % globals.last_laptime, 3)
-				userdata["trackdata"][map_info.name]["best_lap"] = globals.last_laptime
-				userdata["last_save"] = get_current_date()
-				write_userdata()
+				set_laptime(globals.current_track, to_json({"name": "Jerry", "laptime": globals.last_laptime}))
+#				userdata["trackdata"][map_info.name]["best_lap"] = globals.last_laptime
+#				userdata["last_save"] = get_current_date()
+#				write_userdata()
 				globals.update_ghost()
 				globals.best_laptime = globals.last_laptime
 				nbr_bestlap.text = "%.3f" % globals.best_laptime

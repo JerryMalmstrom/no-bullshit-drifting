@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Car.tscn" type="PackedScene" id=2]
@@ -28,6 +28,10 @@ axis_stretch_vertical = 1
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0, 0, 0, 0.313726 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 32
+font_data = ExtResource( 4 )
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 21, 300 )
@@ -178,6 +182,26 @@ percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Loader" type="ColorRect" parent="UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="UI/Loader"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -158.0
+margin_top = -18.0
+margin_right = 158.0
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 9 )
+text = "Loading Track..."
+align = 1
+valign = 1
 
 [node name="GoalLine" type="Area2D" parent="."]
 position = Vector2( 1600, 320 )

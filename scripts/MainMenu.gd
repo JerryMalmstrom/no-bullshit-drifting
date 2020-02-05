@@ -2,13 +2,13 @@ extends Control
 
 
 func _on_map01_pressed():
-	globals.current_track = 0
+	globals.current_track = 1
 	var _res = get_tree().change_scene("res://World.tscn")
 	
 
 
 func _on_map02_pressed():
-	globals.current_track = 1
+	globals.current_track = 2
 	var _res = get_tree().change_scene("res://World.tscn")
 
 
