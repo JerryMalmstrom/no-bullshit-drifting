@@ -1,10 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/Kenney Future.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://assets/Menuback.png" type="Texture" id=3]
-[ext_resource path="res://maps/drifters-map01_thumb.png" type="Texture" id=4]
-[ext_resource path="res://maps/drifters-map02_thumb.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -33,6 +31,11 @@ CheckButton/styles/pressed = null
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.262745, 0.317647, 0.356863, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+content_margin_left = 10.0
+content_margin_top = 5.0
+bg_color = Color( 0, 0, 0, 0.0980392 )
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -101,51 +104,32 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TrackSelect"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -227.0
-margin_bottom = 227.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="map01" type="TextureButton" parent="TrackSelect/HBoxContainer"]
-margin_right = 200.0
-margin_bottom = 454.0
-mouse_default_cursor_shape = 2
-action_mode = 0
-texture_normal = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="TrackSelect/HBoxContainer/map01"]
 margin_right = 40.0
-margin_bottom = 36.0
-rect_min_size = Vector2( 200, 0 )
-text = "Track 1"
-align = 1
+margin_bottom = 40.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TrackSelect/HBoxContainer"]
+margin_right = 300.0
+margin_bottom = 400.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_min_size = Vector2( 300, 400 )
+custom_styles/bg = SubResource( 4 )
+scroll_horizontal_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="map02" type="TextureButton" parent="TrackSelect/HBoxContainer"]
-margin_left = 204.0
-margin_right = 404.0
-margin_bottom = 454.0
-mouse_default_cursor_shape = 2
-action_mode = 0
-texture_normal = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Tracklist" type="VBoxContainer" parent="TrackSelect/HBoxContainer/ScrollContainer"]
+margin_left = 10.0
+margin_top = 5.0
+margin_right = 10.0
+margin_bottom = 5.0
 
-[node name="Label2" type="Label" parent="TrackSelect/HBoxContainer/map02"]
-margin_right = 200.0
-margin_bottom = 36.0
-text = "Track 2"
-align = 1
+[node name="RichTextLabel" type="RichTextLabel" parent="TrackSelect/HBoxContainer"]
+margin_left = 304.0
+margin_right = 754.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 450, 400 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -197,6 +181,4 @@ flat = true
 [connection signal="pressed" from="Control/VBoxContainer/btn_selectmap" to="." method="_on_btn_selectmap_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/btn_options" to="." method="_on_btn_options_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/btn_quit" to="." method="_on_btn_quit_pressed"]
-[connection signal="pressed" from="TrackSelect/HBoxContainer/map01" to="." method="_on_map01_pressed"]
-[connection signal="pressed" from="TrackSelect/HBoxContainer/map02" to="." method="_on_map02_pressed"]
 [connection signal="pressed" from="Options/VBoxContainer2/btn_save" to="." method="_on_btn_save_pressed"]

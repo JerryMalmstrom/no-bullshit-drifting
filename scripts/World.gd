@@ -200,6 +200,10 @@ func _on_Checkpoint_body_entered(_body):
 
 
 func _on_GoalLine_body_entered(_body):
+	$UI/Control/ColorRect3.modulate = Color(1,1,1,1)
+	$Tween.interpolate_property($UI/Control/ColorRect3, "modulate", Color(1,1,1,1), Color(1,1,1,.25), 2, Tween.TRANS_LINEAR, Tween.EASE_IN, 3)
+	$Tween.start()
+	
 	if !globals.started:
 		globals.started = true
 		popup_text("Go go go!", 0.1)
@@ -222,9 +226,6 @@ func _on_GoalLine_body_entered(_body):
 			else:
 				popup_text("%.2f" % globals.last_laptime, 3)
 			globals.reset_ghost()
-			$UI/Control/ColorRect3.modulate = Color(1,1,1,1)
-			$Tween.interpolate_property($UI/Control/ColorRect3, "modulate", Color(1,1,1,1), Color(1,1,1,.5), 2, Tween.TRANS_LINEAR, Tween.EASE_IN, 5)
-			$Tween.start()
 		else:
 			popup_text("Checkpoint missed!", 2)
 			
