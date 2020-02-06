@@ -155,6 +155,7 @@ func read_trackdata(track):
 	
 
 func _process(delta):
+	$UI/Label.text = "%s" % Engine.get_frames_per_second()
 	if globals.started:
 		globals.current_laptime += delta
 		nbr_laptime.text = "%.2f" % globals.current_laptime

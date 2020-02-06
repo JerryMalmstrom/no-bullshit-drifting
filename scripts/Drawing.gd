@@ -1,6 +1,6 @@
 extends Node2D
 
-const TRACK_LENGTH = 200
+const TRACK_LENGTH = 100
 
 var track = []
 
@@ -8,12 +8,17 @@ onready var car = get_parent().get_node("car")
 onready var left_back_wheel = car.get_node("Pivot/rubber_left")
 onready var right_back_wheel = car.get_node("Pivot/rubber_right")
 
-func _process(_delta):
-	if (track.size() >= TRACK_LENGTH):
-		track.remove(0)
+const CUTOFF = 0.05
+var cutoff_time = 0.0
 
-	track.append({"right": right_back_wheel.global_position, "left": left_back_wheel.global_position, "size": car.skid_size_back})
-	update()
+func _process(delta):
+	cutoff_time += delta
+	if cutoff_time > CUTOFF:
+		cutoff_time = 0.0
+		if (track.size() >= TRACK_LENGTH):
+			track.remove(0)
+		track.append({"right": right_back_wheel.global_position, "left": left_back_wheel.global_position, "size": car.skid_size_back})
+		update()
 	
 func _draw():
 	

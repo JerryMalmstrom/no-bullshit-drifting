@@ -217,6 +217,16 @@ text = "Loading Track..."
 align = 1
 valign = 1
 
+[node name="Label" type="Label" parent="UI"]
+margin_left = 9.0
+margin_top = 107.0
+margin_right = 49.0
+margin_bottom = 121.0
+text = "60"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="GoalLine" type="Area2D" parent="."]
 position = Vector2( 2626, 324 )
 collision_layer = 2
