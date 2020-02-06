@@ -29,14 +29,14 @@ axis_stretch_vertical = 1
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0, 0, 0, 0.313726 )
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=7]
 size = 32
 font_data = ExtResource( 4 )
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 21, 300 )
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 21, 300 )
 
 [node name="World" type="Node2D"]
@@ -138,7 +138,7 @@ align = 2
 [node name="ColorRect3" type="ColorRect" parent="UI/Control"]
 margin_left = 962.0
 margin_right = 1262.0
-margin_bottom = 65.0
+margin_bottom = 211.0
 rect_min_size = Vector2( 190, 50 )
 color = Color( 0, 0, 0, 0.313726 )
 __meta__ = {
@@ -150,9 +150,16 @@ margin_left = 5.0
 margin_top = 2.0
 margin_right = 100.0
 margin_bottom = 18.0
-text = "1. Jerry
-2. Maja
-3. Louie"
+text = "1
+2
+3
+4
+5
+6
+7
+8
+9
+10"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -162,9 +169,16 @@ margin_left = 203.363
 margin_top = 2.0
 margin_right = 298.363
 margin_bottom = 20.0
-text = "58:000
-57:000
-56:000"
+text = "1
+2
+3
+4
+5
+6
+7
+8
+9
+10"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -198,7 +212,7 @@ margin_left = -158.0
 margin_top = -18.0
 margin_right = 158.0
 margin_bottom = 18.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 7 )
 text = "Loading Track..."
 align = 1
 valign = 1
@@ -209,7 +223,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoalLine"]
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="Checkpoint" type="Area2D" parent="."]
 position = Vector2( 3560, 960 )
@@ -217,7 +231,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint"]
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 
 [node name="ghost" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.588235 )

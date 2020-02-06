@@ -30,20 +30,9 @@ func _ready():
 	
 	reset_variables()
 	read_userdata()
-	
-	
-#	http_request_laptimes = HTTPRequest.new()
-#
-#	add_child(http_request_track)
-#	add_child(http_request_laptimes)
-	
-#	http_request_track.connect("request_completed", self, "_track_request_completed")
-#	http_request_laptimes.connect("request_completed", self, "_laptimes_request_completed")
-	
 	get_trackdata(globals.current_track)
 	get_laptimes(globals.current_track)
-	
-#	set_laptimes()
+
 	
 func get_trackdata(num):
 	var http_request_track = HTTPRequest.new()
@@ -51,22 +40,23 @@ func get_trackdata(num):
 	add_child(http_request_track)
 	http_request_track.connect("request_completed", self, "_track_request_completed")
 	
-	var error = http_request_track.request("http://gg.jmns.se/api.php?type=track_info&track_id=%s" % num)
+	var error = http_request_track.request("http://gg.jmns.se/api.php/records/tracks/%s" % num)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		
 	http_request_track.connect("request_completed", http_request_track, "destroy")
-		
 
 
-func set_laptime(track, json):
+
+func set_laptime(time):
+	var json = to_json([{ "track_id": globals.current_track, "name": globals.user, "laptime": time, "setAt": get_current_date(true)}])
 	var http_set_laptime = HTTPRequest.new()
 	http_set_laptime.set_script(sc)
 	add_child(http_set_laptime)
 	http_set_laptime.connect("request_completed", self, "_laptime_set_completed")
 	http_set_laptime.connect("request_completed", http_set_laptime, "destroy")
 	
-	var error = http_set_laptime.request("http://gg.jmns.se/api.php?type=set_time&track_id=%s" % track, ["Content-Type: application/json"], false, HTTPClient.METHOD_POST, json)
+	var error = http_set_laptime.request("http://gg.jmns.se/api.php/records/best_times", ["Content-Type: application/json"], false, HTTPClient.METHOD_POST, json)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		
@@ -78,32 +68,31 @@ func get_laptimes(track):
 	add_child(http_request_laptimes)
 	http_request_laptimes.connect("request_completed", self, "_laptimes_request_completed")
 	
-	var error = http_request_laptimes.request("http://gg.jmns.se/api.php?type=best_times&track_id=%s" % track)
+	var error = http_request_laptimes.request("http://gg.jmns.se/api.php/records/best_times?filter=track_id,eq,%s&order=laptime" % track)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		
 	http_request_laptimes.connect("request_completed", http_request_laptimes, "destroy")
 
 
-func _track_request_completed(result, response_code, headers, body):
+func _track_request_completed(_result, _response_code, _headers, body):
 	var response = parse_json(body.get_string_from_utf8())
 	read_trackdata(response)
 	$Tween.interpolate_property($UI/Loader, "modulate", Color(1,1,1,1), Color(1,1,1,0), .5, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
 	
-func _laptime_set_completed(result, response_code, headers, body):
-	var response = parse_json(body.get_string_from_utf8())
-	print(response)
+func _laptime_set_completed(_result, _response_code, _headers, body):
+	get_laptimes(globals.current_track)
 	
-func _laptimes_request_completed(result, response_code, headers, body):
-	var response = parse_json(body.get_string_from_utf8())
+func _laptimes_request_completed(_result, _response_code, _headers, body):
+	var response = parse_json(body.get_string_from_utf8()).records
 	
 	$UI/Control/ColorRect3/lbl_best_names.text = ""
 	$UI/Control/ColorRect3/lbl_best_times.text = ""
 	
-	for x in range(response.size()):
+	for x in range( min(10,response.size()) ):
 		$UI/Control/ColorRect3/lbl_best_names.text += str(x+1) + ". " + response[x].name + "\n"
-		$UI/Control/ColorRect3/lbl_best_times.text += response[x].laptime + "\n"
+		$UI/Control/ColorRect3/lbl_best_times.text += str(response[x].laptime) + "\n"
 		globals.best_laptime = float(response[x].laptime)
 
 	
@@ -195,9 +184,12 @@ func popup_text(text, duration = 2):
 	pop.duration = duration
 	$UI.add_child(pop)
 
-func get_current_date():
+func get_current_date(sql = false):
 	var dt = OS.get_datetime()
-	return "%4d-%02d-%02d %02d:%02d:%02d" % [dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second]
+	if sql:
+		return "%4d-%02d-%02dT%02d:%02d:%02d" % [dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second]
+	else:
+		return "%4d-%02d-%02d %02d:%02d:%02d" % [dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second]
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel"):
@@ -220,16 +212,19 @@ func _on_GoalLine_body_entered(_body):
 			current_ghost_point = 0
 			if globals.last_laptime < globals.best_laptime:
 				popup_text("Great lap!\n%.2f" % globals.last_laptime, 3)
-				set_laptime(globals.current_track, to_json({"name": "Jerry", "laptime": globals.last_laptime}))
+				set_laptime(globals.last_laptime)
 #				userdata["trackdata"][map_info.name]["best_lap"] = globals.last_laptime
 #				userdata["last_save"] = get_current_date()
 #				write_userdata()
 				globals.update_ghost()
-				globals.best_laptime = globals.last_laptime
-				nbr_bestlap.text = "%.3f" % globals.best_laptime
+#				globals.best_laptime = globals.last_laptime
+#				nbr_bestlap.text = "%.3f" % globals.best_laptime
 			else:
 				popup_text("%.2f" % globals.last_laptime, 3)
 			globals.reset_ghost()
+			$UI/Control/ColorRect3.modulate = Color(1,1,1,1)
+			$Tween.interpolate_property($UI/Control/ColorRect3, "modulate", Color(1,1,1,1), Color(1,1,1,.5), 2, Tween.TRANS_LINEAR, Tween.EASE_IN, 5)
+			$Tween.start()
 		else:
 			popup_text("Checkpoint missed!", 2)
 			
