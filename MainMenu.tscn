@@ -104,8 +104,8 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TrackSelect"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 783.0
+margin_bottom = 454.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TrackSelect/HBoxContainer"]
 margin_right = 300.0

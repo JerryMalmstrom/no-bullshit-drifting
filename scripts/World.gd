@@ -18,9 +18,6 @@ var userdata
 
 var best_times = []
 
-#var http_request_track
-#var http_request_laptimes
-
 onready var sc = load("res://httpreq.gd")
 
 onready var popup_sc = preload("res://PopoutText.tscn")
@@ -81,7 +78,7 @@ func _track_request_completed(_result, _response_code, _headers, body):
 	$Tween.interpolate_property($UI/Loader, "modulate", Color(1,1,1,1), Color(1,1,1,0), .5, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
 	
-func _laptime_set_completed(_result, _response_code, _headers, body):
+func _laptime_set_completed(_result, _response_code, _headers, _body):
 	get_laptimes(globals.current_track)
 	
 func _laptimes_request_completed(_result, _response_code, _headers, body):
@@ -155,7 +152,7 @@ func read_trackdata(track):
 	
 
 func _process(delta):
-	$UI/Label.text = "%s" % Engine.get_frames_per_second()
+#	$UI/Label.text = "%s" % Engine.get_frames_per_second()
 	if globals.started:
 		globals.current_laptime += delta
 		nbr_laptime.text = "%.2f" % globals.current_laptime
@@ -218,12 +215,7 @@ func _on_GoalLine_body_entered(_body):
 			if globals.last_laptime < globals.best_laptime:
 				popup_text("Great lap!\n%.2f" % globals.last_laptime, 3)
 				set_laptime(globals.last_laptime)
-#				userdata["trackdata"][map_info.name]["best_lap"] = globals.last_laptime
-#				userdata["last_save"] = get_current_date()
-#				write_userdata()
 				globals.update_ghost()
-#				globals.best_laptime = globals.last_laptime
-#				nbr_bestlap.text = "%.3f" % globals.best_laptime
 			else:
 				popup_text("%.2f" % globals.last_laptime, 3)
 			globals.reset_ghost()
