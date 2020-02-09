@@ -19,7 +19,6 @@ var userdata
 var best_times = []
 
 onready var sc = load("res://httpreq.gd")
-
 onready var popup_sc = preload("res://PopoutText.tscn")
 
 func _ready():
@@ -31,57 +30,28 @@ func _ready():
 	get_laptimes(globals.current_track)
 
 	
-func get_trackdata(num):
-	var http_request_track = HTTPRequest.new()
-	http_request_track.set_script(sc)
-	add_child(http_request_track)
-	http_request_track.connect("request_completed", self, "_track_request_completed")
-	
-	var error = http_request_track.request("http://gg.jmns.se/api.php/records/tracks/%s" % num)
-	if error != OK:
-		push_error("An error occurred in the HTTP request.")
-		
-	http_request_track.connect("request_completed", http_request_track, "destroy")
+func get_trackdata(track_id):
+	globals.get_webrequest(self, "tracks/%s" % track_id, "_get_trackdata_completed")
 
-
-
-func set_laptime(time):
-	var json = to_json([{ "track_id": globals.current_track, "name": globals.user, "laptime": time, "setAt": get_current_date(true)}])
-	var http_set_laptime = HTTPRequest.new()
-	http_set_laptime.set_script(sc)
-	add_child(http_set_laptime)
-	http_set_laptime.connect("request_completed", self, "_laptime_set_completed")
-	http_set_laptime.connect("request_completed", http_set_laptime, "destroy")
-	
-	var error = http_set_laptime.request("http://gg.jmns.se/api.php/records/best_times", ["Content-Type: application/json"], false, HTTPClient.METHOD_POST, json)
-	if error != OK:
-		push_error("An error occurred in the HTTP request.")
-		
-	
-
-func get_laptimes(track):
-	var http_request_laptimes = HTTPRequest.new()
-	http_request_laptimes.set_script(sc)
-	add_child(http_request_laptimes)
-	http_request_laptimes.connect("request_completed", self, "_laptimes_request_completed")
-	
-	var error = http_request_laptimes.request("http://gg.jmns.se/api.php/records/best_times?filter=track_id,eq,%s&order=laptime" % track)
-	if error != OK:
-		push_error("An error occurred in the HTTP request.")
-		
-	http_request_laptimes.connect("request_completed", http_request_laptimes, "destroy")
-
-
-func _track_request_completed(_result, _response_code, _headers, body):
+func _get_trackdata_completed(_result, _response_code, _headers, body):
 	var response = parse_json(body.get_string_from_utf8())
 	read_trackdata(response)
 	$Tween.interpolate_property($UI/Loader, "modulate", Color(1,1,1,1), Color(1,1,1,0), .5, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
+
+
+func set_laptime(time):
+	var json = to_json([{ "track_id": globals.current_track, "name": globals.user, "laptime": time, "setAt": get_current_date(true)}])
+	globals.set_webrequest(self, "best_times", "_set_laptime_completed", json)
 	
-func _laptime_set_completed(_result, _response_code, _headers, _body):
+func _set_laptime_completed(_result, _response_code, _headers, _body):
 	get_laptimes(globals.current_track)
 	
-func _laptimes_request_completed(_result, _response_code, _headers, body):
+
+func get_laptimes(track_id):
+	globals.get_webrequest(self, "best_times?filter=track_id,eq,%s&order=laptime" % track_id, "_get_laptimes_completed")
+	
+func _get_laptimes_completed(_result, _response_code, _headers, body):
 	var response = parse_json(body.get_string_from_utf8()).records
 	
 	$UI/Control/ColorRect3/lbl_best_names.text = ""
@@ -91,7 +61,6 @@ func _laptimes_request_completed(_result, _response_code, _headers, body):
 		$UI/Control/ColorRect3/lbl_best_names.text += str(x+1) + ". " + response[x].name + "\n"
 		$UI/Control/ColorRect3/lbl_best_times.text += str(response[x].laptime) + "\n"
 		globals.best_laptime = float(response[x].laptime)
-
 	
 func reset_variables():
 	globals.started = false
@@ -195,7 +164,6 @@ func _unhandled_input(event):
 
 func _on_Checkpoint_body_entered(_body):
 	checkpoint_hit = true
-
 
 func _on_GoalLine_body_entered(_body):
 	$UI/Control/ColorRect3.modulate = Color(1,1,1,1)

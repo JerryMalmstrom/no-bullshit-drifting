@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/Kenney Future.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=2]
@@ -29,6 +29,8 @@ CheckButton/styles/hover_pressed = null
 CheckButton/styles/normal = null
 CheckButton/styles/pressed = null
 
+[sub_resource type="StyleBoxEmpty" id=5]
+
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.262745, 0.317647, 0.356863, 1 )
 
@@ -36,6 +38,8 @@ bg_color = Color( 0.262745, 0.317647, 0.356863, 1 )
 content_margin_left = 10.0
 content_margin_top = 5.0
 bg_color = Color( 0, 0, 0, 0.0980392 )
+
+[sub_resource type="StyleBoxEmpty" id=6]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -66,27 +70,50 @@ margin_left = 619.0
 margin_top = 307.0
 margin_right = 1113.0
 margin_bottom = 641.0
+focus_mode = 2
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btn_selectmap" type="MenuButton" parent="Control/VBoxContainer"]
+[node name="btn_selectmap" type="Button" parent="Control/VBoxContainer"]
 margin_top = 100.0
 margin_right = 494.0
 margin_bottom = 142.0
+focus_neighbour_bottom = NodePath("../btn_options")
+focus_next = NodePath("../btn_options")
+custom_styles/focus = SubResource( 5 )
+custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+shortcut_in_tooltip = false
 text = "Select map"
+flat = true
 
-[node name="btn_options" type="MenuButton" parent="Control/VBoxContainer"]
+[node name="btn_options" type="Button" parent="Control/VBoxContainer"]
 margin_top = 146.0
 margin_right = 494.0
 margin_bottom = 188.0
+focus_neighbour_top = NodePath("../btn_selectmap")
+focus_neighbour_bottom = NodePath("../btn_quit")
+focus_next = NodePath("../btn_quit")
+focus_previous = NodePath("../btn_selectmap")
+custom_styles/focus = SubResource( 5 )
+custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+shortcut_in_tooltip = false
 text = "options"
+flat = true
 
 [node name="btn_quit" type="Button" parent="Control/VBoxContainer"]
 margin_top = 192.0
 margin_right = 494.0
 margin_bottom = 234.0
+focus_neighbour_top = NodePath("../btn_options")
+focus_previous = NodePath("../btn_options")
+custom_styles/focus = SubResource( 5 )
+custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+shortcut_in_tooltip = false
 text = "Quit"
 flat = true
 
@@ -97,8 +124,8 @@ margin_left = 496.0
 margin_top = 267.0
 margin_right = -1.0
 margin_bottom = 1.0
+focus_mode = 2
 custom_styles/panel = SubResource( 3 )
-popup_exclusive = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -109,7 +136,7 @@ margin_bottom = 454.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TrackSelect/HBoxContainer"]
 margin_right = 300.0
-margin_bottom = 400.0
+margin_bottom = 454.0
 grow_horizontal = 0
 grow_vertical = 0
 rect_min_size = Vector2( 300, 400 )
@@ -124,11 +151,12 @@ margin_left = 10.0
 margin_top = 5.0
 margin_right = 10.0
 margin_bottom = 5.0
+focus_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="TrackSelect/HBoxContainer"]
 margin_left = 304.0
 margin_right = 754.0
-margin_bottom = 400.0
+margin_bottom = 454.0
 rect_min_size = Vector2( 450, 400 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -141,6 +169,7 @@ margin_left = 496.0
 margin_top = 267.0
 margin_right = -1.0
 margin_bottom = 1.0
+focus_mode = 2
 custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -158,24 +187,36 @@ __meta__ = {
 margin_top = 134.0
 margin_right = 783.0
 margin_bottom = 178.0
+custom_styles/focus = SubResource( 6 )
+custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "Best lap Ghost"
 
 [node name="btn_trail" type="CheckButton" parent="Options/VBoxContainer2"]
 margin_top = 182.0
 margin_right = 783.0
 margin_bottom = 226.0
+custom_styles/focus = SubResource( 6 )
+custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "best lap trail"
 
 [node name="btn_trail2" type="CheckButton" parent="Options/VBoxContainer2"]
 margin_top = 230.0
 margin_right = 783.0
 margin_bottom = 274.0
+custom_styles/focus = SubResource( 6 )
+custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "current lap trail"
 
 [node name="btn_save" type="Button" parent="Options/VBoxContainer2"]
 margin_top = 278.0
 margin_right = 783.0
 margin_bottom = 320.0
+custom_styles/focus = SubResource( 6 )
+custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "Save"
 flat = true
 [connection signal="pressed" from="Control/VBoxContainer/btn_selectmap" to="." method="_on_btn_selectmap_pressed"]

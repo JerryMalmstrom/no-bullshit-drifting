@@ -22,6 +22,8 @@ var current_track = 0
 
 var user = "Jerry"
 
+onready var sc = load("res://httpreq.gd")
+
 func _ready():
 	pass
 
@@ -42,3 +44,27 @@ func reset_ghost():
 
 func reset_best_ghost():
 	best_lap_ghost_array.clear()
+
+func get_webrequest(caller, function, callback):
+	var http_request = HTTPRequest.new()
+	http_request.set_script(sc)
+	add_child(http_request)
+	http_request.connect("request_completed", caller, callback)
+	
+	var error = http_request.request("http://gg.jmns.se/api.php/records/" + function)
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+		
+	http_request.connect("request_completed", http_request, "destroy")
+	
+func set_webrequest(caller, function, callback, data):
+	var http_request = HTTPRequest.new()
+	http_request.set_script(sc)
+	add_child(http_request)
+	http_request.connect("request_completed", caller, callback)
+	
+	var error = http_request.request("http://gg.jmns.se/api.php/records/" + function, ["Content-Type: application/json"], false, HTTPClient.METHOD_POST, data)
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+
+	http_request.connect("request_completed", http_request, "destroy")
