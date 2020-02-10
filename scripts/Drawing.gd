@@ -21,7 +21,6 @@ func _process(delta):
 		update()
 	
 func _draw():
-	
 	if globals.show_current_lap:
 		for y in range(globals.current_lap_ghost_array.size() -1 ):
 			draw_line(globals.current_lap_ghost_array[y].pos, globals.current_lap_ghost_array[y+1].pos, Color(0, 0, 0, 0.2), 10)

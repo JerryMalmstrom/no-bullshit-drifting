@@ -4,7 +4,7 @@ var checkpoint_hit = false
 
 onready var nbr_laptime = get_tree().root.find_node("nbr_laptime", true, false)
 onready var nbr_lastlap = get_tree().root.find_node("nbr_lastlap", true, false)
-onready var nbr_bestlap = get_tree().root.find_node("nbr_bestlap", true, false)
+# onready var nbr_bestlap = get_tree().root.find_node("nbr_bestlap", true, false)
 onready var pb_speed = get_tree().root.find_node("pb_speed", true, false)
 
 var current_ghost_point = 0
@@ -18,7 +18,6 @@ var userdata
 
 var best_times = []
 
-onready var sc = load("res://httpreq.gd")
 onready var popup_sc = preload("res://PopoutText.tscn")
 
 func _ready():

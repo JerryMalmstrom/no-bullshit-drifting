@@ -1,6 +1,5 @@
 extends Control
 
-
 var text = ""
 var duration = 2.0
 var text_in = 0.4

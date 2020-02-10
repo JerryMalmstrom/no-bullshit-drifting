@@ -22,7 +22,7 @@ var current_track = 0
 
 var user = "Jerry"
 
-onready var sc = load("res://httpreq.gd")
+onready var sc = load("res://scripts/httpreq.gd")
 
 func _ready():
 	pass

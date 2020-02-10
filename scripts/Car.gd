@@ -29,7 +29,7 @@ var collision_time = 0.0
 var ghost_save_time = 0.0
 var active = true
 
-func _ready():
+func reset_variables():
 	velocity = Vector2( 0.0, 0.0 )
 	thrust = 0.0
 	speed = 0.0
@@ -47,7 +47,9 @@ func _ready():
 	collision_time = 0.0
 	ghost_save_time = 0.0
 	active = true
-	
+
+func _ready():
+	reset_variables()
 	$Pivot/body.rotation_degrees = 90
 
 
