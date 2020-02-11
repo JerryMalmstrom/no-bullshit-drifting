@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/Kenney Future.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=2]
@@ -28,6 +28,11 @@ CheckButton/styles/hover = null
 CheckButton/styles/hover_pressed = null
 CheckButton/styles/normal = null
 CheckButton/styles/pressed = null
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.301961, 0.431373, 0.913725, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=7]
 
 [sub_resource type="StyleBoxEmpty" id=3]
 
@@ -76,10 +81,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btn_selectmap" type="Button" parent="Control/VBoxContainer"]
-margin_top = 100.0
+[node name="LineEdit" type="LineEdit" parent="Control/VBoxContainer"]
+margin_top = 80.0
 margin_right = 493.0
-margin_bottom = 142.0
+margin_bottom = 116.0
+custom_styles/focus = SubResource( 8 )
+custom_styles/normal = SubResource( 7 )
+align = 1
+expand_to_text_length = true
+context_menu_enabled = false
+shortcut_keys_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn_selectmap" type="Button" parent="Control/VBoxContainer"]
+margin_top = 120.0
+margin_right = 493.0
+margin_bottom = 162.0
 focus_neighbour_bottom = NodePath("../btn_options")
 focus_next = NodePath("../btn_options")
 custom_styles/focus = SubResource( 3 )
@@ -90,9 +109,9 @@ text = "Select map"
 flat = true
 
 [node name="btn_options" type="Button" parent="Control/VBoxContainer"]
-margin_top = 146.0
+margin_top = 166.0
 margin_right = 493.0
-margin_bottom = 188.0
+margin_bottom = 208.0
 focus_neighbour_top = NodePath("../btn_selectmap")
 focus_neighbour_bottom = NodePath("../btn_quit")
 focus_next = NodePath("../btn_quit")
@@ -105,9 +124,9 @@ text = "options"
 flat = true
 
 [node name="btn_quit" type="Button" parent="Control/VBoxContainer"]
-margin_top = 192.0
+margin_top = 212.0
 margin_right = 493.0
-margin_bottom = 234.0
+margin_bottom = 254.0
 focus_neighbour_top = NodePath("../btn_options")
 focus_previous = NodePath("../btn_options")
 custom_styles/focus = SubResource( 3 )
@@ -217,6 +236,7 @@ custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "Save"
 flat = true
+[connection signal="text_entered" from="Control/VBoxContainer/LineEdit" to="." method="_on_LineEdit_text_entered"]
 [connection signal="pressed" from="Control/VBoxContainer/btn_selectmap" to="." method="_on_btn_selectmap_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/btn_options" to="." method="_on_btn_options_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/btn_quit" to="." method="_on_btn_quit_pressed"]

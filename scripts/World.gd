@@ -58,7 +58,7 @@ func _get_laptimes_completed(_result, _response_code, _headers, body):
 	$UI/Control/ColorRect3/lbl_best_times.text = ""
 	
 	for x in range( response.size() ):
-		if x < 10:
+		if x < 5:
 			$UI/Control/ColorRect3/lbl_best_names.text += str(x+1) + ". " + response[x].name + "\n"
 			$UI/Control/ColorRect3/lbl_best_times.text += "%.3f" % response[x].laptime + "\n"
 		globals.best_laptime = float(response[x].laptime)
@@ -109,20 +109,50 @@ func write_userdata():
 func read_trackdata(track):
 	map_info = parse_json(track.parameters)
 	
-	add_child(load("res://maps/" + track.file).instance())
-	$car.global_position = Vector2(map_info.car_pos_x, map_info.car_pos_y)
-	$car.global_rotation = map_info.car_rot
-	$GoalLine.global_position = Vector2(map_info.goal_pos_x, map_info.goal_pos_y)
-	$Checkpoint.global_position = Vector2(map_info.check_pos_x, map_info.check_pos_y)
-	
-	$GoalLine/CollisionShape2D.shape.extents = Vector2(map_info.goal_width, map_info.goal_height)
-	$Checkpoint/CollisionShape2D.shape.extents = Vector2(map_info.check_width, map_info.check_height)
-	
-	$car/Camera2D.limit_right = int(track.width)
-	$car/Camera2D.limit_bottom = int(track.height)
+	var map = load("res://maps/" + track.file).instance()
+	var car_pos = Vector2.ZERO
+	var car_rot = 0.0
+	var goal_pos = Vector2.ZERO
+	var check_pos = Vector2.ZERO
+	var goal_size = Vector2.ZERO
+	var check_size = Vector2.ZERO
+	var track_size = Vector2.ZERO
 	
 	
-
+	for node in map.get_children():
+		if node.name == "Management":
+			for object in node.get_children():
+				if object.name == "Car":
+					car_pos = Vector2(object.position.x + object.get_child(0).shape.extents.x, object.position.y + object.get_child(0).shape.extents.y)
+					car_rot = object.rotation
+					object.free()
+					
+				elif object.name == "GoalLine":
+					goal_pos = Vector2(object.position.x + object.get_child(0).shape.extents.x, object.position.y + object.get_child(0).shape.extents.y)
+					goal_size = object.get_child(0).shape.extents
+					object.free()
+					
+				elif object.name == "CheckPoint":
+					check_pos = Vector2(object.position.x + object.get_child(0).shape.extents.x, object.position.y + object.get_child(0).shape.extents.y)
+					check_size = object.get_child(0).shape.extents
+					object.free()
+		elif node.name == "Back":
+			track_size = node.get_used_rect().size * node.cell_size.x
+		
+	add_child(map)
+	
+	$car.global_position = car_pos
+	$car.global_rotation = car_rot
+	
+	$GoalLine.global_position = goal_pos
+	$Checkpoint.global_position = check_pos
+	
+	$GoalLine/CollisionShape2D.shape.extents = goal_size
+	$Checkpoint/CollisionShape2D.shape.extents = check_size
+	
+	$car/Camera2D.limit_right = track_size.x
+	$car/Camera2D.limit_bottom = track_size.y
+	
 func _process(delta):
 #	$UI/Label.text = "%s" % Engine.get_frames_per_second()
 	if globals.started:
@@ -184,7 +214,7 @@ func _on_GoalLine_body_entered(_body):
 			globals.current_laptime = 0.0
 			current_ghost_point = 0
 			if (globals.last_laptime < globals.best_laptime) or number_of_best_times < 10:
-				popup_text("Great lap!\n%.2f" % globals.last_laptime, 3)
+				popup_text("Great lap!\n%.3f" % globals.last_laptime, 3)
 				set_laptime(globals.last_laptime)
 				globals.update_ghost()
 			else:

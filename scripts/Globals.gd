@@ -20,12 +20,13 @@ var show_ghost = false
 
 var current_track = 0
 
-var user = "Jerry"
+var user = ""
 
 onready var sc = load("res://scripts/httpreq.gd")
 
 func _ready():
-	pass
+	randomize()
+	user = "Player_" + "%.0f" % rand_range(100, 99999)
 
 func add_ghost_point(pos : Vector2, rot : float, time : float):
 	current_lap_ghost_array.append({ "pos": pos, "rot": rot, "time": time })
