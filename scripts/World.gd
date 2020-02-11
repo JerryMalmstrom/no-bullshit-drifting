@@ -17,6 +17,7 @@ var map_info
 var userdata
 
 var best_times = []
+var number_of_best_times = 0
 
 onready var popup_sc = preload("res://PopoutText.tscn")
 
@@ -56,10 +57,13 @@ func _get_laptimes_completed(_result, _response_code, _headers, body):
 	$UI/Control/ColorRect3/lbl_best_names.text = ""
 	$UI/Control/ColorRect3/lbl_best_times.text = ""
 	
-	for x in range( min(10,response.size()) ):
-		$UI/Control/ColorRect3/lbl_best_names.text += str(x+1) + ". " + response[x].name + "\n"
-		$UI/Control/ColorRect3/lbl_best_times.text += "%.3f" % response[x].laptime + "\n"
+	for x in range( response.size() ):
+		if x < 10:
+			$UI/Control/ColorRect3/lbl_best_names.text += str(x+1) + ". " + response[x].name + "\n"
+			$UI/Control/ColorRect3/lbl_best_times.text += "%.3f" % response[x].laptime + "\n"
 		globals.best_laptime = float(response[x].laptime)
+		
+	number_of_best_times = response.size()
 	
 func reset_variables():
 	globals.started = false
@@ -179,7 +183,7 @@ func _on_GoalLine_body_entered(_body):
 			nbr_lastlap.text = "%.3f" % globals.last_laptime
 			globals.current_laptime = 0.0
 			current_ghost_point = 0
-			if globals.last_laptime < globals.best_laptime:
+			if (globals.last_laptime < globals.best_laptime) or number_of_best_times < 10:
 				popup_text("Great lap!\n%.2f" % globals.last_laptime, 3)
 				set_laptime(globals.last_laptime)
 				globals.update_ghost()

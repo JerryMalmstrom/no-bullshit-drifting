@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Car.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/Kenney Future.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://number.tres" type="DynamicFont" id=5]
 [ext_resource path="res://assets/car_black_small_5.png" type="Texture" id=6]
+[ext_resource path="res://maps/drifters-map04.tmx" type="PackedScene" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 4 )
@@ -34,16 +35,16 @@ size = 32
 font_data = ExtResource( 4 )
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 21, 300 )
+extents = Vector2( 21, 236 )
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 21, 172 )
+extents = Vector2( 21, 236 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="car" parent="." instance=ExtResource( 2 )]
-position = Vector2( 802, 562 )
+position = Vector2( 826, 419 )
 
 [node name="Trackmarks" type="Node2D" parent="."]
 z_index = 1
@@ -228,7 +229,7 @@ __meta__ = {
 }
 
 [node name="GoalLine" type="Area2D" parent="."]
-position = Vector2( 2626, 324 )
+position = Vector2( 2242, 256 )
 collision_layer = 2
 collision_mask = 2
 
@@ -236,7 +237,7 @@ collision_mask = 2
 shape = SubResource( 8 )
 
 [node name="Checkpoint" type="Area2D" parent="."]
-position = Vector2( 2625, 2112 )
+position = Vector2( 1397, 1920 )
 collision_layer = 2
 collision_mask = 2
 
@@ -250,5 +251,7 @@ z_index = 4
 texture = ExtResource( 6 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="drifters-map04" parent="." instance=ExtResource( 7 )]
 [connection signal="body_entered" from="GoalLine" to="." method="_on_GoalLine_body_entered"]
 [connection signal="body_entered" from="Checkpoint" to="." method="_on_Checkpoint_body_entered"]
