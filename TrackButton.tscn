@@ -1,0 +1,13 @@
+[gd_scene format=2]
+
+[node name="Button" type="Button"]
+margin_right = 628.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 450, 42 )
+shortcut_in_tooltip = false
+text = "Track01"
+flat = true
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

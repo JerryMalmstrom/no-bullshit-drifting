@@ -58,7 +58,7 @@ func _get_laptimes_completed(_result, _response_code, _headers, body):
 	
 	for x in range( min(10,response.size()) ):
 		$UI/Control/ColorRect3/lbl_best_names.text += str(x+1) + ". " + response[x].name + "\n"
-		$UI/Control/ColorRect3/lbl_best_times.text += str(response[x].laptime) + "\n"
+		$UI/Control/ColorRect3/lbl_best_times.text += "%.3f" % response[x].laptime + "\n"
 		globals.best_laptime = float(response[x].laptime)
 	
 func reset_variables():

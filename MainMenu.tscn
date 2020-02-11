@@ -29,12 +29,12 @@ CheckButton/styles/hover_pressed = null
 CheckButton/styles/normal = null
 CheckButton/styles/pressed = null
 
-[sub_resource type="StyleBoxEmpty" id=5]
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.262745, 0.317647, 0.356863, 1 )
+[sub_resource type="StyleBoxEmpty" id=3]
 
 [sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.262745, 0.317647, 0.356863, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
 content_margin_left = 10.0
 content_margin_top = 5.0
 bg_color = Color( 0, 0, 0, 0.0980392 )
@@ -66,9 +66,9 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-margin_left = 619.0
+margin_left = 635.801
 margin_top = 307.0
-margin_right = 1113.0
+margin_right = 1129.8
 margin_bottom = 641.0
 focus_mode = 2
 alignment = 1
@@ -82,7 +82,7 @@ margin_right = 494.0
 margin_bottom = 142.0
 focus_neighbour_bottom = NodePath("../btn_options")
 focus_next = NodePath("../btn_options")
-custom_styles/focus = SubResource( 5 )
+custom_styles/focus = SubResource( 3 )
 custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 shortcut_in_tooltip = false
@@ -97,7 +97,7 @@ focus_neighbour_top = NodePath("../btn_selectmap")
 focus_neighbour_bottom = NodePath("../btn_quit")
 focus_next = NodePath("../btn_quit")
 focus_previous = NodePath("../btn_selectmap")
-custom_styles/focus = SubResource( 5 )
+custom_styles/focus = SubResource( 3 )
 custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 shortcut_in_tooltip = false
@@ -110,7 +110,7 @@ margin_right = 494.0
 margin_bottom = 234.0
 focus_neighbour_top = NodePath("../btn_options")
 focus_previous = NodePath("../btn_options")
-custom_styles/focus = SubResource( 5 )
+custom_styles/focus = SubResource( 3 )
 custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 shortcut_in_tooltip = false
@@ -120,27 +120,32 @@ flat = true
 [node name="TrackSelect" type="PopupPanel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 496.0
+margin_left = 534.771
 margin_top = 267.0
-margin_right = -1.0
-margin_bottom = 1.0
+margin_right = -46.0
+margin_bottom = -46.0
 focus_mode = 2
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TrackSelect"]
-margin_right = 783.0
-margin_bottom = 454.0
+margin_right = 700.0
+margin_bottom = 410.0
+rect_min_size = Vector2( 700, 410 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TrackSelect/HBoxContainer"]
-margin_right = 300.0
-margin_bottom = 454.0
-grow_horizontal = 0
-grow_vertical = 0
-rect_min_size = Vector2( 300, 400 )
-custom_styles/bg = SubResource( 4 )
+margin_right = 700.0
+margin_bottom = 410.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/bg = SubResource( 5 )
 scroll_horizontal_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -149,18 +154,11 @@ __meta__ = {
 [node name="Tracklist" type="VBoxContainer" parent="TrackSelect/HBoxContainer/ScrollContainer"]
 margin_left = 10.0
 margin_top = 5.0
-margin_right = 10.0
-margin_bottom = 5.0
+margin_right = 700.0
+margin_bottom = 410.0
 focus_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="TrackSelect/HBoxContainer"]
-margin_left = 304.0
-margin_right = 754.0
-margin_bottom = 454.0
-rect_min_size = Vector2( 450, 400 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+size_flags_horizontal = 11
+size_flags_vertical = 11
 
 [node name="Options" type="PopupPanel" parent="."]
 anchor_right = 1.0
@@ -170,7 +168,7 @@ margin_top = 267.0
 margin_right = -1.0
 margin_bottom = 1.0
 focus_mode = 2
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
