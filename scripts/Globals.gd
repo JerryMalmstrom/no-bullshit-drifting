@@ -69,3 +69,25 @@ func set_webrequest(caller, function, callback, data):
 		push_error("An error occurred in the HTTP request.")
 
 	http_request.connect("request_completed", http_request, "destroy")
+
+func get_user(id):
+	var http_request = HTTPRequest.new()
+	http_request.set_script(sc)
+	add_child(http_request)
+	
+	var error = http_request.request("http://gg.jmns.se/api.php/records/users&filter=id,eq," + str(id))
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+		
+	var user = yield(self, "request_completed")
+	print(user)
+	http_request.destroy()
+	
+	return user
+	
+	
+func create_user():
+	pass
+	
+func update_user():
+	pass
