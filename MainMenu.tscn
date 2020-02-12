@@ -61,15 +61,16 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+margin_bottom = 46.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Login_Create" type="HBoxContainer" parent="Control/VBoxContainer"]
-margin_right = 739.0
+margin_right = 913.0
 margin_bottom = 46.0
+custom_constants/separation = 15
 
 [node name="User" type="LineEdit" parent="Control/VBoxContainer/Login_Create"]
 margin_right = 300.0
@@ -78,18 +79,35 @@ rect_min_size = Vector2( 300, 0 )
 placeholder_text = "username"
 
 [node name="Password" type="LineEdit" parent="Control/VBoxContainer/Login_Create"]
-margin_left = 304.0
-margin_right = 604.0
+margin_left = 315.0
+margin_right = 615.0
 margin_bottom = 46.0
 rect_min_size = Vector2( 300, 0 )
 secret = true
 placeholder_text = "password"
 
 [node name="Button_Login" type="Button" parent="Control/VBoxContainer/Login_Create"]
-margin_left = 608.0
-margin_right = 739.0
+margin_left = 630.0
+margin_right = 810.0
 margin_bottom = 46.0
+rect_min_size = Vector2( 180, 0 )
 text = "Login"
+
+[node name="ItemList" type="ItemList" parent="Control/VBoxContainer"]
+margin_top = 50.0
+margin_right = 615.0
+margin_bottom = 440.0
+rect_min_size = Vector2( 615, 390 )
+size_flags_horizontal = 0
+custom_constants/icon_margin = 20
+icon_scale = 0.5
+
+[node name="Load_Map" type="Button" parent="Control/VBoxContainer"]
+margin_top = 444.0
+margin_right = 217.0
+margin_bottom = 486.0
+size_flags_horizontal = 0
+text = "Load Map"
 
 [node name="Options" type="PopupPanel" parent="."]
 anchor_right = 1.0
@@ -148,5 +166,7 @@ custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "Save"
 flat = true
+[connection signal="text_entered" from="Control/VBoxContainer/Login_Create/Password" to="." method="_on_Password_text_entered"]
 [connection signal="pressed" from="Control/VBoxContainer/Login_Create/Button_Login" to="." method="_on_Button_Login_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Load_Map" to="." method="_on_Load_Map_pressed"]
 [connection signal="pressed" from="Options/VBoxContainer2/btn_save" to="." method="_on_btn_save_pressed"]

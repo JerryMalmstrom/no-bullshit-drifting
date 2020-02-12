@@ -21,6 +21,7 @@ var show_ghost = false
 var current_track = 0
 
 var user = ""
+var logged_in = false
 
 onready var sc = load("res://scripts/httpreq.gd")
 
