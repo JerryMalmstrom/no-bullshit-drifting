@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/Kenney Future.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=2]
@@ -29,20 +29,8 @@ CheckButton/styles/hover_pressed = null
 CheckButton/styles/normal = null
 CheckButton/styles/pressed = null
 
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.301961, 0.431373, 0.913725, 1 )
-
-[sub_resource type="StyleBoxEmpty" id=4]
-
-[sub_resource type="StyleBoxEmpty" id=5]
-
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.262745, 0.317647, 0.356863, 1 )
-
-[sub_resource type="StyleBoxFlat" id=7]
-content_margin_left = 10.0
-content_margin_top = 5.0
-bg_color = Color( 0, 0, 0, 0.0980392 )
 
 [sub_resource type="StyleBoxEmpty" id=8]
 
@@ -66,118 +54,42 @@ __meta__ = {
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 367.0
+margin_top = 222.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-margin_left = 635.801
-margin_top = 307.0
-margin_right = 1129.8
-margin_bottom = 641.0
-focus_mode = 2
-alignment = 1
+margin_right = 40.0
+margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LineEdit" type="LineEdit" parent="Control/VBoxContainer"]
-margin_top = 80.0
-margin_right = 493.0
-margin_bottom = 116.0
-custom_styles/focus = SubResource( 3 )
-custom_styles/normal = SubResource( 4 )
-align = 1
-expand_to_text_length = true
-context_menu_enabled = false
-shortcut_keys_enabled = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Login_Create" type="HBoxContainer" parent="Control/VBoxContainer"]
+margin_right = 739.0
+margin_bottom = 46.0
 
-[node name="btn_selectmap" type="Button" parent="Control/VBoxContainer"]
-margin_top = 120.0
-margin_right = 493.0
-margin_bottom = 162.0
-focus_neighbour_bottom = NodePath("../btn_options")
-focus_next = NodePath("../btn_options")
-custom_styles/focus = SubResource( 5 )
-custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-shortcut_in_tooltip = false
-text = "Select map"
-flat = true
+[node name="User" type="LineEdit" parent="Control/VBoxContainer/Login_Create"]
+margin_right = 300.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 300, 0 )
+placeholder_text = "username"
 
-[node name="btn_options" type="Button" parent="Control/VBoxContainer"]
-margin_top = 166.0
-margin_right = 493.0
-margin_bottom = 208.0
-focus_neighbour_top = NodePath("../btn_selectmap")
-focus_neighbour_bottom = NodePath("../btn_quit")
-focus_next = NodePath("../btn_quit")
-focus_previous = NodePath("../btn_selectmap")
-custom_styles/focus = SubResource( 5 )
-custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-shortcut_in_tooltip = false
-text = "options"
-flat = true
+[node name="Password" type="LineEdit" parent="Control/VBoxContainer/Login_Create"]
+margin_left = 304.0
+margin_right = 604.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 300, 0 )
+secret = true
+placeholder_text = "password"
 
-[node name="btn_quit" type="Button" parent="Control/VBoxContainer"]
-margin_top = 212.0
-margin_right = 493.0
-margin_bottom = 254.0
-focus_neighbour_top = NodePath("../btn_options")
-focus_previous = NodePath("../btn_options")
-custom_styles/focus = SubResource( 5 )
-custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-shortcut_in_tooltip = false
-text = "Quit"
-flat = true
-
-[node name="TrackSelect" type="PopupPanel" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 534.771
-margin_top = 267.0
-margin_right = -46.0
-margin_bottom = -46.0
-focus_mode = 2
-custom_styles/panel = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TrackSelect"]
-margin_right = 700.0
-margin_bottom = 410.0
-rect_min_size = Vector2( 700, 410 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ScrollContainer" type="ScrollContainer" parent="TrackSelect/HBoxContainer"]
-margin_right = 700.0
-margin_bottom = 410.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/bg = SubResource( 7 )
-scroll_horizontal_enabled = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Tracklist" type="VBoxContainer" parent="TrackSelect/HBoxContainer/ScrollContainer"]
-margin_left = 10.0
-margin_top = 5.0
-margin_right = 700.0
-margin_bottom = 410.0
-focus_mode = 2
-size_flags_horizontal = 11
-size_flags_vertical = 11
+[node name="Button_Login" type="Button" parent="Control/VBoxContainer/Login_Create"]
+margin_left = 608.0
+margin_right = 739.0
+margin_bottom = 46.0
+text = "Login"
 
 [node name="Options" type="PopupPanel" parent="."]
 anchor_right = 1.0
@@ -236,8 +148,5 @@ custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "Save"
 flat = true
-[connection signal="text_entered" from="Control/VBoxContainer/LineEdit" to="." method="_on_LineEdit_text_entered"]
-[connection signal="pressed" from="Control/VBoxContainer/btn_selectmap" to="." method="_on_btn_selectmap_pressed"]
-[connection signal="pressed" from="Control/VBoxContainer/btn_options" to="." method="_on_btn_options_pressed"]
-[connection signal="pressed" from="Control/VBoxContainer/btn_quit" to="." method="_on_btn_quit_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Login_Create/Button_Login" to="." method="_on_Button_Login_pressed"]
 [connection signal="pressed" from="Options/VBoxContainer2/btn_save" to="." method="_on_btn_save_pressed"]
