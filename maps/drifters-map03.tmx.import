@@ -1,0 +1,22 @@
+[remap]
+
+importer="vnen.tiled_importer"
+type="PackedScene"
+path="res://.import/drifters-map03.tmx-a5542cefa9c7187e2d831367c21d3820.scn"
+
+[deps]
+
+source_file="res://maps/drifters-map03.tmx"
+dest_files=[ "res://.import/drifters-map03.tmx-a5542cefa9c7187e2d831367c21d3820.scn" ]
+
+[params]
+
+custom_properties=true
+tile_metadata=false
+uv_clip=true
+image_flags=0
+collision_layer=1
+embed_internal_images=true
+save_tiled_properties=false
+add_background=true
+post_import_script=""

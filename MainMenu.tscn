@@ -29,22 +29,22 @@ CheckButton/styles/hover_pressed = null
 CheckButton/styles/normal = null
 CheckButton/styles/pressed = null
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.301961, 0.431373, 0.913725, 1 )
 
-[sub_resource type="StyleBoxEmpty" id=7]
+[sub_resource type="StyleBoxEmpty" id=4]
 
-[sub_resource type="StyleBoxEmpty" id=3]
+[sub_resource type="StyleBoxEmpty" id=5]
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.262745, 0.317647, 0.356863, 1 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=7]
 content_margin_left = 10.0
 content_margin_top = 5.0
 bg_color = Color( 0, 0, 0, 0.0980392 )
 
-[sub_resource type="StyleBoxEmpty" id=6]
+[sub_resource type="StyleBoxEmpty" id=8]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -85,8 +85,8 @@ __meta__ = {
 margin_top = 80.0
 margin_right = 493.0
 margin_bottom = 116.0
-custom_styles/focus = SubResource( 8 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
 align = 1
 expand_to_text_length = true
 context_menu_enabled = false
@@ -101,7 +101,7 @@ margin_right = 493.0
 margin_bottom = 162.0
 focus_neighbour_bottom = NodePath("../btn_options")
 focus_next = NodePath("../btn_options")
-custom_styles/focus = SubResource( 3 )
+custom_styles/focus = SubResource( 5 )
 custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 shortcut_in_tooltip = false
@@ -116,7 +116,7 @@ focus_neighbour_top = NodePath("../btn_selectmap")
 focus_neighbour_bottom = NodePath("../btn_quit")
 focus_next = NodePath("../btn_quit")
 focus_previous = NodePath("../btn_selectmap")
-custom_styles/focus = SubResource( 3 )
+custom_styles/focus = SubResource( 5 )
 custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 shortcut_in_tooltip = false
@@ -129,7 +129,7 @@ margin_right = 493.0
 margin_bottom = 254.0
 focus_neighbour_top = NodePath("../btn_options")
 focus_previous = NodePath("../btn_options")
-custom_styles/focus = SubResource( 3 )
+custom_styles/focus = SubResource( 5 )
 custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 shortcut_in_tooltip = false
@@ -144,7 +144,7 @@ margin_top = 267.0
 margin_right = -46.0
 margin_bottom = -46.0
 focus_mode = 2
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -164,7 +164,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/bg = SubResource( 5 )
+custom_styles/bg = SubResource( 7 )
 scroll_horizontal_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -187,7 +187,7 @@ margin_top = 267.0
 margin_right = -1.0
 margin_bottom = 1.0
 focus_mode = 2
-custom_styles/panel = SubResource( 4 )
+custom_styles/panel = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -204,7 +204,7 @@ __meta__ = {
 margin_top = 134.0
 margin_right = 783.0
 margin_bottom = 178.0
-custom_styles/focus = SubResource( 6 )
+custom_styles/focus = SubResource( 8 )
 custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "Best lap Ghost"
@@ -213,7 +213,7 @@ text = "Best lap Ghost"
 margin_top = 182.0
 margin_right = 783.0
 margin_bottom = 226.0
-custom_styles/focus = SubResource( 6 )
+custom_styles/focus = SubResource( 8 )
 custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "best lap trail"
@@ -222,7 +222,7 @@ text = "best lap trail"
 margin_top = 230.0
 margin_right = 783.0
 margin_bottom = 274.0
-custom_styles/focus = SubResource( 6 )
+custom_styles/focus = SubResource( 8 )
 custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "current lap trail"
@@ -231,7 +231,7 @@ text = "current lap trail"
 margin_top = 278.0
 margin_right = 783.0
 margin_bottom = 320.0
-custom_styles/focus = SubResource( 6 )
+custom_styles/focus = SubResource( 8 )
 custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "Save"

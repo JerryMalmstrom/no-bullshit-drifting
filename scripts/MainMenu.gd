@@ -6,6 +6,10 @@ onready var lb_sc = preload("res://TrackButton.tscn")
 func _ready():
 	$Control/VBoxContainer/btn_selectmap.grab_focus()
 	$Control/VBoxContainer/LineEdit.text = globals.user
+	
+	var test = yield(globals.get_user("Jerry", "1853"), "completed")
+#	globals.get_user("Jerry", "1853")
+	print(test)
 
 func _unhandled_input(event):
 	if event.is_pressed() and event.is_action("ui_cancel"):
