@@ -79,7 +79,7 @@ func get_user(id):
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		
-	var user = yield(self, "request_completed")
+	var user = yield(http_request, "request_completed")
 	print(user)
 	http_request.destroy()
 	
