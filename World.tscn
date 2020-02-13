@@ -95,9 +95,12 @@ __meta__ = {
 [node name="ColorRect2" type="ColorRect" parent="UI/Control"]
 margin_left = 200.0
 margin_right = 390.0
-margin_bottom = 50.0
+margin_bottom = 76.0
 rect_min_size = Vector2( 190, 50 )
 color = Color( 0, 0, 0, 0.313726 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="lbl_lastlap" type="Label" parent="UI/Control/ColorRect2"]
 margin_left = 5.0
@@ -134,6 +137,18 @@ margin_right = 188.0
 margin_bottom = 44.0
 text = "0.000"
 align = 2
+
+[node name="Username_label" type="Label" parent="UI/Control/ColorRect2"]
+margin_left = 2.0
+margin_top = 56.0
+margin_right = 188.0
+margin_bottom = 74.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ColorRect3" type="ColorRect" parent="UI/Control"]
 margin_left = 962.0
@@ -210,6 +225,7 @@ align = 1
 valign = 1
 
 [node name="Label" type="Label" parent="UI"]
+visible = false
 margin_left = 9.0
 margin_top = 107.0
 margin_right = 49.0

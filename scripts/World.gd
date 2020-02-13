@@ -28,6 +28,8 @@ func _ready():
 	read_userdata()
 	get_trackdata(globals.current_track)
 	get_laptimes(globals.current_track)
+	
+	$UI/Control/ColorRect2/Username_label.text = globals.user
 
 	
 func get_trackdata(track_id):

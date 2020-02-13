@@ -1,43 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/Kenney Future.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/UI/MainMenu.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://assets/Menuback.png" type="Texture" id=3]
-
-[sub_resource type="DynamicFont" id=1]
-size = 32
-font_data = ExtResource( 1 )
-
-[sub_resource type="Theme" id=2]
-default_font = SubResource( 1 )
-CheckButton/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
-CheckButton/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
-CheckButton/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
-CheckButton/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
-CheckButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
-CheckButton/constants/check_vadjust = 0
-CheckButton/constants/hseparation = 4
-CheckButton/fonts/font = null
-CheckButton/icons/off = null
-CheckButton/icons/off_disabled = null
-CheckButton/icons/on = null
-CheckButton/icons/on_disabled = null
-CheckButton/styles/disabled = null
-CheckButton/styles/focus = null
-CheckButton/styles/hover = null
-CheckButton/styles/hover_pressed = null
-CheckButton/styles/normal = null
-CheckButton/styles/pressed = null
-
-[sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 0.262745, 0.317647, 0.356863, 1 )
-
-[sub_resource type="StyleBoxEmpty" id=8]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = SubResource( 2 )
+theme = ExtResource( 1 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -51,122 +21,199 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Control" type="Control" parent="."]
+[node name="Left" type="Control" parent="."]
+margin_left = 372.0
+margin_top = 239.0
+margin_right = 601.0
+margin_bottom = 697.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Left"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 367.0
-margin_top = 222.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+[node name="Label" type="Label" parent="Left/VBoxContainer"]
+margin_right = 229.0
+margin_bottom = 18.0
+text = "welcome"
+
+[node name="USER" type="Button" parent="Left/VBoxContainer"]
+margin_top = 22.0
+margin_right = 229.0
+margin_bottom = 42.0
+text = "USER"
+
+[node name="TRACK" type="Button" parent="Left/VBoxContainer"]
+margin_top = 46.0
+margin_right = 229.0
+margin_bottom = 66.0
+text = "TRACK"
+
+[node name="OPTIONS" type="Button" parent="Left/VBoxContainer"]
+margin_top = 70.0
+margin_right = 229.0
+margin_bottom = 90.0
+text = "OPTIONS"
+
+[node name="QUIT" type="Button" parent="Left/VBoxContainer"]
+margin_top = 94.0
+margin_right = 229.0
+margin_bottom = 114.0
+text = "QUIT"
+
+[node name="Right" type="Control" parent="."]
+margin_left = 630.0
+margin_top = 239.0
+margin_right = 1260.0
+margin_bottom = 699.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="control-user" type="Control" parent="Right"]
 anchor_right = 1.0
-margin_bottom = 46.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Login_Create" type="HBoxContainer" parent="Control/VBoxContainer"]
-margin_right = 913.0
-margin_bottom = 46.0
-custom_constants/separation = 15
+[node name="VBoxContainer" type="VBoxContainer" parent="Right/control-user"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="User" type="LineEdit" parent="Control/VBoxContainer/Login_Create"]
-margin_right = 300.0
-margin_bottom = 46.0
-rect_min_size = Vector2( 300, 0 )
+[node name="Label2" type="Label" parent="Right/control-user/VBoxContainer"]
+margin_right = 630.0
+margin_bottom = 18.0
+text = "Login to save laptimes:"
+
+[node name="Login_Create" type="HBoxContainer" parent="Right/control-user/VBoxContainer"]
+margin_top = 22.0
+margin_right = 630.0
+margin_bottom = 42.0
+custom_constants/separation = 4
+
+[node name="User" type="LineEdit" parent="Right/control-user/VBoxContainer/Login_Create"]
+margin_right = 200.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 200, 0 )
 placeholder_text = "username"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Password" type="LineEdit" parent="Control/VBoxContainer/Login_Create"]
-margin_left = 315.0
-margin_right = 615.0
-margin_bottom = 46.0
-rect_min_size = Vector2( 300, 0 )
+[node name="Password" type="LineEdit" parent="Right/control-user/VBoxContainer/Login_Create"]
+margin_left = 204.0
+margin_right = 404.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 200, 0 )
 secret = true
 placeholder_text = "password"
 
-[node name="Button_Login" type="Button" parent="Control/VBoxContainer/Login_Create"]
-margin_left = 630.0
-margin_right = 810.0
-margin_bottom = 46.0
-rect_min_size = Vector2( 180, 0 )
+[node name="Button_Login" type="Button" parent="Right/control-user/VBoxContainer/Login_Create"]
+margin_left = 408.0
+margin_right = 488.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 80, 0 )
 text = "Login"
 
-[node name="ItemList" type="ItemList" parent="Control/VBoxContainer"]
-margin_top = 50.0
-margin_right = 615.0
-margin_bottom = 440.0
-rect_min_size = Vector2( 615, 390 )
-size_flags_horizontal = 0
+[node name="Button_Reg" type="Button" parent="Right/control-user/VBoxContainer/Login_Create"]
+margin_left = 492.0
+margin_right = 612.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 120, 0 )
+text = "Register"
+
+[node name="control-track" type="Control" parent="Right"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Right/control-track"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Right/control-track/VBoxContainer"]
+margin_right = 630.0
+margin_bottom = 18.0
+text = "select track:"
+
+[node name="ItemList" type="ItemList" parent="Right/control-track/VBoxContainer"]
+margin_top = 22.0
+margin_right = 630.0
+margin_bottom = 460.0
+rect_min_size = Vector2( 600, 390 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/icon_margin = 20
 icon_scale = 0.5
 
-[node name="Load_Map" type="Button" parent="Control/VBoxContainer"]
-margin_top = 444.0
-margin_right = 217.0
-margin_bottom = 486.0
-size_flags_horizontal = 0
-text = "Load Map"
-
-[node name="Options" type="PopupPanel" parent="."]
+[node name="control-options" type="Control" parent="Right"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 496.0
-margin_top = 267.0
-margin_right = -1.0
-margin_bottom = 1.0
-focus_mode = 2
-custom_styles/panel = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Options"]
-margin_right = 783.0
-margin_bottom = 454.0
-alignment = 1
+[node name="VBoxContainer" type="VBoxContainer" parent="Right/control-options"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btn_ghost" type="CheckButton" parent="Options/VBoxContainer2"]
-margin_top = 134.0
-margin_right = 783.0
-margin_bottom = 178.0
-custom_styles/focus = SubResource( 8 )
-custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-text = "Best lap Ghost"
+[node name="Label" type="Label" parent="Right/control-options/VBoxContainer"]
+margin_right = 630.0
+margin_bottom = 18.0
+text = "options:"
 
-[node name="btn_trail" type="CheckButton" parent="Options/VBoxContainer2"]
-margin_top = 182.0
-margin_right = 783.0
-margin_bottom = 226.0
-custom_styles/focus = SubResource( 8 )
-custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-text = "best lap trail"
+[node name="chk_ghost" type="CheckBox" parent="Right/control-options/VBoxContainer"]
+margin_top = 22.0
+margin_right = 630.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 26 )
+text = "best lap ghost"
 
-[node name="btn_trail2" type="CheckButton" parent="Options/VBoxContainer2"]
-margin_top = 230.0
-margin_right = 783.0
-margin_bottom = 274.0
-custom_styles/focus = SubResource( 8 )
-custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+[node name="chk_trail" type="CheckBox" parent="Right/control-options/VBoxContainer"]
+margin_top = 52.0
+margin_right = 630.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 0, 26 )
 text = "current lap trail"
 
-[node name="btn_save" type="Button" parent="Options/VBoxContainer2"]
-margin_top = 278.0
-margin_right = 783.0
-margin_bottom = 320.0
-custom_styles/focus = SubResource( 8 )
-custom_colors/font_color = Color( 0.572549, 0.572549, 0.572549, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+[node name="chk_best_trail" type="CheckBox" parent="Right/control-options/VBoxContainer"]
+margin_top = 82.0
+margin_right = 630.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 0, 26 )
+text = "best lap trail"
+
+[node name="btn_save" type="Button" parent="Right/control-options/VBoxContainer"]
+margin_top = 112.0
+margin_right = 630.0
+margin_bottom = 138.0
+rect_min_size = Vector2( 0, 26 )
 text = "Save"
-flat = true
-[connection signal="text_entered" from="Control/VBoxContainer/Login_Create/Password" to="." method="_on_Password_text_entered"]
-[connection signal="pressed" from="Control/VBoxContainer/Login_Create/Button_Login" to="." method="_on_Button_Login_pressed"]
-[connection signal="pressed" from="Control/VBoxContainer/Load_Map" to="." method="_on_Load_Map_pressed"]
-[connection signal="pressed" from="Options/VBoxContainer2/btn_save" to="." method="_on_btn_save_pressed"]
+[connection signal="pressed" from="Left/VBoxContainer/USER" to="." method="_on_USER_pressed"]
+[connection signal="pressed" from="Left/VBoxContainer/TRACK" to="." method="_on_TRACK_pressed"]
+[connection signal="pressed" from="Left/VBoxContainer/OPTIONS" to="." method="_on_OPTIONS_pressed"]
+[connection signal="pressed" from="Left/VBoxContainer/QUIT" to="." method="_on_QUIT_pressed"]
+[connection signal="text_entered" from="Right/control-user/VBoxContainer/Login_Create/Password" to="." method="_on_Password_text_entered"]
+[connection signal="pressed" from="Right/control-user/VBoxContainer/Login_Create/Button_Login" to="." method="_on_Button_Login_pressed"]
+[connection signal="pressed" from="Right/control-user/VBoxContainer/Login_Create/Button_Reg" to="." method="_on_Button_Login_pressed"]
+[connection signal="item_activated" from="Right/control-track/VBoxContainer/ItemList" to="." method="_on_ItemList_item_activated"]
+[connection signal="pressed" from="Right/control-options/VBoxContainer/btn_save" to="." method="_on_btn_save_pressed"]
