@@ -21,6 +21,9 @@ var show_ghost = false
 var current_track = 0
 
 var user = ""
+var logged_in = false
+
+var car_texture = "res://assets/cars/car_black_small_5.png"
 
 onready var sc = load("res://scripts/httpreq.gd")
 
@@ -75,13 +78,21 @@ func get_user(name, password):
 	http_request.set_script(sc)
 	add_child(http_request)
 	
-	var error = http_request.request("http://gg.jmns.se/api.php/records/users?filter=name,eq," + name + "&filter=password,eq," + password)
+#	var data = to_json([{ "user": name, "pass": password}])
+	var data = "user=" + str(name) + "&pass=" + str(password)
+	
+	var error = http_request.request("http://gg.jmns.se/sp.php/login", ["Content-Type: application/x-www-form-urlencoded"], false, HTTPClient.METHOD_POST, data)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
+		
 	
 	var u = yield(http_request, "request_completed")
 	http_request.queue_free()
-	return parse_json(u[3].get_string_from_utf8()).records
+	
+	
+	var temp = parse_json(u[3].get_string_from_utf8())
+
+	return temp[0][0].result
 	
 	
 	

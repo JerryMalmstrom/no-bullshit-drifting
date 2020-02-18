@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Car.tscn" type="PackedScene" id=2]
@@ -33,12 +33,6 @@ bg_color = Color( 0, 0, 0, 0.313726 )
 size = 32
 font_data = ExtResource( 4 )
 
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 21, 236 )
-
-[sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 21, 236 )
-
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -49,6 +43,8 @@ position = Vector2( 740, 400 )
 z_index = 1
 z_as_relative = false
 script = ExtResource( 3 )
+
+[node name="Checkpoints" type="Node2D" parent="."]
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -92,12 +88,100 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Debug" type="ColorRect" parent="UI/Control"]
+margin_left = 422.0
+margin_right = 872.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 450, 150 )
+color = Color( 0, 0, 0, 0.313726 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="lbl_debug_1" type="Label" parent="UI/Control/Debug"]
+margin_left = 5.0
+margin_top = 2.0
+margin_right = 100.0
+margin_bottom = 20.0
+text = "Last"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="nbr_debug_1" type="Label" parent="UI/Control/Debug"]
+margin_left = 318.0
+margin_top = 2.0
+margin_right = 446.0
+margin_bottom = 20.0
+text = "0.000"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="lbl_debug_2" type="Label" parent="UI/Control/Debug"]
+margin_left = 5.0
+margin_top = 26.0
+margin_right = 100.0
+margin_bottom = 44.0
+text = "Last"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="nbr_debug_2" type="Label" parent="UI/Control/Debug"]
+margin_left = 318.0
+margin_top = 26.0
+margin_right = 446.0
+margin_bottom = 44.0
+text = "0.000"
+align = 2
+
+[node name="lbl_debug_3" type="Label" parent="UI/Control/Debug"]
+margin_left = 5.0
+margin_top = 51.0
+margin_right = 100.0
+margin_bottom = 69.0
+text = "Last"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="nbr_debug_3" type="Label" parent="UI/Control/Debug"]
+margin_left = 318.0
+margin_top = 51.0
+margin_right = 446.0
+margin_bottom = 69.0
+text = "0.000"
+align = 2
+
+[node name="lbl_debug_4" type="Label" parent="UI/Control/Debug"]
+margin_left = 5.0
+margin_top = 75.0
+margin_right = 100.0
+margin_bottom = 93.0
+text = "Last"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="nbr_debug_4" type="Label" parent="UI/Control/Debug"]
+margin_left = 318.0
+margin_top = 75.0
+margin_right = 446.0
+margin_bottom = 93.0
+text = "0.000"
+align = 2
+
 [node name="ColorRect2" type="ColorRect" parent="UI/Control"]
 margin_left = 200.0
 margin_right = 390.0
-margin_bottom = 50.0
+margin_bottom = 76.0
 rect_min_size = Vector2( 190, 50 )
 color = Color( 0, 0, 0, 0.313726 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="lbl_lastlap" type="Label" parent="UI/Control/ColorRect2"]
 margin_left = 5.0
@@ -134,6 +218,18 @@ margin_right = 188.0
 margin_bottom = 44.0
 text = "0.000"
 align = 2
+
+[node name="Username_label" type="Label" parent="UI/Control/ColorRect2"]
+margin_left = 2.0
+margin_top = 56.0
+margin_right = 188.0
+margin_bottom = 74.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ColorRect3" type="ColorRect" parent="UI/Control"]
 margin_left = 962.0
@@ -210,6 +306,7 @@ align = 1
 valign = 1
 
 [node name="Label" type="Label" parent="UI"]
+visible = false
 margin_left = 9.0
 margin_top = 107.0
 margin_right = 49.0
@@ -219,22 +316,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GoalLine" type="Area2D" parent="."]
-position = Vector2( 2242, 256 )
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalLine"]
-shape = SubResource( 8 )
-
-[node name="Checkpoint" type="Area2D" parent="."]
-position = Vector2( 1397, 1920 )
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint"]
-shape = SubResource( 9 )
-
 [node name="ghost" type="Sprite" parent="."]
 visible = false
 modulate = Color( 1, 1, 1, 0.588235 )
@@ -243,5 +324,3 @@ z_index = 4
 texture = ExtResource( 6 )
 
 [node name="Tween" type="Tween" parent="."]
-[connection signal="body_entered" from="GoalLine" to="." method="_on_GoalLine_body_entered"]
-[connection signal="body_entered" from="Checkpoint" to="." method="_on_Checkpoint_body_entered"]

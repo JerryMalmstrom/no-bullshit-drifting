@@ -20,6 +20,15 @@ var best_times = []
 var number_of_best_times = 0
 
 onready var popup_sc = preload("res://PopoutText.tscn")
+onready var checkpoint_sc = preload("res://Checkpoint.tscn")
+onready var goalline_sc = preload("res://GoalLine.tscn")
+
+onready var debug1 = $UI/Control/Debug/nbr_debug_1
+onready var debug2 = $UI/Control/Debug/nbr_debug_2
+onready var debug3 = $UI/Control/Debug/nbr_debug_3
+onready var debug4 = $UI/Control/Debug/nbr_debug_4
+
+var debug = false
 
 func _ready():
 	$UI/Loader.visible = true
@@ -28,6 +37,13 @@ func _ready():
 	read_userdata()
 	get_trackdata(globals.current_track)
 	get_laptimes(globals.current_track)
+	
+	$UI/Control/ColorRect2/Username_label.text = globals.user
+	
+	if debug:
+		$UI/Control/Debug.show()
+	else:
+		$UI/Control/Debug.hide()
 
 	
 func get_trackdata(track_id):
@@ -78,6 +94,8 @@ func reset_variables():
 	ghost_point_time = 0.0
 	ghost_point_current_time = 0.0
 	
+#	checkpoints = []
+	
 func get_userdata(user, key):
 	return userdata[user][key]
 
@@ -122,19 +140,35 @@ func read_trackdata(track):
 	for node in map.get_children():
 		if node.name == "Management":
 			for object in node.get_children():
-				if object.name == "Car":
+				var obj = object.get_meta("object")
+				
+				if obj == "car":
 					car_pos = Vector2(object.position.x + object.get_child(0).shape.extents.x, object.position.y + object.get_child(0).shape.extents.y)
 					car_rot = object.rotation
 					object.free()
 					
-				elif object.name == "GoalLine":
-					goal_pos = Vector2(object.position.x + object.get_child(0).shape.extents.x, object.position.y + object.get_child(0).shape.extents.y)
-					goal_size = object.get_child(0).shape.extents
+				elif obj == "gl":
+					var goal = goalline_sc.instance()
+					goal.position = Vector2(object.position.x + object.get_child(0).shape.extents.x, object.position.y + object.get_child(0).shape.extents.y)
+					goal.get_node("CollisionShape2D").shape.extents = object.get_child(0).shape.extents
+					add_child(goal)
+					goal.connect("body_entered", self, "_on_GoalLine_body_entered")
+					
+#					goal_pos = Vector2(object.position.x + object.get_child(0).shape.extents.x, object.position.y + object.get_child(0).shape.extents.y)
+#					goal_size = object.get_child(0).shape.extents
 					object.free()
 					
-				elif object.name == "CheckPoint":
-					check_pos = Vector2(object.position.x + object.get_child(0).shape.extents.x, object.position.y + object.get_child(0).shape.extents.y)
-					check_size = object.get_child(0).shape.extents
+				elif obj == "cp":
+					var check = checkpoint_sc.instance()
+					check.position = Vector2(object.position.x + object.get_child(0).shape.extents.x, object.position.y + object.get_child(0).shape.extents.y)
+					check.get_node("CollisionShape2D").shape.extents = object.get_child(0).shape.extents
+					$Checkpoints.add_child(check)
+#					check.connect("_triggered", self, "_on_Checkpoint_body_entered")
+					
+#					checkpoints.append({"triggered": false})
+					
+#					check_pos = Vector2(object.position.x + object.get_child(0).shape.extents.x, object.position.y + object.get_child(0).shape.extents.y)
+#					check_size = object.get_child(0).shape.extents
 					object.free()
 		elif node.name == "Back":
 			track_size = node.get_used_rect().size * node.cell_size.x
@@ -142,19 +176,21 @@ func read_trackdata(track):
 	add_child(map)
 	
 	$car.global_position = car_pos
-	$car.global_rotation = car_rot
+	$car.global_rotation_degrees = car_rot
+	$car.set_texture(globals.car_texture)
 	
-	$GoalLine.global_position = goal_pos
-	$Checkpoint.global_position = check_pos
+#	$GoalLine.global_position = goal_pos
+#	$Checkpoint.global_position = check_pos
 	
-	$GoalLine/CollisionShape2D.shape.extents = goal_size
-	$Checkpoint/CollisionShape2D.shape.extents = check_size
+#	$GoalLine/CollisionShape2D.shape.extents = goal_size
+#	$Checkpoint/CollisionShape2D.shape.extents = check_size
 	
 	$car/Camera2D.limit_right = track_size.x
 	$car/Camera2D.limit_bottom = track_size.y
 	
 func _process(delta):
 #	$UI/Label.text = "%s" % Engine.get_frames_per_second()
+
 	if globals.started:
 		globals.current_laptime += delta
 		nbr_laptime.text = "%.2f" % globals.current_laptime
@@ -195,9 +231,6 @@ func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel"):
 		var _res = get_tree().change_scene("res://MainMenu.tscn")
 
-func _on_Checkpoint_body_entered(_body):
-	checkpoint_hit = true
-
 func _on_GoalLine_body_entered(_body):
 	$UI/Control/ColorRect3.modulate = Color(1,1,1,1)
 	$Tween.interpolate_property($UI/Control/ColorRect3, "modulate", Color(1,1,1,1), Color(1,1,1,.25), 2, Tween.TRANS_LINEAR, Tween.EASE_IN, 3)
@@ -207,8 +240,15 @@ func _on_GoalLine_body_entered(_body):
 		globals.started = true
 		popup_text("Go go go!", 0.1)
 	else:
+		checkpoint_hit = true
+		for cp in $Checkpoints.get_children():
+			if !cp.triggered:
+				checkpoint_hit = false
+		
 		if checkpoint_hit:
-			checkpoint_hit = false
+			for cp in $Checkpoints.get_children():
+				cp.triggered = false
+				
 			globals.last_laptime = globals.current_laptime
 			nbr_lastlap.text = "%.3f" % globals.last_laptime
 			globals.current_laptime = 0.0

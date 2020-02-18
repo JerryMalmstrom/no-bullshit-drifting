@@ -52,6 +52,9 @@ func _ready():
 	reset_variables()
 	$Pivot/body.rotation_degrees = 90
 
+func set_texture(texture):
+	$Pivot/body.texture = load(texture)
+
 
 func _physics_process(delta):
 	collision_time += delta
