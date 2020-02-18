@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/UI/MainMenu.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://assets/Menuback.png" type="Texture" id=3]
+[ext_resource path="res://maps/default_thumb.png" type="Texture" id=4]
+[ext_resource path="res://assets/cars/car_black_small_5.png" type="Texture" id=5]
+[ext_resource path="res://assets/arrow_right.png" type="Texture" id=6]
+[ext_resource path="res://assets/arrow_left.png" type="Texture" id=7]
+[ext_resource path="res://assets/logo.png" type="Texture" id=8]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -21,199 +26,210 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Left" type="Control" parent="."]
-margin_left = 372.0
-margin_top = 239.0
-margin_right = 601.0
-margin_bottom = 697.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Left"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = 3.0
+margin_bottom = 3.0
+custom_constants/margin_right = 120
+custom_constants/margin_top = 80
+custom_constants/margin_left = 120
+custom_constants/margin_bottom = 80
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Left/VBoxContainer"]
-margin_right = 229.0
-margin_bottom = 18.0
-text = "welcome"
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 120.0
+margin_top = 80.0
+margin_right = 1160.0
+margin_bottom = 658.0
 
-[node name="USER" type="Button" parent="Left/VBoxContainer"]
-margin_top = 22.0
-margin_right = 229.0
-margin_bottom = 42.0
-text = "USER"
+[node name="Left" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_right = 518.0
+margin_bottom = 578.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="TRACK" type="Button" parent="Left/VBoxContainer"]
-margin_top = 46.0
-margin_right = 229.0
-margin_bottom = 66.0
-text = "TRACK"
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/Left"]
+margin_right = 518.0
+margin_bottom = 116.0
+texture = ExtResource( 8 )
+stretch_mode = 6
 
-[node name="OPTIONS" type="Button" parent="Left/VBoxContainer"]
-margin_top = 70.0
-margin_right = 229.0
-margin_bottom = 90.0
-text = "OPTIONS"
+[node name="Menu" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Left"]
+margin_top = 120.0
+margin_right = 518.0
+margin_bottom = 458.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
 
-[node name="QUIT" type="Button" parent="Left/VBoxContainer"]
-margin_top = 94.0
-margin_right = 229.0
-margin_bottom = 114.0
-text = "QUIT"
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Left/Menu"]
+margin_top = 81.0
+margin_right = 518.0
+margin_bottom = 122.0
 
-[node name="Right" type="Control" parent="."]
-margin_left = 630.0
-margin_top = 239.0
-margin_right = 1260.0
-margin_bottom = 699.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="control-user" type="Control" parent="Right"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Right/control-user"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label2" type="Label" parent="Right/control-user/VBoxContainer"]
-margin_right = 630.0
-margin_bottom = 18.0
-text = "Login to save laptimes:"
-
-[node name="Login_Create" type="HBoxContainer" parent="Right/control-user/VBoxContainer"]
-margin_top = 22.0
-margin_right = 630.0
-margin_bottom = 42.0
-custom_constants/separation = 4
-
-[node name="User" type="LineEdit" parent="Right/control-user/VBoxContainer/Login_Create"]
-margin_right = 200.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 200, 0 )
+[node name="Username" type="LineEdit" parent="MarginContainer/HBoxContainer/Left/Menu/HBoxContainer"]
+margin_right = 161.0
+margin_bottom = 41.0
+size_flags_horizontal = 3
+align = 1
 placeholder_text = "username"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Password" type="LineEdit" parent="Right/control-user/VBoxContainer/Login_Create"]
-margin_left = 204.0
-margin_right = 404.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 200, 0 )
+[node name="Password" type="LineEdit" parent="MarginContainer/HBoxContainer/Left/Menu/HBoxContainer"]
+margin_left = 165.0
+margin_right = 326.0
+margin_bottom = 41.0
+size_flags_horizontal = 3
+align = 1
 secret = true
 placeholder_text = "password"
 
-[node name="Button_Login" type="Button" parent="Right/control-user/VBoxContainer/Login_Create"]
-margin_left = 408.0
-margin_right = 488.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 80, 0 )
-text = "Login"
+[node name="Login" type="Button" parent="MarginContainer/HBoxContainer/Left/Menu/HBoxContainer"]
+margin_left = 330.0
+margin_right = 415.0
+margin_bottom = 41.0
+text = "log in"
 
-[node name="Button_Reg" type="Button" parent="Right/control-user/VBoxContainer/Login_Create"]
-margin_left = 492.0
-margin_right = 612.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 120, 0 )
-text = "Register"
+[node name="Register" type="Button" parent="MarginContainer/HBoxContainer/Left/Menu/HBoxContainer"]
+margin_left = 419.0
+margin_right = 517.0
+margin_bottom = 41.0
+text = "create"
 
-[node name="control-track" type="Control" parent="Right"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Start" type="Button" parent="MarginContainer/HBoxContainer/Left/Menu"]
+margin_top = 126.0
+margin_right = 518.0
+margin_bottom = 167.0
+text = "STart"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Right/control-track"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Options" type="Button" parent="MarginContainer/HBoxContainer/Left/Menu"]
+margin_top = 171.0
+margin_right = 518.0
+margin_bottom = 212.0
+text = "options"
 
-[node name="Label" type="Label" parent="Right/control-track/VBoxContainer"]
-margin_right = 630.0
-margin_bottom = 18.0
-text = "select track:"
+[node name="Quit" type="Button" parent="MarginContainer/HBoxContainer/Left/Menu"]
+margin_top = 216.0
+margin_right = 518.0
+margin_bottom = 257.0
+text = "quit"
 
-[node name="ItemList" type="ItemList" parent="Right/control-track/VBoxContainer"]
-margin_top = 22.0
-margin_right = 630.0
-margin_bottom = 460.0
-rect_min_size = Vector2( 600, 390 )
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Left"]
+margin_top = 461.0
+margin_right = 518.0
+margin_bottom = 577.0
+rect_min_size = Vector2( 0, 116 )
+text = "Version 1.0"
+valign = 2
+
+[node name="Right" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+margin_left = 522.0
+margin_right = 1040.0
+margin_bottom = 578.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/icon_margin = 20
-icon_scale = 0.5
 
-[node name="control-options" type="Control" parent="Right"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Car_label" type="Label" parent="MarginContainer/HBoxContainer/Right"]
+margin_right = 518.0
+margin_bottom = 21.0
+text = "Car"
+align = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Right/control-options"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="CarSelect" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Right"]
+margin_top = 25.0
+margin_right = 518.0
+margin_bottom = 287.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
 
-[node name="Label" type="Label" parent="Right/control-options/VBoxContainer"]
-margin_right = 630.0
-margin_bottom = 18.0
-text = "options:"
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Right/CarSelect"]
+margin_left = 55.0
+margin_right = 105.0
+margin_bottom = 262.0
+alignment = 1
 
-[node name="chk_ghost" type="CheckBox" parent="Right/control-options/VBoxContainer"]
-margin_top = 22.0
-margin_right = 630.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 0, 26 )
-text = "best lap ghost"
+[node name="L" type="TextureButton" parent="MarginContainer/HBoxContainer/Right/CarSelect/VBoxContainer"]
+margin_top = 106.0
+margin_right = 50.0
+margin_bottom = 156.0
+texture_normal = ExtResource( 7 )
 
-[node name="chk_trail" type="CheckBox" parent="Right/control-options/VBoxContainer"]
-margin_top = 52.0
-margin_right = 630.0
-margin_bottom = 78.0
-rect_min_size = Vector2( 0, 26 )
-text = "current lap trail"
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/Right/CarSelect"]
+margin_left = 109.0
+margin_right = 409.0
+margin_bottom = 262.0
+rect_min_size = Vector2( 300, 256 )
+texture = ExtResource( 5 )
+stretch_mode = 4
 
-[node name="chk_best_trail" type="CheckBox" parent="Right/control-options/VBoxContainer"]
-margin_top = 82.0
-margin_right = 630.0
-margin_bottom = 108.0
-rect_min_size = Vector2( 0, 26 )
-text = "best lap trail"
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Right/CarSelect"]
+margin_left = 413.0
+margin_right = 463.0
+margin_bottom = 262.0
+alignment = 1
 
-[node name="btn_save" type="Button" parent="Right/control-options/VBoxContainer"]
-margin_top = 112.0
-margin_right = 630.0
-margin_bottom = 138.0
-rect_min_size = Vector2( 0, 26 )
-text = "Save"
-[connection signal="pressed" from="Left/VBoxContainer/USER" to="." method="_on_USER_pressed"]
-[connection signal="pressed" from="Left/VBoxContainer/TRACK" to="." method="_on_TRACK_pressed"]
-[connection signal="pressed" from="Left/VBoxContainer/OPTIONS" to="." method="_on_OPTIONS_pressed"]
-[connection signal="pressed" from="Left/VBoxContainer/QUIT" to="." method="_on_QUIT_pressed"]
-[connection signal="text_entered" from="Right/control-user/VBoxContainer/Login_Create/Password" to="." method="_on_Password_text_entered"]
-[connection signal="pressed" from="Right/control-user/VBoxContainer/Login_Create/Button_Login" to="." method="_on_Button_Login_pressed"]
-[connection signal="pressed" from="Right/control-user/VBoxContainer/Login_Create/Button_Reg" to="." method="_on_Button_Login_pressed"]
-[connection signal="item_activated" from="Right/control-track/VBoxContainer/ItemList" to="." method="_on_ItemList_item_activated"]
-[connection signal="pressed" from="Right/control-options/VBoxContainer/btn_save" to="." method="_on_btn_save_pressed"]
+[node name="R" type="TextureButton" parent="MarginContainer/HBoxContainer/Right/CarSelect/VBoxContainer2"]
+margin_top = 106.0
+margin_right = 50.0
+margin_bottom = 156.0
+texture_normal = ExtResource( 6 )
+
+[node name="Track_label" type="Label" parent="MarginContainer/HBoxContainer/Right"]
+margin_top = 291.0
+margin_right = 518.0
+margin_bottom = 312.0
+text = "Track"
+align = 1
+
+[node name="TrackSelect" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Right"]
+margin_top = 316.0
+margin_right = 518.0
+margin_bottom = 578.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Right/TrackSelect"]
+margin_left = 55.0
+margin_right = 105.0
+margin_bottom = 262.0
+size_flags_vertical = 3
+alignment = 1
+
+[node name="L" type="TextureButton" parent="MarginContainer/HBoxContainer/Right/TrackSelect/VBoxContainer"]
+margin_top = 106.0
+margin_right = 50.0
+margin_bottom = 156.0
+texture_normal = ExtResource( 7 )
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/Right/TrackSelect"]
+margin_left = 109.0
+margin_right = 409.0
+margin_bottom = 262.0
+rect_min_size = Vector2( 300, 256 )
+texture = ExtResource( 4 )
+stretch_mode = 6
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Right/TrackSelect"]
+margin_left = 413.0
+margin_right = 463.0
+margin_bottom = 262.0
+alignment = 1
+
+[node name="R" type="TextureButton" parent="MarginContainer/HBoxContainer/Right/TrackSelect/VBoxContainer2"]
+margin_top = 106.0
+margin_right = 50.0
+margin_bottom = 156.0
+texture_normal = ExtResource( 6 )
+[connection signal="text_entered" from="MarginContainer/HBoxContainer/Left/Menu/HBoxContainer/Password" to="." method="_on_Password_text_entered"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Left/Menu/HBoxContainer/Login" to="." method="_on_Login_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Left/Menu/Start" to="." method="_on_Start_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Left/Menu/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Right/CarSelect/VBoxContainer/L" to="." method="_on_L_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Right/CarSelect/VBoxContainer2/R" to="." method="_on_Car_R_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Right/TrackSelect/VBoxContainer/L" to="." method="_on_Track_L_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Right/TrackSelect/VBoxContainer2/R" to="." method="_on_Track_R_pressed"]
