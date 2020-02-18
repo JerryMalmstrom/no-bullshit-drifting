@@ -10,7 +10,6 @@
 bg_color = Color( 0.109804, 0.109804, 0.109804, 0.627451 )
 
 [sub_resource type="StyleBoxFlat" id=2]
-content_margin_left = 6.0
 bg_color = Color( 1, 1, 1, 0.392157 )
 border_width_left = 1
 border_width_top = 1
@@ -76,7 +75,7 @@ LineEdit/colors/font_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
 LineEdit/colors/font_color_selected = Color( 0, 0, 0, 1 )
 LineEdit/colors/font_color_uneditable = Color( 1, 1, 1, 0.8 )
 LineEdit/colors/selection_color = Color( 0.49, 0.49, 0.49, 1 )
-LineEdit/constants/minimum_spaces = 12
+LineEdit/constants/minimum_spaces = 0
 LineEdit/fonts/font = null
 LineEdit/icons/clear = null
 LineEdit/styles/focus = null
