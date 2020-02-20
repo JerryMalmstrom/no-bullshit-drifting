@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Car.tscn" type="PackedScene" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://assets/Kenney Future.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://number.tres" type="DynamicFont" id=5]
 [ext_resource path="res://assets/car_black_small_5.png" type="Texture" id=6]
+[ext_resource path="res://assets/smoke_01.png" type="Texture" id=7]
+[ext_resource path="res://scripts/CanvasLayer.gd" type="Script" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 4 )
@@ -324,3 +326,10 @@ z_index = 4
 texture = ExtResource( 6 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="ResourcePreloader" type="ResourcePreloader" parent="."]
+resources = [ PoolStringArray( "smoke_01" ), [ ExtResource( 7 ) ] ]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+script = ExtResource( 8 )

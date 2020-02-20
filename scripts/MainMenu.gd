@@ -72,10 +72,10 @@ func _track_request_completed(_result, _response_code, _headers, body):
 		
 		var thumbname = "res://maps/" + response[x].file.trim_suffix(".tmx") + "_thumb.png"
 		var thumb
-		if (File.new().file_exists(thumbname)):
-			thumb = load(thumbname)
-		else:
-			thumb = load("res://maps/default_thumb.png")
+#		if (File.new().file_exists(thumbname)):
+		thumb = load(thumbname)
+#		else:
+#		thumb = load("res://maps/default_thumb.png")
 		
 		tracks.append({"id": response[x].id, "name": response[x].name, "thumb": thumb})
 		
