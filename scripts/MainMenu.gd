@@ -177,5 +177,5 @@ func _on_Login_pressed():
 			logged_in()
 
 
-func _on_Password_text_entered(new_text):
+func _on_Password_text_entered(_new_text):
 	_on_Login_pressed()

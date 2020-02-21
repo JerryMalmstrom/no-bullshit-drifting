@@ -3,11 +3,11 @@ extends KinematicBody2D
 const MAX_ANGULAR_ACCELERATION = 0.06
 const ANGULAR_ACCELERATION = 0.009
 const STEERIN_TURNING = 0.1
-const AGILITY_RATIO = 0.5
-const ACCELERATION = 0.15
-const WOBBLE_RATE = 0.005
+const AGILITY_RATIO = 0.9 # var AGILITY_RATIO = 0.5
+const ACCELERATION = 0.175
+const WOBBLE_RATE = 0.002 #WOBBLE_RATE = 0.005
 const BREAKING = 4.5
-const MAX_SPEED = 900.0
+const MAX_SPEED = 1200.0
 const ANGULAR_DAMPENING = 0.85
 const GHOST_SAVE_INTERVAL = 0.1
 
@@ -42,7 +42,7 @@ func reset_variables():
 	wheel_facing = Vector2 ( 0.0, 0.0 )
 	drag_vector = Vector2 ( 0.0, 0.0 )
 	drag = 0.0
-	skid_size_front = 0.0
+#	skid_size_front = 0.0
 	skid_size_back = 0.0
 	collision_time = 0.0
 	ghost_save_time = 0.0
@@ -66,16 +66,15 @@ func _physics_process(delta):
 			ghost_save_time = 0.0
 	
 	if speed > 10:
-		skid_size_front = round( ( 1 - abs( wheel_facing.dot(velocity.normalized()) ) ) * 8 )
+		skid_size_back = round( ( 1 - abs( wheel_facing.dot(velocity.normalized()) ) ) * 8 )
 	else:
-		skid_size_front = 0.0
+		skid_size_back = 0.0
 		
-	if skid_size_front > 1:
+	if skid_size_back > 1:
 		$Fumes.emitting = true
 	else:
 		$Fumes.emitting = false
 		
-	skid_size_back  = skid_size_front
 	
 	if active:
 		process_input()
@@ -87,8 +86,8 @@ func _physics_process(delta):
 	angular_velocity += wheel_facing.angle_to( velocity ) * WOBBLE_RATE
 	angular_velocity = clamp( angular_velocity, -MAX_ANGULAR_ACCELERATION, MAX_ANGULAR_ACCELERATION )
 	angular_velocity *= angular_friction
+	orientation += angular_velocity * clamp ((facing * AGILITY_RATIO + wheel_facing * (1-AGILITY_RATIO) ).dot( velocity.normalized()), 0,1) * clamp( (speed*2 / MAX_SPEED) , 0, 1)
 	
-	orientation += angular_velocity * clamp ((facing * AGILITY_RATIO + wheel_facing * (1-AGILITY_RATIO) ).dot( velocity.normalized()), 0,1) * clamp(speed, 0, 1)
 	wheel_facing = Vector2 ( cos( orientation + angular_velocity * 10 ), sin( orientation + angular_velocity * 10 ) )
 	facing = Vector2 ( cos( orientation ), sin( orientation ) ) 
 
@@ -152,10 +151,11 @@ func process_input():
 				reversing = true
 	# handbrake
 	if Input.is_action_pressed("ui_select"):
-		if velocity.length() >= BREAKING / 2:
-			velocity -= velocity.normalized() * BREAKING / 2
+		if velocity.length() >= BREAKING / 4:
+			velocity -= velocity.normalized() * BREAKING / 4
 			orientation -= facing.angle_to( velocity ) * 0.02 * min( 2, speed )
 			skid_size_back = 5
+			
 	# accelerate
 	if Input.is_action_pressed("up"):
 		reversing = false

@@ -23,12 +23,26 @@ onready var popup_sc = preload("res://PopoutText.tscn")
 onready var checkpoint_sc = preload("res://Checkpoint.tscn")
 onready var goalline_sc = preload("res://GoalLine.tscn")
 
+onready var car = get_node("car")
+
 onready var debug1 = $UI/Control/Debug/nbr_debug_1
 onready var debug2 = $UI/Control/Debug/nbr_debug_2
 onready var debug3 = $UI/Control/Debug/nbr_debug_3
 onready var debug4 = $UI/Control/Debug/nbr_debug_4
 
 var debug = false
+
+func _unhandled_key_input(event):
+	if event.is_pressed():
+		match event.scancode:
+			KEY_I:
+				car.WOBBLE_RATE *= 1.1
+				print(car.WOBBLE_RATE)
+			KEY_K:
+				car.WOBBLE_RATE *= 0.9
+				print(car.WOBBLE_RATE)
+
+
 
 func _ready():
 	$UI/Loader.visible = true
@@ -130,10 +144,6 @@ func read_trackdata(track):
 	var map = load("res://maps/" + track.file).instance()
 	var car_pos = Vector2.ZERO
 	var car_rot = 0.0
-	var goal_pos = Vector2.ZERO
-	var check_pos = Vector2.ZERO
-	var goal_size = Vector2.ZERO
-	var check_size = Vector2.ZERO
 	var track_size = Vector2.ZERO
 	
 	
