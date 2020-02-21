@@ -18,7 +18,7 @@ var show_current_lap = false
 var show_best_lap = false
 var show_ghost = false
 
-var current_track = 0
+var current_track = 1
 
 var user = ""
 var logged_in = false

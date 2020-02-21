@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Car.tscn" type="PackedScene" id=2]
@@ -6,8 +6,6 @@
 [ext_resource path="res://assets/Kenney Future.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://number.tres" type="DynamicFont" id=5]
 [ext_resource path="res://assets/car_black_small_5.png" type="Texture" id=6]
-[ext_resource path="res://assets/smoke_01.png" type="Texture" id=7]
-[ext_resource path="res://scripts/CanvasLayer.gd" type="Script" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 4 )
@@ -51,11 +49,12 @@ script = ExtResource( 3 )
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="UI"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 400.0
-margin_bottom = 80.0
-rect_min_size = Vector2( 390, 70 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 11
+size_flags_vertical = 11
 theme = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -63,7 +62,7 @@ __meta__ = {
 
 [node name="ColorRect" type="ColorRect" parent="UI/Control"]
 margin_right = 190.0
-margin_bottom = 50.0
+margin_bottom = 59.0
 color = Color( 0, 0, 0, 0.313726 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -81,105 +80,19 @@ __meta__ = {
 
 [node name="nbr_laptime" type="Label" parent="UI/Control/ColorRect"]
 margin_left = 5.0
-margin_top = 15.0
+margin_top = 19.0
 margin_right = 185.0
-margin_bottom = 52.0
+margin_bottom = 56.0
 custom_fonts/font = ExtResource( 5 )
 text = "0.00"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Debug" type="ColorRect" parent="UI/Control"]
-margin_left = 422.0
-margin_right = 872.0
-margin_bottom = 150.0
-rect_min_size = Vector2( 450, 150 )
-color = Color( 0, 0, 0, 0.313726 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="lbl_debug_1" type="Label" parent="UI/Control/Debug"]
-margin_left = 5.0
-margin_top = 2.0
-margin_right = 100.0
-margin_bottom = 20.0
-text = "Last"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="nbr_debug_1" type="Label" parent="UI/Control/Debug"]
-margin_left = 318.0
-margin_top = 2.0
-margin_right = 446.0
-margin_bottom = 20.0
-text = "0.000"
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="lbl_debug_2" type="Label" parent="UI/Control/Debug"]
-margin_left = 5.0
-margin_top = 26.0
-margin_right = 100.0
-margin_bottom = 44.0
-text = "Last"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="nbr_debug_2" type="Label" parent="UI/Control/Debug"]
-margin_left = 318.0
-margin_top = 26.0
-margin_right = 446.0
-margin_bottom = 44.0
-text = "0.000"
-align = 2
-
-[node name="lbl_debug_3" type="Label" parent="UI/Control/Debug"]
-margin_left = 5.0
-margin_top = 51.0
-margin_right = 100.0
-margin_bottom = 69.0
-text = "Last"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="nbr_debug_3" type="Label" parent="UI/Control/Debug"]
-margin_left = 318.0
-margin_top = 51.0
-margin_right = 446.0
-margin_bottom = 69.0
-text = "0.000"
-align = 2
-
-[node name="lbl_debug_4" type="Label" parent="UI/Control/Debug"]
-margin_left = 5.0
-margin_top = 75.0
-margin_right = 100.0
-margin_bottom = 93.0
-text = "Last"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="nbr_debug_4" type="Label" parent="UI/Control/Debug"]
-margin_left = 318.0
-margin_top = 75.0
-margin_right = 446.0
-margin_bottom = 93.0
-text = "0.000"
-align = 2
-
 [node name="ColorRect2" type="ColorRect" parent="UI/Control"]
-margin_left = 200.0
-margin_right = 390.0
+margin_left = 195.0
 margin_bottom = 76.0
-rect_min_size = Vector2( 190, 50 )
+rect_min_size = Vector2( 190, 76 )
 color = Color( 0, 0, 0, 0.313726 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -234,8 +147,9 @@ __meta__ = {
 }
 
 [node name="ColorRect3" type="ColorRect" parent="UI/Control"]
-margin_left = 962.0
-margin_right = 1262.0
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -300.0
 margin_bottom = 108.0
 rect_min_size = Vector2( 300, 108 )
 color = Color( 0, 0, 0, 0.313726 )
@@ -247,38 +161,37 @@ __meta__ = {
 margin_left = 5.0
 margin_top = 2.0
 margin_right = 100.0
-margin_bottom = 18.0
+margin_bottom = 107.0
+rect_min_size = Vector2( 95, 105 )
 text = "1
 2
 3
 4
-5
-"
+5"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="lbl_best_times" type="Label" parent="UI/Control/ColorRect3"]
-margin_left = 203.363
+margin_left = 202.0
 margin_top = 2.0
-margin_right = 298.363
-margin_bottom = 209.0
+margin_right = 297.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 95, 102 )
 text = "1
 2
 3
 4
-5
-"
+5"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="pb_speed" type="ProgressBar" parent="UI"]
-margin_left = 10.0
-margin_top = 70.0
-margin_right = 200.0
-margin_bottom = 74.0
+margin_top = 60.0
+margin_right = 190.0
+margin_bottom = 76.0
 rect_min_size = Vector2( 190, 16 )
 custom_styles/fg = SubResource( 5 )
 custom_styles/bg = SubResource( 6 )
@@ -292,6 +205,8 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+size_flags_horizontal = 9
+size_flags_vertical = 9
 color = Color( 0, 0, 0, 1 )
 
 [node name="Label" type="Label" parent="UI/Loader"]
@@ -327,10 +242,3 @@ z_index = 4
 texture = ExtResource( 6 )
 
 [node name="Tween" type="Tween" parent="."]
-
-[node name="ResourcePreloader" type="ResourcePreloader" parent="."]
-resources = [ PoolStringArray( "smoke_01" ), [ ExtResource( 7 ) ] ]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = -1
-script = ExtResource( 8 )

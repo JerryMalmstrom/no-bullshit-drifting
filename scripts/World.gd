@@ -25,10 +25,10 @@ onready var goalline_sc = preload("res://GoalLine.tscn")
 
 onready var car = get_node("car")
 
-onready var debug1 = $UI/Control/Debug/nbr_debug_1
-onready var debug2 = $UI/Control/Debug/nbr_debug_2
-onready var debug3 = $UI/Control/Debug/nbr_debug_3
-onready var debug4 = $UI/Control/Debug/nbr_debug_4
+#onready var debug1 = $UI/Control/Debug/nbr_debug_1
+#onready var debug2 = $UI/Control/Debug/nbr_debug_2
+#onready var debug3 = $UI/Control/Debug/nbr_debug_3
+#onready var debug4 = $UI/Control/Debug/nbr_debug_4
 
 var debug = false
 
@@ -54,10 +54,10 @@ func _ready():
 	
 	$UI/Control/ColorRect2/Username_label.text = globals.user
 	
-	if debug:
-		$UI/Control/Debug.show()
-	else:
-		$UI/Control/Debug.hide()
+#	if debug:
+#		$UI/Control/Debug.show()
+#	else:
+#		$UI/Control/Debug.hide()
 
 	
 func get_trackdata(track_id):

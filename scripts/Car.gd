@@ -42,7 +42,6 @@ func reset_variables():
 	wheel_facing = Vector2 ( 0.0, 0.0 )
 	drag_vector = Vector2 ( 0.0, 0.0 )
 	drag = 0.0
-#	skid_size_front = 0.0
 	skid_size_back = 0.0
 	collision_time = 0.0
 	ghost_save_time = 0.0
@@ -117,6 +116,9 @@ func _physics_process(delta):
 	$Pivot/pivot_right.rotation = angular_velocity * 10
 	
 	globals.speed = speed
+	
+#	var zoom_scale = (speed / MAX_SPEED)
+#	$Camera2D.zoom = Vector2(2,2) + Vector2(zoom_scale, zoom_scale)
 
 
 	
