@@ -12,7 +12,33 @@ onready var in_pass = get_node("MarginContainer/HBoxContainer/Left/Menu/HBoxCont
 
 
 var tracks = []
-var cars = []
+var cars = [
+	"res://assets/cars/car_black_small_1.png",
+	"res://assets/cars/car_black_small_2.png",
+	"res://assets/cars/car_black_small_3.png",
+	"res://assets/cars/car_black_small_4.png",
+	"res://assets/cars/car_black_small_5.png",
+	"res://assets/cars/car_blue_small_1.png",
+	"res://assets/cars/car_blue_small_2.png",
+	"res://assets/cars/car_blue_small_3.png",
+	"res://assets/cars/car_blue_small_4.png",
+	"res://assets/cars/car_blue_small_5.png",
+	"res://assets/cars/car_green_small_1.png",
+	"res://assets/cars/car_green_small_2.png",
+	"res://assets/cars/car_green_small_3.png",
+	"res://assets/cars/car_green_small_4.png",
+	"res://assets/cars/car_green_small_5.png",
+	"res://assets/cars/car_red_small_1.png",
+	"res://assets/cars/car_red_small_2.png",
+	"res://assets/cars/car_red_small_3.png",
+	"res://assets/cars/car_red_small_4.png",
+	"res://assets/cars/car_red_small_5.png",
+	"res://assets/cars/car_yellow_small_1.png",
+	"res://assets/cars/car_yellow_small_2.png",
+	"res://assets/cars/car_yellow_small_3.png",
+	"res://assets/cars/car_yellow_small_4.png",
+	"res://assets/cars/car_yellow_small_5.png"
+]
 var current_track = 0
 var current_car = 0
 
@@ -20,17 +46,17 @@ func _ready():
 #	hide_all()
 	globals.get_webrequest(self, "tracks", "_track_request_completed")
 	
-	var dir = Directory.new()
-	if dir.open("res://assets/cars") == OK:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if file_name.get_extension() == "png":
-				cars.append("res://assets/cars/" + file_name.get_file())
-				
-			file_name = dir.get_next()
-	else:
-		print("Not ok")
+#	var dir = Directory.new()
+#	if dir.open("res://assets/cars") == OK:
+#		dir.list_dir_begin()
+#		var file_name = dir.get_next()
+#		while file_name != "":
+#			if file_name.get_extension() == "png":
+#				cars.append("res://assets/cars/" + file_name.get_file())
+#				
+#			file_name = dir.get_next()
+#	else:
+#		print("Not ok")
 
 	
 #	if !globals.logged_in:
@@ -46,10 +72,10 @@ func _track_request_completed(_result, _response_code, _headers, body):
 		
 		var thumbname = "res://maps/" + response[x].file.trim_suffix(".tmx") + "_thumb.png"
 		var thumb
-		if (File.new().file_exists(thumbname)):
-			thumb = load(thumbname)
-		else:
-			thumb = load("res://maps/default_thumb.png")
+#		if (File.new().file_exists(thumbname)):
+		thumb = load(thumbname)
+#		else:
+#		thumb = load("res://maps/default_thumb.png")
 		
 		tracks.append({"id": response[x].id, "name": response[x].name, "thumb": thumb})
 		

@@ -49,6 +49,7 @@ func reset_variables():
 	active = true
 
 func _ready():
+	$Fumes.emitting = true
 	reset_variables()
 	$Pivot/body.rotation_degrees = 90
 
