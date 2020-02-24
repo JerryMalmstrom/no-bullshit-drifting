@@ -99,7 +99,7 @@ margin_right = 415.0
 margin_bottom = 41.0
 text = "log in"
 
-[node name="Register" type="Button" parent="MarginContainer/HBoxContainer/Left/Menu/HBoxContainer"]
+[node name="Create" type="Button" parent="MarginContainer/HBoxContainer/Left/Menu/HBoxContainer"]
 margin_left = 419.0
 margin_right = 517.0
 margin_bottom = 41.0
@@ -234,6 +234,7 @@ margin_bottom = 153.0
 texture_normal = ExtResource( 6 )
 [connection signal="text_entered" from="MarginContainer/HBoxContainer/Left/Menu/HBoxContainer/Password" to="." method="_on_Password_text_entered"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Left/Menu/HBoxContainer/Login" to="." method="_on_Login_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Left/Menu/HBoxContainer/Create" to="." method="_on_Create_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Left/Menu/Start" to="." method="_on_Start_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Left/Menu/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Right/CarSelect/VBoxContainer/L" to="." method="_on_L_pressed"]

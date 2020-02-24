@@ -85,19 +85,31 @@ func get_user(name, password):
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		
-	
 	var u = yield(http_request, "request_completed")
 	http_request.queue_free()
 	
-	
 	var temp = parse_json(u[3].get_string_from_utf8())
-
 	return temp[0][0].result
 	
 	
 	
-func create_user():
-	pass
+func create_user(name, password):
+	var http_request = HTTPRequest.new()
+	http_request.set_script(sc)
+	add_child(http_request)
+	
+#	var data = to_json([{ "user": name, "pass": password}])
+	var data = "user=" + str(name) + "&pass=" + str(password)
+	
+	var error = http_request.request("http://gg.jmns.se/sp.php/usercreate", ["Content-Type: application/x-www-form-urlencoded"], false, HTTPClient.METHOD_POST, data)
+	if error != OK:
+		push_error("An error occurred in the HTTP request.")
+		
+	var u = yield(http_request, "request_completed")
+	http_request.queue_free()
+	
+	var temp = parse_json(u[3].get_string_from_utf8())
+	return temp[0][0].result
 	
 func update_user():
 	pass

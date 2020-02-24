@@ -4,7 +4,6 @@ var checkpoint_hit = false
 
 onready var nbr_laptime = get_tree().root.find_node("nbr_laptime", true, false)
 onready var nbr_lastlap = get_tree().root.find_node("nbr_lastlap", true, false)
-# onready var nbr_bestlap = get_tree().root.find_node("nbr_bestlap", true, false)
 onready var pb_speed = get_tree().root.find_node("pb_speed", true, false)
 
 var current_ghost_point = 0
@@ -24,11 +23,6 @@ onready var checkpoint_sc = preload("res://Checkpoint.tscn")
 onready var goalline_sc = preload("res://GoalLine.tscn")
 
 onready var car = get_node("car")
-
-#onready var debug1 = $UI/Control/Debug/nbr_debug_1
-#onready var debug2 = $UI/Control/Debug/nbr_debug_2
-#onready var debug3 = $UI/Control/Debug/nbr_debug_3
-#onready var debug4 = $UI/Control/Debug/nbr_debug_4
 
 var debug = false
 
