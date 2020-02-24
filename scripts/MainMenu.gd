@@ -3,7 +3,6 @@ extends Control
 onready var in_user = get_node("MarginContainer/HBoxContainer/Left/Menu/HBoxContainer/Username")
 onready var in_pass = get_node("MarginContainer/HBoxContainer/Left/Menu/HBoxContainer/Password")
 
-
 var tracks = []
 var cars = [
 	"res://assets/cars/car_black_small_1.png",
@@ -48,13 +47,7 @@ func _track_request_completed(_result, _response_code, _headers, body):
 	var response = parse_json(body.get_string_from_utf8()).records
 
 	for x in range( response.size() ):
-		
-		var thumbname = "res://maps/" + response[x].file.trim_suffix(".tmx") + "_thumb.png"
-		var thumb
-#		if (File.new().file_exists(thumbname)):
-		thumb = load(thumbname)
-		
-		tracks.append({"id": response[x].id, "name": response[x].name, "thumb": thumb})
+		tracks.append({"id": response[x].id, "name": response[x].name, "thumb": load("res://maps/" + response[x].file.trim_suffix(".tmx") + "_thumb.png")})
 		
 	$MarginContainer/HBoxContainer/Right/TrackSelect/TextureRect.texture = tracks[current_track].thumb
 	$MarginContainer/HBoxContainer/Right/Track_label.text = tracks[current_track].name
@@ -65,7 +58,7 @@ func _load_map(track):
 	var _res = get_tree().change_scene("res://World.tscn")
 	
 func logged_in():
-	in_user.text = globals.user
+	in_user.text = globals.user_data.name
 	in_user.editable = false
 	$MarginContainer/HBoxContainer/Left/Menu/HBoxContainer/Login.hide()
 	$MarginContainer/HBoxContainer/Left/Menu/HBoxContainer/Create.hide()
@@ -115,8 +108,8 @@ func _on_Login_pressed():
 			add_child(pop)
 			pop.popup_centered()
 		"Ok":
-			globals.logged_in = true
-			globals.user = in_user.text.to_lower()
+			globals.user_data.logged_in = true
+			globals.user_data.name = in_user.text.to_lower()
 			logged_in()
 
 func _on_Create_pressed():
@@ -129,8 +122,8 @@ func _on_Create_pressed():
 			add_child(pop)
 			pop.popup_centered()
 		"Ok":
-			globals.logged_in = true
-			globals.user = in_user.text.to_lower()
+			globals.user_data.logged_in = true
+			globals.user_data.name = in_user.text.to_lower()
 			logged_in()
 
 func _on_Password_text_entered(_new_text):

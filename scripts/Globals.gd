@@ -6,13 +6,12 @@ var best_laptime = 9999.0
 var last_laptime = 0.0
 
 var speed = 0.0
-const MAX_SPEED = 900.0
+const MAX_SPEED = 1200.0
 
 var current_lap_ghost = PoolVector3Array()
 var best_lap_ghost = PoolVector3Array()
-
-var best_lap_ghost_array = []
 var current_lap_ghost_array = []
+var best_lap_ghost_array = []
 
 var show_current_lap = false
 var show_best_lap = false
@@ -20,8 +19,9 @@ var show_ghost = false
 
 var current_track = 1
 
-var user = ""
-var logged_in = false
+var user_data = {}
+
+# var logged_in = false
 
 var car_texture = "res://assets/cars/car_black_small_5.png"
 
@@ -29,7 +29,8 @@ onready var sc = load("res://scripts/httpreq.gd")
 
 func _ready():
 	randomize()
-	user = "Player_" + "%.0f" % rand_range(100, 99999)
+	user_data.name = "Player_" + "%.0f" % rand_range(100, 99999)
+	user_data.logged_in = false
 
 func add_ghost_point(pos : Vector2, rot : float, time : float):
 	current_lap_ghost_array.append({ "pos": pos, "rot": rot, "time": time })
@@ -78,7 +79,6 @@ func get_user(name, password):
 	http_request.set_script(sc)
 	add_child(http_request)
 	
-#	var data = to_json([{ "user": name, "pass": password}])
 	var data = "user=" + str(name) + "&pass=" + str(password)
 	
 	var error = http_request.request("http://gg.jmns.se/sp.php/login", ["Content-Type: application/x-www-form-urlencoded"], false, HTTPClient.METHOD_POST, data)
@@ -98,7 +98,6 @@ func create_user(name, password):
 	http_request.set_script(sc)
 	add_child(http_request)
 	
-#	var data = to_json([{ "user": name, "pass": password}])
 	var data = "user=" + str(name) + "&pass=" + str(password)
 	
 	var error = http_request.request("http://gg.jmns.se/sp.php/usercreate", ["Content-Type: application/x-www-form-urlencoded"], false, HTTPClient.METHOD_POST, data)

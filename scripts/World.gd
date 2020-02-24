@@ -27,7 +27,11 @@ onready var car = get_node("car")
 var debug = false
 
 func _unhandled_key_input(event):
-	if event.is_pressed():
+
+	if event.is_action_pressed("ui_cancel"):
+		var _res = get_tree().change_scene("res://MainMenu.tscn")
+
+	if event.is_pressed() and debug:
 		match event.scancode:
 			KEY_I:
 				car.WOBBLE_RATE *= 1.1
@@ -46,7 +50,7 @@ func _ready():
 	get_trackdata(globals.current_track)
 	get_laptimes(globals.current_track)
 	
-	$UI/Control/ColorRect2/Username_label.text = globals.user
+	$UI/Control/ColorRect2/Username_label.text = globals.user_data.name
 	
 #	if debug:
 #		$UI/Control/Debug.show()
@@ -65,7 +69,7 @@ func _get_trackdata_completed(_result, _response_code, _headers, body):
 
 
 func set_laptime(time):
-	var json = to_json([{ "track_id": globals.current_track, "name": globals.user, "laptime": time, "setAt": get_current_date(true)}])
+	var json = to_json([{ "track_id": globals.current_track, "name": globals.user_data.name, "laptime": time, "setAt": get_current_date(true)}])
 	globals.set_webrequest(self, "best_times", "_set_laptime_completed", json)
 	
 func _set_laptime_completed(_result, _response_code, _headers, _body):
@@ -102,7 +106,6 @@ func reset_variables():
 	ghost_point_time = 0.0
 	ghost_point_current_time = 0.0
 	
-#	checkpoints = []
 	
 func get_userdata(user, key):
 	return userdata[user][key]
@@ -121,7 +124,7 @@ func read_userdata():
 		template_file.open("res://userdata.json", file.READ)
 		userdata = JSON.parse(template_file.get_as_text()).result
 		template_file.close()
-		userdata.username = globals.user
+		userdata.username = globals.user_data.name
 		write_userdata()
 	
 func write_userdata():
@@ -157,9 +160,6 @@ func read_trackdata(track):
 					goal.get_node("CollisionShape2D").shape.extents = object.get_child(0).shape.extents
 					add_child(goal)
 					goal.connect("body_entered", self, "_on_GoalLine_body_entered")
-					
-#					goal_pos = Vector2(object.position.x + object.get_child(0).shape.extents.x, object.position.y + object.get_child(0).shape.extents.y)
-#					goal_size = object.get_child(0).shape.extents
 					object.free()
 					
 				elif obj == "cp":
@@ -167,12 +167,6 @@ func read_trackdata(track):
 					check.position = Vector2(object.position.x + object.get_child(0).shape.extents.x, object.position.y + object.get_child(0).shape.extents.y)
 					check.get_node("CollisionShape2D").shape.extents = object.get_child(0).shape.extents
 					$Checkpoints.add_child(check)
-#					check.connect("_triggered", self, "_on_Checkpoint_body_entered")
-					
-#					checkpoints.append({"triggered": false})
-					
-#					check_pos = Vector2(object.position.x + object.get_child(0).shape.extents.x, object.position.y + object.get_child(0).shape.extents.y)
-#					check_size = object.get_child(0).shape.extents
 					object.free()
 		elif node.name == "Back":
 			track_size = node.get_used_rect().size * node.cell_size.x
@@ -183,18 +177,10 @@ func read_trackdata(track):
 	$car.global_rotation_degrees = car_rot
 	$car.set_texture(globals.car_texture)
 	
-#	$GoalLine.global_position = goal_pos
-#	$Checkpoint.global_position = check_pos
-	
-#	$GoalLine/CollisionShape2D.shape.extents = goal_size
-#	$Checkpoint/CollisionShape2D.shape.extents = check_size
-	
 	$car/Camera2D.limit_right = track_size.x
 	$car/Camera2D.limit_bottom = track_size.y
 	
 func _process(delta):
-#	$UI/Label.text = "%s" % Engine.get_frames_per_second()
-
 	if globals.started:
 		globals.current_laptime += delta
 		nbr_laptime.text = "%.2f" % globals.current_laptime
@@ -230,10 +216,6 @@ func get_current_date(sql = false):
 		return "%4d-%02d-%02dT%02d:%02d:%02d" % [dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second]
 	else:
 		return "%4d-%02d-%02d %02d:%02d:%02d" % [dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second]
-
-func _unhandled_input(event):
-	if event.is_action_pressed("ui_cancel"):
-		var _res = get_tree().change_scene("res://MainMenu.tscn")
 
 func _on_GoalLine_body_entered(_body):
 	$UI/Control/ColorRect3.modulate = Color(1,1,1,1)
