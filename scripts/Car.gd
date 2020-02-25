@@ -29,6 +29,8 @@ var collision_time = 0.0
 var ghost_save_time = 0.0
 var active = true
 
+var current_pitch = 1
+
 func reset_variables():
 	velocity = Vector2( 0.0, 0.0 )
 	thrust = 0.0
@@ -57,6 +59,9 @@ func set_texture(texture):
 
 
 func _physics_process(delta):
+	current_pitch = 1 + ((speed / MAX_SPEED) * 5)
+	$Engine.pitch_scale = current_pitch
+	
 	collision_time += delta
 	
 	if globals.started:
@@ -72,8 +77,11 @@ func _physics_process(delta):
 		
 	if skid_size_back > 1:
 		$Fumes.emitting = true
+		if !$Tires.playing:
+			$Tires.play()
 	else:
 		$Fumes.emitting = false
+		$Tires.stop()
 		
 	
 	if active:
@@ -123,6 +131,13 @@ func _physics_process(delta):
 
 	
 func process_input():
+	if Input.is_action_just_pressed("ui_up"):
+		current_pitch += .5
+		print(current_pitch)
+	if Input.is_action_just_pressed("ui_down"):
+		current_pitch -= .5
+		print(current_pitch)
+	
 	# turning
 	angular_friction = ANGULAR_DAMPENING
 		
