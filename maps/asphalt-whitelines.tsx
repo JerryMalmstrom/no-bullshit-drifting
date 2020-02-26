@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.3" name="Asphalt" tilewidth="128" tileheight="128" spacing="20" tilecount="90" columns="18">
- <image source="asphalt.png" width="2644" height="720"/>
+<tileset version="1.2" tiledversion="1.2.3" name="Asphalt-Whitelines" tilewidth="128" tileheight="128" spacing="20" tilecount="90" columns="18">
+ <image source="asphalt-whitelines.png" width="2644" height="720"/>
  <tile id="0">
   <objectgroup draworder="index">
    <object id="1" x="0" y="0" width="20" height="128"/>
