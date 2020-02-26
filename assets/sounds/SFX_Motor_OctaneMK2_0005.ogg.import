@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/SFX_Motor_OctaneMK2_0005.ogg-c0cc6487e9f4d06bb893a63d0f16dcda.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/SFX_Motor_OctaneMK2_0005.ogg"
+dest_files=[ "res://.import/SFX_Motor_OctaneMK2_0005.ogg-c0cc6487e9f4d06bb893a63d0f16dcda.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

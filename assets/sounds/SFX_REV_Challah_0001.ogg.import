@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/SFX_REV_Challah_0001.ogg-46f350c4ce066b8a1cfddbc9c83846c8.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/SFX_REV_Challah_0001.ogg"
+dest_files=[ "res://.import/SFX_REV_Challah_0001.ogg-46f350c4ce066b8a1cfddbc9c83846c8.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/SFX_VehicleElements_0001.ogg-64ad56b2254b6803239f48423cbb5351.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/SFX_VehicleElements_0001.ogg"
+dest_files=[ "res://.import/SFX_VehicleElements_0001.ogg-64ad56b2254b6803239f48423cbb5351.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -249,6 +249,10 @@ func _on_GoalLine_body_entered(_body):
 			else:
 				popup_text("%.2f" % globals.last_laptime, 3)
 			globals.reset_ghost()
+			
+			$Goal.play(0)
+			$Cheer.play(0)
+			
 		else:
 			popup_text("Checkpoint missed!", 2)
 			

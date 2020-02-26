@@ -117,6 +117,7 @@ func _physics_process(delta):
 		collision_time = 0.0
 		$Camera2D.add_trauma( velocity.length() / MAX_SPEED )
 		velocity *= 0.2
+		$Thud.play(0)
 	velocity = move_and_slide(velocity)
 	
 	rotation = orientation
