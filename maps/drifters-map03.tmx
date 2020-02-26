@@ -102,7 +102,7 @@
   </object>
   <object id="29" name="Car" x="684" y="636" width="104" height="64">
    <properties>
-    <property name="obj" value="car"/>
+    <property name="object" value="car"/>
    </properties>
   </object>
  </objectgroup>

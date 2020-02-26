@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.3" name="Asphalt-Whitelines" tilewidth="128" tileheight="128" spacing="20" tilecount="90" columns="18">
- <image source="asphalt-whitelines.png" width="2644" height="720"/>
+<tileset version="1.2" tiledversion="1.3.2" name="Asphalt-Whitelines" tilewidth="128" tileheight="128" tilecount="90" columns="18">
+ <image source="asphalt-whitelines.png" width="2304" height="640"/>
  <tile id="0">
   <objectgroup draworder="index">
    <object id="1" x="0" y="0" width="20" height="128"/>
@@ -109,21 +109,21 @@
   </objectgroup>
  </tile>
  <tile id="15">
-  <objectgroup draworder="index">
+  <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="64">
     <polygon points="0,0 128,-64 128,-44 0,20"/>
    </object>
   </objectgroup>
  </tile>
  <tile id="16">
-  <objectgroup draworder="index">
+  <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0">
     <polygon points="0,0 128,64 128,84 0,20"/>
    </object>
   </objectgroup>
  </tile>
  <tile id="17">
-  <objectgroup draworder="index">
+  <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="64">
     <polygon points="0,0 128,64 88,64 0,20"/>
    </object>
@@ -222,22 +222,29 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="32">
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="20">
+    <polygon points="0,0 40,-20 0,-20"/>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="33">
-  <objectgroup draworder="index">
+  <objectgroup draworder="index" id="2">
    <object id="1" x="88" y="128">
     <polygon points="0,0 40,-20 40,0"/>
    </object>
   </objectgroup>
  </tile>
  <tile id="34">
-  <objectgroup draworder="index">
-   <object id="1" x="40" y="128">
-    <polygon points="0,0 -40,-20 -40,0"/>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="108">
+    <polygon points="0,0 40,20 0,20"/>
    </object>
   </objectgroup>
  </tile>
  <tile id="35">
-  <objectgroup draworder="index">
+  <objectgroup draworder="index" id="2">
    <object id="1" x="88" y="0">
     <polygon points="0,0 40,20 40,0"/>
    </object>
@@ -357,21 +364,21 @@
   </objectgroup>
  </tile>
  <tile id="51">
-  <objectgroup draworder="index">
-   <object id="1" x="0" y="64">
-    <polygon points="0,0 128,-64 88,-64 0,-20"/>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="0" y="44">
+    <polygon points="0,0 88,-44 128,-44 0,20"/>
    </object>
   </objectgroup>
  </tile>
  <tile id="52">
-  <objectgroup draworder="index">
+  <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0">
     <polygon points="0,0 128,64 128,44 40,0"/>
    </object>
   </objectgroup>
  </tile>
  <tile id="53">
-  <objectgroup draworder="index">
+  <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="44">
     <polygon points="0,0 128,64 128,84 0,20"/>
    </object>
@@ -506,7 +513,7 @@
   </objectgroup>
  </tile>
  <tile id="70">
-  <objectgroup draworder="index">
+  <objectgroup draworder="index" id="2">
    <object id="1" x="108" y="0" width="20" height="128"/>
   </objectgroup>
  </tile>
@@ -588,19 +595,13 @@
    <object id="2" x="108" y="0" width="20" height="128"/>
   </objectgroup>
  </tile>
- <tile id="81">
-  <objectgroup draworder="index">
-   <object id="1" x="0" y="0" width="128" height="20"/>
-   <object id="2" x="0" y="108" width="128" height="20"/>
-  </objectgroup>
- </tile>
  <tile id="86">
   <objectgroup draworder="index">
    <object id="1" x="0" y="0" width="128" height="20"/>
   </objectgroup>
  </tile>
  <tile id="88">
-  <objectgroup draworder="index">
+  <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="108" width="128" height="20"/>
   </objectgroup>
  </tile>

@@ -145,6 +145,7 @@ func read_trackdata(track):
 	
 	
 	for node in map.get_children():
+		print(node.name)
 		if node.name == "Management":
 			for object in node.get_children():
 				var obj = object.get_meta("object")
@@ -179,6 +180,8 @@ func read_trackdata(track):
 	
 	$car/Camera2D.limit_right = track_size.x
 	$car/Camera2D.limit_bottom = track_size.y
+	
+	print(track_size)
 	
 func _process(delta):
 	if globals.started:

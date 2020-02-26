@@ -47,7 +47,7 @@ func _track_request_completed(_result, _response_code, _headers, body):
 	var response = parse_json(body.get_string_from_utf8()).records
 
 	for x in range( response.size() ):
-		tracks.append({"id": response[x].id, "name": response[x].name, "thumb": load("res://maps/" + response[x].file.trim_suffix(".tmx") + "_thumb.png")})
+		tracks.append({"id": response[x].id, "name": response[x].name, "thumb": load("res://maps/" + response[x].file + ".thumb.png"), "enabled": response[x].enabled})
 		
 	$MarginContainer/HBoxContainer/Right/TrackSelect/TextureRect.texture = tracks[current_track].thumb
 	$MarginContainer/HBoxContainer/Right/Track_label.text = tracks[current_track].name
@@ -68,11 +68,17 @@ func logged_in():
 func _on_Track_L_pressed():
 	current_track = clamp(current_track-1, 0, tracks.size()-1)
 	
+	if !tracks[current_track].enabled:
+		current_track = clamp(current_track-1, 0, tracks.size()-1)
+	
 	$MarginContainer/HBoxContainer/Right/TrackSelect/TextureRect.texture = tracks[current_track].thumb
 	$MarginContainer/HBoxContainer/Right/Track_label.text = tracks[current_track].name
 		
 func _on_Track_R_pressed():
 	current_track = clamp(current_track+1, 0, tracks.size()-1)
+	
+	if !tracks[current_track].enabled:
+		current_track = clamp(current_track+1, 0, tracks.size()-1)
 	
 	$MarginContainer/HBoxContainer/Right/TrackSelect/TextureRect.texture = tracks[current_track].thumb
 	$MarginContainer/HBoxContainer/Right/Track_label.text = tracks[current_track].name

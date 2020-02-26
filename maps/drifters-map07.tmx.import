@@ -2,12 +2,12 @@
 
 importer="vnen.tiled_importer"
 type="PackedScene"
-path="res://.import/drifters-map06.tmx-7164afe1b9ab13794d153eb8e32696a9.scn"
+path="res://.import/drifters-map07.tmx-59fc4eebf7c5ee44b10cf01cebc43b80.scn"
 
 [deps]
 
-source_file="res://maps/drifters-map06.tmx"
-dest_files=[ "res://.import/drifters-map06.tmx-7164afe1b9ab13794d153eb8e32696a9.scn" ]
+source_file="res://maps/drifters-map07.tmx"
+dest_files=[ "res://.import/drifters-map07.tmx-59fc4eebf7c5ee44b10cf01cebc43b80.scn" ]
 
 [params]
 

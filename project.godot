@@ -63,7 +63,7 @@ vnen.tiled_importer={
 "add_background": true,
 "collision_layer": 1,
 "custom_properties": true,
-"embed_internal_images": true,
+"embed_internal_images": false,
 "image_flags": 0,
 "post_import_script": "",
 "save_tiled_properties": false,
@@ -100,7 +100,11 @@ right={
 
 [rendering]
 
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=1
+quality/depth_prepass/enable=false
 environment/default_clear_color=Color( 0.262745, 0.317647, 0.356863, 1 )
+quality/depth/hdr=false
 environment/default_environment="res://default_env.tres"
 
 [tiled_importer]
