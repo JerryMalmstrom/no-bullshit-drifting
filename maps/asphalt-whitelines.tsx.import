@@ -13,8 +13,8 @@ dest_files=[ "res://.import/asphalt-whitelines.tsx-2e1e2ae1eb05b3e391af6a57d515d
 
 custom_properties=true
 tile_metadata=false
-image_flags=7
-embed_internal_images=false
+image_flags=0
+embed_internal_images=true
 save_tiled_properties=false
 apply_offset=false
 post_import_script=""

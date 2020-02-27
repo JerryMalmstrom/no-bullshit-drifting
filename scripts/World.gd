@@ -26,19 +26,15 @@ onready var car = get_node("car")
 
 var debug = false
 
-func _unhandled_key_input(event):
-
-	if event.is_action_pressed("ui_cancel"):
-		var _res = get_tree().change_scene("res://MainMenu.tscn")
-
-	if event.is_pressed() and debug:
-		match event.scancode:
-			KEY_I:
-				car.WOBBLE_RATE *= 1.1
-				print(car.WOBBLE_RATE)
-			KEY_K:
-				car.WOBBLE_RATE *= 0.9
-				print(car.WOBBLE_RATE)
+#func _unhandled_key_input(event):
+#	if event.is_pressed() and debug:
+#		match event.scancode:
+#			KEY_I:
+#				car.WOBBLE_RATE *= 1.1
+#				print(car.WOBBLE_RATE)
+#			KEY_K:
+#				car.WOBBLE_RATE *= 0.9
+#				print(car.WOBBLE_RATE)
 
 
 
@@ -246,6 +242,10 @@ func _on_GoalLine_body_entered(_body):
 				popup_text("Great lap!\n%.3f" % globals.last_laptime, 3)
 				set_laptime(globals.last_laptime)
 				globals.update_ghost()
+				if globals.show_ghost:
+					$ghost.visible = true
+				else:
+					$ghost.visible = false
 			else:
 				popup_text("%.2f" % globals.last_laptime, 3)
 			globals.reset_ghost()

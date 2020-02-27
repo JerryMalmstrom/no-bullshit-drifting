@@ -24,8 +24,8 @@
   </objectgroup>
  </tile>
  <tile id="3">
-  <objectgroup draworder="index">
-   <object id="1" x="0" y="0" width="128" height="20"/>
+  <objectgroup draworder="index" id="2">
+   <object id="2" x="0" y="0" width="128" height="20"/>
   </objectgroup>
  </tile>
  <tile id="4">
@@ -150,13 +150,13 @@
   </objectgroup>
  </tile>
  <tile id="20">
-  <objectgroup draworder="index">
-   <object id="1" x="0" y="0" width="20" height="128"/>
+  <objectgroup draworder="index" id="2">
+   <object id="2" x="0" y="0" width="20" height="128"/>
   </objectgroup>
  </tile>
  <tile id="22">
-  <objectgroup draworder="index">
-   <object id="1" x="108" y="0" width="20" height="128"/>
+  <objectgroup draworder="index" id="2">
+   <object id="2" x="108" y="0" width="20" height="128"/>
   </objectgroup>
  </tile>
  <tile id="23">
@@ -281,8 +281,8 @@
   </objectgroup>
  </tile>
  <tile id="39">
-  <objectgroup draworder="index">
-   <object id="1" x="0" y="108" width="128" height="20"/>
+  <objectgroup draworder="index" id="2">
+   <object id="2" x="0" y="108" width="128" height="20"/>
   </objectgroup>
  </tile>
  <tile id="40">

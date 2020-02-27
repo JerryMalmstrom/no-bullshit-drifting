@@ -118,9 +118,12 @@ script = ExtResource( 4 )
 stream = ExtResource( 6 )
 volume_db = -10.0
 autoplay = true
+bus = "Sounds"
 
 [node name="Tires" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+bus = "Sounds"
 
 [node name="Thud" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+bus = "Sounds"

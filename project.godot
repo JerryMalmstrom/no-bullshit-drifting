@@ -22,6 +22,10 @@ boot_splash/image="res://assets/Menuback.png"
 boot_splash/bg_color=Color( 0.262745, 0.317647, 0.356863, 1 )
 config/icon="res://icon.png"
 
+[audio]
+
+default_bus_layout="res://sound_bus.tres"
+
 [autoload]
 
 globals="*res://scripts/Globals.gd"
