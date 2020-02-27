@@ -4,7 +4,6 @@
 [ext_resource path="res://assets/UI/MainMenu.tres" type="Theme" id=2]
 
 [node name="PopupPanel" type="Popup"]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -103,14 +102,14 @@ flat = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 38.0
-margin_right = -10.0
-margin_bottom = -10.0
+margin_left = 4.0
+margin_top = 39.0
+margin_right = -4.0
+margin_bottom = -4.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sound"]
-margin_right = 480.0
-margin_bottom = 252.0
+margin_right = 492.0
+margin_bottom = 257.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -187,6 +186,20 @@ value = 100.0
 tick_count = 5
 ticks_on_borders = true
 
+[node name="Quit" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -107.0
+margin_top = 52.0
+margin_right = 107.0
+margin_bottom = 93.0
+text = "Back to main menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Button" type="Button" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -206,4 +219,5 @@ __meta__ = {
 [connection signal="value_changed" from="TabContainer/Sound/VBoxContainer/Sound Master/Master_slider" to="." method="_on_Master_slider_value_changed"]
 [connection signal="value_changed" from="TabContainer/Sound/VBoxContainer/Sound Effects/Sound_slider" to="." method="_on_Sound_slider_value_changed"]
 [connection signal="value_changed" from="TabContainer/Sound/VBoxContainer/Music/Music_slider" to="." method="_on_Music_slider_value_changed"]
+[connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

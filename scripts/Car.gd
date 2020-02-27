@@ -31,6 +31,13 @@ var active = true
 
 var current_pitch = 1
 
+var touch_forward
+var touch_back
+var touch_left
+var touch_right
+
+var collisioning = false
+
 func reset_variables():
 	velocity = Vector2( 0.0, 0.0 )
 	thrust = 0.0
@@ -113,11 +120,16 @@ func _physics_process(delta):
 	speed = velocity.length()
 	
 	var collision = move_and_collide(velocity * delta, true, true, true)
-	if collision and collision_time > 1.0:
+	
+	if collision and collision_time > 1.0 and !collisioning:
+		collisioning = true
 		collision_time = 0.0
 		$Camera2D.add_trauma( velocity.length() / MAX_SPEED )
 		velocity *= 0.2
 		$Thud.play(0)
+	
+	if !collision:
+		collisioning = false
 	velocity = move_and_slide(velocity)
 	
 	rotation = orientation
@@ -129,33 +141,51 @@ func _physics_process(delta):
 #	var zoom_scale = (speed / MAX_SPEED)
 #	$Camera2D.zoom = Vector2(2,2) + Vector2(zoom_scale, zoom_scale)
 
+func _input(event):
+	if event is InputEventScreenTouch:
+		if event.is_pressed():
+			if event.position.x < (get_viewport().size.x / 2):
+				if event.position.y < (get_viewport().size.y / 2):
+					touch_forward = true
+				else:
+					touch_back = true
+			else:
+				if event.position.y < (get_viewport().size.y / 2):
+					touch_left = true
+				else:
+					touch_right = true
+		else:
+			if event.position.x < (get_viewport().size.x / 2):
+				if event.position.y < (get_viewport().size.y / 2):
+					touch_forward = false
+				else:
+					touch_back = false
+			else:
+				if event.position.y < (get_viewport().size.y / 2):
+					touch_left = false
+				else:
+					touch_right = false
 
 	
 func process_input():
-	if Input.is_action_just_pressed("ui_up"):
-		current_pitch += .5
-		print(current_pitch)
-	if Input.is_action_just_pressed("ui_down"):
-		current_pitch -= .5
-		print(current_pitch)
 	
 	# turning
 	angular_friction = ANGULAR_DAMPENING
 		
-	if Input.is_action_pressed("left"):
+	if Input.is_action_pressed("left") or touch_left:
 		if turning > 0:
 			turning = 0
 		turning -= STEERIN_TURNING
 		angular_friction = 1
 
-	if Input.is_action_pressed("right"):
+	if Input.is_action_pressed("right") or touch_right:
 		if turning < 0:
 			turning = 0
 		turning += STEERIN_TURNING
 		angular_friction = 1
 		
 	# break
-	if Input.is_action_pressed("down"):
+	if Input.is_action_pressed("down") or touch_back:
 		if reversing:
 			thrust -= 0.06
 			var thrust_limited = thrust * 60
@@ -176,7 +206,7 @@ func process_input():
 			skid_size_back = 5
 			
 	# accelerate
-	if Input.is_action_pressed("up"):
+	if Input.is_action_pressed("up") or touch_forward:
 		reversing = false
 		thrust += 0.06
 		
@@ -184,3 +214,4 @@ func process_input():
 		
 		velocity += facing * ACCELERATION * thrust_limited * min( 1, abs( facing.dot( velocity.normalized() ) ) + 0.5 )
 		skid_size_back = floor( max( 5 - speed / 2 , skid_size_back ) )
+

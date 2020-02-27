@@ -335,6 +335,7 @@ __meta__ = {
 }
 
 [node name="PopupPanel" parent="UI" instance=ExtResource( 44 )]
+visible = false
 
 [node name="ghost" type="Sprite" parent="."]
 visible = false

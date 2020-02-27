@@ -16,8 +16,9 @@ func _on_Music_slider_value_changed(value):
 
 func _on_fog_cb_toggled(button_pressed):
 	globals.options.fog = button_pressed
-	if get_parent().has_node("Fog"):
-		get_parent().get_node("Fog").visible = button_pressed
+	if has_node("/root/World/Fog"):
+		get_node("/root/World/Fog").visible = button_pressed
+
 
 func _on_ghost_cb_toggled(button_pressed):
 	globals.show_ghost = button_pressed
@@ -28,3 +29,7 @@ func _on_line_cb_toggled(button_pressed):
 
 func _on_Button_pressed():
 	hide()
+
+
+func _on_Quit_pressed():
+	get_tree().change_scene("res://MainMenu.tscn")

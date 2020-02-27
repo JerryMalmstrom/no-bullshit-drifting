@@ -26,6 +26,7 @@ onready var car = get_node("car")
 
 var debug = false
 
+
 #func _unhandled_key_input(event):
 #	if event.is_pressed() and debug:
 #		match event.scancode:
@@ -141,7 +142,6 @@ func read_trackdata(track):
 	
 	
 	for node in map.get_children():
-		print(node.name)
 		if node.name == "Management":
 			for object in node.get_children():
 				var obj = object.get_meta("object")
@@ -176,8 +176,6 @@ func read_trackdata(track):
 	
 	$car/Camera2D.limit_right = track_size.x
 	$car/Camera2D.limit_bottom = track_size.y
-	
-	print(track_size)
 	
 func _process(delta):
 	if globals.started:
@@ -240,6 +238,7 @@ func _on_GoalLine_body_entered(_body):
 			current_ghost_point = 0
 			if (globals.last_laptime < globals.best_laptime) or number_of_best_times < 10:
 				popup_text("Great lap!\n%.3f" % globals.last_laptime, 3)
+				$UI/Control/ColorRect2/nbr_bestlap.text = "%.3f" % globals.last_laptime
 				set_laptime(globals.last_laptime)
 				globals.update_ghost()
 				if globals.show_ghost:
@@ -256,3 +255,7 @@ func _on_GoalLine_body_entered(_body):
 		else:
 			popup_text("Checkpoint missed!", 2)
 			
+
+
+
+
