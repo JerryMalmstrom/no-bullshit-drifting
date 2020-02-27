@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Drifters"
+config/name="no bullshit drifting"
 config/description="Small car game"
 run/main_scene="res://MainMenu.tscn"
 boot_splash/image="res://assets/Menuback.png"

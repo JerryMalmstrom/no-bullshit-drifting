@@ -134,3 +134,7 @@ func _on_Create_pressed():
 
 func _on_Password_text_entered(_new_text):
 	_on_Login_pressed()
+
+
+func _on_Options_pressed():
+	$PopupPanel.popup()

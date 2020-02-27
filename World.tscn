@@ -43,7 +43,7 @@
 [ext_resource path="res://assets/cars/car_yellow_small_3.png" type="Texture" id=41]
 [ext_resource path="res://assets/cars/car_yellow_small_5.png" type="Texture" id=42]
 [ext_resource path="res://icon.png" type="Texture" id=43]
-[ext_resource path="res://UI.gd" type="Script" id=44]
+[ext_resource path="res://Options.tscn" type="PackedScene" id=44]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -147,7 +147,6 @@ z_index = 5
 texture = ExtResource( 43 )
 
 [node name="UI" type="CanvasLayer" parent="."]
-script = ExtResource( 44 )
 
 [node name="Control" type="Control" parent="UI"]
 anchor_right = 1.0
@@ -335,178 +334,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PopupPanel" type="Popup" parent="UI"]
-visible = true
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -150.0
-margin_top = -100.0
-margin_right = 150.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 300, 200 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TabContainer" type="TabContainer" parent="UI/PopupPanel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Graphics" type="MarginContainer" parent="UI/PopupPanel/TabContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/PopupPanel/TabContainer/Graphics"]
-margin_right = 292.0
-margin_bottom = 164.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Fog" type="HBoxContainer" parent="UI/PopupPanel/TabContainer/Graphics/VBoxContainer"]
-margin_right = 292.0
-margin_bottom = 24.0
-
-[node name="Label" type="Label" parent="UI/PopupPanel/TabContainer/Graphics/VBoxContainer/Fog"]
-margin_top = 4.0
-margin_right = 150.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 150, 16 )
-text = "Fog"
-valign = 1
-
-[node name="fog_cb" type="CheckBox" parent="UI/PopupPanel/TabContainer/Graphics/VBoxContainer/Fog"]
-margin_left = 154.0
-margin_right = 178.0
-margin_bottom = 24.0
-pressed = true
-
-[node name="Ghost" type="HBoxContainer" parent="UI/PopupPanel/TabContainer/Graphics/VBoxContainer"]
-margin_top = 28.0
-margin_right = 292.0
-margin_bottom = 52.0
-
-[node name="Label" type="Label" parent="UI/PopupPanel/TabContainer/Graphics/VBoxContainer/Ghost"]
-margin_top = 4.0
-margin_right = 150.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 150, 16 )
-text = "Best lap ghost"
-valign = 1
-
-[node name="ghost_cb" type="CheckBox" parent="UI/PopupPanel/TabContainer/Graphics/VBoxContainer/Ghost"]
-margin_left = 154.0
-margin_right = 178.0
-margin_bottom = 24.0
-
-[node name="Line" type="HBoxContainer" parent="UI/PopupPanel/TabContainer/Graphics/VBoxContainer"]
-margin_top = 56.0
-margin_right = 292.0
-margin_bottom = 80.0
-
-[node name="Label" type="Label" parent="UI/PopupPanel/TabContainer/Graphics/VBoxContainer/Line"]
-margin_top = 4.0
-margin_right = 150.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 150, 16 )
-text = "Best lap line"
-valign = 1
-
-[node name="line_cb" type="CheckBox" parent="UI/PopupPanel/TabContainer/Graphics/VBoxContainer/Line"]
-margin_left = 154.0
-margin_right = 178.0
-margin_bottom = 24.0
-
-[node name="Sound" type="MarginContainer" parent="UI/PopupPanel/TabContainer"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/PopupPanel/TabContainer/Sound"]
-margin_right = 304.0
-margin_bottom = 164.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sound Master" type="HBoxContainer" parent="UI/PopupPanel/TabContainer/Sound/VBoxContainer"]
-margin_right = 304.0
-margin_bottom = 16.0
-
-[node name="Label" type="Label" parent="UI/PopupPanel/TabContainer/Sound/VBoxContainer/Sound Master"]
-margin_right = 150.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 150, 16 )
-text = "Master volume"
-valign = 1
-
-[node name="Master_slider" type="HSlider" parent="UI/PopupPanel/TabContainer/Sound/VBoxContainer/Sound Master"]
-margin_left = 154.0
-margin_right = 304.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 150, 0 )
-max_value = 1.0
-step = 0.1
-value = 1.0
-tick_count = 5
-ticks_on_borders = true
-
-[node name="Sound Effects" type="HBoxContainer" parent="UI/PopupPanel/TabContainer/Sound/VBoxContainer"]
-margin_top = 20.0
-margin_right = 304.0
-margin_bottom = 36.0
-
-[node name="Label" type="Label" parent="UI/PopupPanel/TabContainer/Sound/VBoxContainer/Sound Effects"]
-margin_right = 150.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 150, 16 )
-text = "Sound effects"
-valign = 1
-
-[node name="Sound_slider" type="HSlider" parent="UI/PopupPanel/TabContainer/Sound/VBoxContainer/Sound Effects"]
-margin_left = 154.0
-margin_right = 304.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 150, 0 )
-max_value = 1.0
-step = 0.1
-value = 1.0
-tick_count = 5
-ticks_on_borders = true
-
-[node name="Music" type="HBoxContainer" parent="UI/PopupPanel/TabContainer/Sound/VBoxContainer"]
-margin_top = 40.0
-margin_right = 304.0
-margin_bottom = 56.0
-
-[node name="Label" type="Label" parent="UI/PopupPanel/TabContainer/Sound/VBoxContainer/Music"]
-margin_right = 150.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 150, 16 )
-text = "Music"
-valign = 1
-
-[node name="Music_slider" type="HSlider" parent="UI/PopupPanel/TabContainer/Sound/VBoxContainer/Music"]
-margin_left = 154.0
-margin_right = 304.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 150, 0 )
-value = 100.0
-tick_count = 5
-ticks_on_borders = true
+[node name="PopupPanel" parent="UI" instance=ExtResource( 44 )]
 
 [node name="ghost" type="Sprite" parent="."]
 visible = false
@@ -527,9 +355,3 @@ bus = "Sounds"
 
 [node name="ResourcePreloader" type="ResourcePreloader" parent="."]
 resources = [ PoolStringArray( "SFX_BG_Crowd_0001", "SFX_Boost_Burnout_0001", "SFX_Impacts_0214", "SFX_Motor_Marauder_0006", "SFX_Motor_OctaneMK2_0005", "SFX_REV_Challah_0001", "SFX_VehicleElements_0001", "car_black_small_1", "car_black_small_2", "car_black_small_3", "car_black_small_4", "car_black_small_5", "car_blue_small_1", "car_blue_small_2", "car_blue_small_3", "car_blue_small_4", "car_blue_small_5", "car_green_small_1", "car_green_small_2", "car_green_small_3", "car_green_small_4", "car_green_small_5", "car_red_small_1", "car_red_small_2", "car_red_small_3", "car_red_small_4", "car_red_small_5", "car_yellow_small_1", "car_yellow_small_2", "car_yellow_small_3", "car_yellow_small_4", "car_yellow_small_5", "loop_2", "menu", "smoke_01", "tires_squal_loop" ), [ ExtResource( 8 ), ExtResource( 14 ), ExtResource( 31 ), ExtResource( 11 ), ExtResource( 24 ), ExtResource( 30 ), ExtResource( 7 ), ExtResource( 15 ), ExtResource( 23 ), ExtResource( 29 ), ExtResource( 17 ), ExtResource( 10 ), ExtResource( 21 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 25 ), ExtResource( 9 ), ExtResource( 22 ), ExtResource( 32 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 38 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 33 ), ExtResource( 40 ), ExtResource( 34 ), ExtResource( 39 ), ExtResource( 41 ), ExtResource( 37 ), ExtResource( 42 ), ExtResource( 12 ), ExtResource( 20 ), ExtResource( 13 ), ExtResource( 16 ) ] ]
-[connection signal="toggled" from="UI/PopupPanel/TabContainer/Graphics/VBoxContainer/Fog/fog_cb" to="UI" method="_on_fog_cb_toggled"]
-[connection signal="toggled" from="UI/PopupPanel/TabContainer/Graphics/VBoxContainer/Ghost/ghost_cb" to="UI" method="_on_ghost_cb_toggled"]
-[connection signal="toggled" from="UI/PopupPanel/TabContainer/Graphics/VBoxContainer/Line/line_cb" to="UI" method="_on_line_cb_toggled"]
-[connection signal="value_changed" from="UI/PopupPanel/TabContainer/Sound/VBoxContainer/Sound Master/Master_slider" to="UI" method="_on_Master_slider_value_changed"]
-[connection signal="value_changed" from="UI/PopupPanel/TabContainer/Sound/VBoxContainer/Sound Effects/Sound_slider" to="UI" method="_on_Sound_slider_value_changed"]
-[connection signal="value_changed" from="UI/PopupPanel/TabContainer/Sound/VBoxContainer/Music/Music_slider" to="UI" method="_on_Music_slider_value_changed"]

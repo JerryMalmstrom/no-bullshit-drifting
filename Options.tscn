@@ -1,0 +1,209 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/Options.gd" type="Script" id=1]
+[ext_resource path="res://assets/UI/MainMenu.tres" type="Theme" id=2]
+
+[node name="PopupPanel" type="Popup"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -150.0
+margin_right = 250.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 500, 300 )
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" type="TabContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Graphics" type="MarginContainer" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 39.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Graphics"]
+margin_right = 492.0
+margin_bottom = 257.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fog" type="HBoxContainer" parent="TabContainer/Graphics/VBoxContainer"]
+margin_right = 492.0
+margin_bottom = 41.0
+
+[node name="Label" type="Label" parent="TabContainer/Graphics/VBoxContainer/Fog"]
+margin_top = 10.0
+margin_right = 250.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 250, 16 )
+text = "Fog"
+valign = 1
+
+[node name="fog_cb" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/Fog"]
+margin_left = 254.0
+margin_right = 292.0
+margin_bottom = 41.0
+pressed = true
+flat = true
+
+[node name="Ghost" type="HBoxContainer" parent="TabContainer/Graphics/VBoxContainer"]
+margin_top = 45.0
+margin_right = 492.0
+margin_bottom = 86.0
+
+[node name="Label" type="Label" parent="TabContainer/Graphics/VBoxContainer/Ghost"]
+margin_top = 10.0
+margin_right = 250.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 250, 16 )
+text = "Best lap ghost"
+valign = 1
+
+[node name="ghost_cb" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/Ghost"]
+margin_left = 254.0
+margin_right = 292.0
+margin_bottom = 41.0
+flat = true
+
+[node name="Line" type="HBoxContainer" parent="TabContainer/Graphics/VBoxContainer"]
+margin_top = 90.0
+margin_right = 492.0
+margin_bottom = 131.0
+
+[node name="Label" type="Label" parent="TabContainer/Graphics/VBoxContainer/Line"]
+margin_top = 10.0
+margin_right = 250.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 250, 16 )
+text = "Best lap line"
+valign = 1
+
+[node name="line_cb" type="CheckBox" parent="TabContainer/Graphics/VBoxContainer/Line"]
+margin_left = 254.0
+margin_right = 292.0
+margin_bottom = 41.0
+flat = true
+
+[node name="Sound" type="MarginContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 38.0
+margin_right = -10.0
+margin_bottom = -10.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sound"]
+margin_right = 480.0
+margin_bottom = 252.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sound Master" type="HBoxContainer" parent="TabContainer/Sound/VBoxContainer"]
+margin_right = 480.0
+margin_bottom = 21.0
+
+[node name="Label" type="Label" parent="TabContainer/Sound/VBoxContainer/Sound Master"]
+margin_right = 250.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 250, 16 )
+size_flags_horizontal = 3
+text = "Master volume"
+valign = 1
+
+[node name="Master_slider" type="HSlider" parent="TabContainer/Sound/VBoxContainer/Sound Master"]
+margin_left = 254.0
+margin_right = 480.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.1
+value = 1.0
+tick_count = 5
+ticks_on_borders = true
+
+[node name="Sound Effects" type="HBoxContainer" parent="TabContainer/Sound/VBoxContainer"]
+margin_top = 25.0
+margin_right = 480.0
+margin_bottom = 46.0
+
+[node name="Label" type="Label" parent="TabContainer/Sound/VBoxContainer/Sound Effects"]
+margin_right = 250.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 250, 16 )
+size_flags_horizontal = 3
+text = "Sound effects"
+valign = 1
+
+[node name="Sound_slider" type="HSlider" parent="TabContainer/Sound/VBoxContainer/Sound Effects"]
+margin_left = 254.0
+margin_right = 480.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.1
+value = 1.0
+tick_count = 5
+ticks_on_borders = true
+
+[node name="Music" type="HBoxContainer" parent="TabContainer/Sound/VBoxContainer"]
+margin_top = 50.0
+margin_right = 480.0
+margin_bottom = 71.0
+
+[node name="Label" type="Label" parent="TabContainer/Sound/VBoxContainer/Music"]
+margin_right = 250.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 250, 16 )
+size_flags_horizontal = 3
+text = "Music"
+valign = 1
+
+[node name="Music_slider" type="HSlider" parent="TabContainer/Sound/VBoxContainer/Music"]
+margin_left = 254.0
+margin_right = 480.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 3
+value = 100.0
+tick_count = 5
+ticks_on_borders = true
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -43.5
+margin_top = 99.0
+margin_right = 43.5
+margin_bottom = 140.0
+text = "close"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="toggled" from="TabContainer/Graphics/VBoxContainer/Fog/fog_cb" to="." method="_on_fog_cb_toggled"]
+[connection signal="toggled" from="TabContainer/Graphics/VBoxContainer/Ghost/ghost_cb" to="." method="_on_ghost_cb_toggled"]
+[connection signal="toggled" from="TabContainer/Graphics/VBoxContainer/Line/line_cb" to="." method="_on_line_cb_toggled"]
+[connection signal="value_changed" from="TabContainer/Sound/VBoxContainer/Sound Master/Master_slider" to="." method="_on_Master_slider_value_changed"]
+[connection signal="value_changed" from="TabContainer/Sound/VBoxContainer/Sound Effects/Sound_slider" to="." method="_on_Sound_slider_value_changed"]
+[connection signal="value_changed" from="TabContainer/Sound/VBoxContainer/Music/Music_slider" to="." method="_on_Music_slider_value_changed"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

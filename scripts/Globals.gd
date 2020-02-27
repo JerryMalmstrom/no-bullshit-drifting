@@ -21,6 +21,8 @@ var current_track = 1
 
 var user_data = {}
 
+var options = {}
+
 # var logged_in = false
 
 var car_texture = "res://assets/cars/car_black_small_5.png"
@@ -31,6 +33,9 @@ func _ready():
 	randomize()
 	user_data.name = "Player_" + "%.0f" % rand_range(100, 99999)
 	user_data.logged_in = false
+	
+	options.fog = true
+	
 
 func add_ghost_point(pos : Vector2, rot : float, time : float):
 	current_lap_ghost_array.append({ "pos": pos, "rot": rot, "time": time })
