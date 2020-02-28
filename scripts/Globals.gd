@@ -61,7 +61,7 @@ func get_webrequest(caller, function, callback):
 	add_child(http_request)
 	http_request.connect("request_completed", caller, callback)
 	
-	var error = http_request.request("http://gg.jmns.se/api.php/records/" + function)
+	var error = http_request.request("https://gg.jmns.se/api.php/records/" + function)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		
@@ -73,7 +73,7 @@ func set_webrequest(caller, function, callback, data):
 	add_child(http_request)
 	http_request.connect("request_completed", caller, callback)
 	
-	var error = http_request.request("http://gg.jmns.se/api.php/records/" + function, ["Content-Type: application/json"], false, HTTPClient.METHOD_POST, data)
+	var error = http_request.request("https://gg.jmns.se/api.php/records/" + function, ["Content-Type: application/json"], false, HTTPClient.METHOD_POST, data)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 
@@ -86,7 +86,7 @@ func get_user(name, password):
 	
 	var data = "user=" + str(name) + "&pass=" + str(password)
 	
-	var error = http_request.request("http://gg.jmns.se/sp.php/login", ["Content-Type: application/x-www-form-urlencoded"], false, HTTPClient.METHOD_POST, data)
+	var error = http_request.request("https://gg.jmns.se/sp.php/login", ["Content-Type: application/x-www-form-urlencoded"], false, HTTPClient.METHOD_POST, data)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		
@@ -105,7 +105,7 @@ func create_user(name, password):
 	
 	var data = "user=" + str(name) + "&pass=" + str(password)
 	
-	var error = http_request.request("http://gg.jmns.se/sp.php/usercreate", ["Content-Type: application/x-www-form-urlencoded"], false, HTTPClient.METHOD_POST, data)
+	var error = http_request.request("https://gg.jmns.se/sp.php/usercreate", ["Content-Type: application/x-www-form-urlencoded"], false, HTTPClient.METHOD_POST, data)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 		

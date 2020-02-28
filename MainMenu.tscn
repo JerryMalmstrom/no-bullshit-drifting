@@ -242,7 +242,6 @@ margin_bottom = 153.0
 texture_normal = ExtResource( 6 )
 
 [node name="PopupPanel" parent="." instance=ExtResource( 9 )]
-visible = false
 [connection signal="text_entered" from="MarginContainer/HBoxContainer/Left/Menu/HBoxContainer/Password" to="." method="_on_Password_text_entered"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Left/Menu/HBoxContainer/Login" to="." method="_on_Login_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Left/Menu/HBoxContainer/Create" to="." method="_on_Create_pressed"]

@@ -255,7 +255,3 @@ func _on_GoalLine_body_entered(_body):
 		else:
 			popup_text("Checkpoint missed!", 2)
 			
-
-
-
-
