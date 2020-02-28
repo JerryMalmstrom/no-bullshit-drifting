@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/JerryMalmstrom/Drifters/master/assets/logo.png)
+# no bullshit drifting
 
 Small racing game developed in [Godot Engine](https://github.com/Godot)
 
