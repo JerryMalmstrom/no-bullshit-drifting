@@ -32,16 +32,8 @@ var active = true
 
 var current_pitch = 1
 
-var touch_forward
-var touch_back
-var touch_left
-var touch_right
-
+var touch_enabled = false
 var collisioning = false
-
-onready var t_left = get_parent().get_node("UI/Control/Touch_area_left")
-onready var t_right = get_parent().get_node("UI/Control/Touch_area_right")
-
 
 func reset_variables():
 	velocity = Vector2( 0.0, 0.0 )
@@ -65,6 +57,8 @@ func _ready():
 	$Fumes.emitting = true
 	reset_variables()
 	$Pivot/body.rotation_degrees = 90
+	
+	
 
 func set_texture(texture):
 	$Pivot/body.texture = load(texture)
@@ -147,30 +141,57 @@ func _physics_process(delta):
 #	$Camera2D.zoom = Vector2(2,2) + Vector2(zoom_scale, zoom_scale)
 	
 func process_input():
+	var input_joy_horizontal = Input.get_joy_axis(0, JOY_AXIS_0)
+	var input_joy_acc = Input.get_joy_axis(0, JOY_ANALOG_R2)
+	var input_joy_back = Input.get_joy_axis(0, JOY_ANALOG_L2)
 	
 	# turning
 	angular_friction = ANGULAR_DAMPENING
 		
 	var touch = Vector2.ZERO
-	touch.x = t_left.get_value().x
-	touch.y = t_right.get_value().y
+	if touch_enabled:
+		touch.x = get_parent().get_node("UI/Control/TouchControls/Touch_area_left").get_value().x
+		touch.y = get_parent().get_node("UI/Control/TouchControls/Touch_area_right").get_value().y
 		
-	if Input.is_action_pressed("left") or touch.x < -0.2:
+	if Input.is_action_pressed("left"):
 		if turning > 0:
 			turning = 0
 		turning -= STEERIN_TURNING
 		angular_friction = 1
 		
-	if Input.is_action_pressed("right") or touch.x > 0.2:
+	if input_joy_horizontal < -0.2:
+		if turning > 0:
+			turning = 0
+		turning -= STEERIN_TURNING * abs(input_joy_horizontal)
+		angular_friction = 1 * abs(input_joy_horizontal)
+		
+	if input_joy_horizontal > 0.2:
+		if turning < 0:
+			turning = 0
+		turning += STEERIN_TURNING * abs(input_joy_horizontal)
+		angular_friction = 1 * abs(input_joy_horizontal)
+		
+	if touch_enabled:
+		if touch.x < -0.2:
+			if turning > 0:
+				turning = 0
+			turning -= STEERIN_TURNING * abs(touch.x)
+			angular_friction = 1 * abs(touch.x)
+			
+		if touch.x > 0.2:
+			if turning < 0:
+				turning = 0
+			turning += STEERIN_TURNING * abs(touch.x)
+			angular_friction = 1 * abs(touch.x)
+		
+	if Input.is_action_pressed("right"):
 		if turning < 0:
 			turning = 0
 		turning += STEERIN_TURNING
 		angular_friction = 1
 		
-	
-		
 	# break
-	if Input.is_action_pressed("down") or touch.y < -0.2:
+	if Input.is_action_pressed("down") or input_joy_back or touch.y < -0.2:
 		if reversing:
 			thrust -= 0.06
 			var thrust_limited = thrust * 60
@@ -191,7 +212,7 @@ func process_input():
 			skid_size_back = 5
 			
 	# accelerate
-	if Input.is_action_pressed("up") or touch.y > 0.2:
+	if Input.is_action_pressed("up") or input_joy_acc or touch.y > 0.2:
 		reversing = false
 		thrust += 0.06
 		
@@ -200,38 +221,4 @@ func process_input():
 		velocity += facing * ACCELERATION * thrust_limited * min( 1, abs( facing.dot( velocity.normalized() ) ) + 0.5 )
 		skid_size_back = floor( max( 5 - speed / 2 , skid_size_back ) )
 		
-	if analog_velocity.x > 0.1: # touch right
-		if turning > 0:
-			turning = 0
-		turning += STEERIN_TURNING * abs(analog_velocity.x)
-		angular_friction = 1 * abs(analog_velocity.x)
 
-	if analog_velocity.x < -0.1: # touch left
-		if turning > 0:
-			turning = 0
-		turning -= STEERIN_TURNING * abs(analog_velocity.x)
-		angular_friction = 1 * abs(analog_velocity.x)
-		
-	if analog_velocity.y < -0.1: # touch up
-		reversing = false
-		thrust += 0.06 * abs(analog_velocity.y)
-		
-		var thrust_limited = thrust * 60
-		
-		velocity += facing * ACCELERATION * thrust_limited * min( 1, abs( facing.dot( velocity.normalized() ) ) + 0.5 )
-		skid_size_back = floor( max( 5 - speed / 2 , skid_size_back ) )
-		
-	if analog_velocity.y > 0.1: # touch down
-		if reversing:
-			thrust -= 0.06
-			var thrust_limited = thrust * 60
-			velocity += facing * ACCELERATION * thrust_limited * min( 1, abs( facing.dot( velocity.normalized() ) ) + 0.5 )
-		
-		else:
-			if velocity.length() >= BREAKING:
-				velocity -= velocity.normalized() * BREAKING
-				skid_size_front = 2
-			else:
-				velocity *= 0.0
-				reversing = true
-	

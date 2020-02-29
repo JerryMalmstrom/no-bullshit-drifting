@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Car.tscn" type="PackedScene" id=2]
@@ -44,7 +44,6 @@
 [ext_resource path="res://assets/cars/car_yellow_small_5.png" type="Texture" id=42]
 [ext_resource path="res://icon.png" type="Texture" id=43]
 [ext_resource path="res://Options.tscn" type="PackedScene" id=44]
-[ext_resource path="res://Touch_area.gd" type="Script" id=45]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -288,36 +287,6 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Touch_area_left" type="Control" parent="UI/Control"]
-anchor_right = 0.4
-anchor_bottom = 1.0
-rect_min_size = Vector2( 512, 720 )
-script = ExtResource( 45 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-persistent = true
-mouse_trigger = 2
-background_radius = 100
-foreground_radius = 20
-start_pos = Vector2( 150, 650 )
-
-[node name="Touch_area_right" type="Control" parent="UI/Control"]
-anchor_left = 0.6
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.10352e-05
-margin_bottom = 6.10352e-05
-rect_min_size = Vector2( 512, 720 )
-script = ExtResource( 45 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-persistent = true
-background_radius = 100
-foreground_radius = 20
-start_pos = Vector2( 150, 650 )
 
 [node name="pb_speed" type="ProgressBar" parent="UI"]
 margin_top = 60.0

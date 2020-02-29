@@ -26,19 +26,6 @@ onready var car = get_node("car")
 
 var debug = false
 
-
-#func _unhandled_key_input(event):
-#	if event.is_pressed() and debug:
-#		match event.scancode:
-#			KEY_I:
-#				car.WOBBLE_RATE *= 1.1
-#				print(car.WOBBLE_RATE)
-#			KEY_K:
-#				car.WOBBLE_RATE *= 0.9
-#				print(car.WOBBLE_RATE)
-
-
-
 func _ready():
 	$UI/Loader.visible = true
 	
@@ -49,11 +36,13 @@ func _ready():
 	
 	$UI/Control/ColorRect2/Username_label.text = globals.user_data.name
 	
-#	if debug:
-#		$UI/Control/Debug.show()
-#	else:
-#		$UI/Control/Debug.hide()
-
+	if !OS.has_touchscreen_ui_hint():
+		var ts_c = load("res://TouchControls.tscn").instance()
+		$UI/Control.add_child(ts_c)
+		$car.touch_enabled = true
+	else:
+		pass
+	
 	
 func get_trackdata(track_id):
 	globals.get_webrequest(self, "tracks/%s" % track_id, "_get_trackdata_completed")

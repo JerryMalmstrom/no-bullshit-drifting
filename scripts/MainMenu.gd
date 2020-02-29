@@ -37,13 +37,8 @@ var current_car = 0
 func _ready():
 	globals.get_webrequest(self, "tracks", "_track_request_completed")
 	
-	if OS.has_touchscreen_ui_hint():
-		OS.window_fullscreen = true
-	
-#	if !globals.logged_in:
-#		pass
-#	else:
-#		logged_in()
+	if globals.user_data.logged_in:
+		logged_in()
 
 
 func _track_request_completed(_result, _response_code, _headers, body):
