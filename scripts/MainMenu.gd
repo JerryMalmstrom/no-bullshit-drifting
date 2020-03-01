@@ -48,7 +48,7 @@ func _track_request_completed(_result, _response_code, _headers, body):
 		tracks.append({"id": response[x].id, "name": response[x].name, "thumb": load("res://maps/" + response[x].file + ".thumb.png"), "enabled": response[x].enabled})
 		
 	$MarginContainer/HBoxContainer/Right/TrackSelect/TextureRect.texture = tracks[current_track].thumb
-	$MarginContainer/HBoxContainer/Right/Track_label.text = tracks[current_track].name
+	$MarginContainer/HBoxContainer/Right/lbl_track.text = tracks[current_track].name
 
 func _load_map(track):
 	globals.current_track = track
@@ -70,7 +70,7 @@ func _on_Track_L_pressed():
 		current_track = clamp(current_track-1, 0, tracks.size()-1)
 	
 	$MarginContainer/HBoxContainer/Right/TrackSelect/TextureRect.texture = tracks[current_track].thumb
-	$MarginContainer/HBoxContainer/Right/Track_label.text = tracks[current_track].name
+	$MarginContainer/HBoxContainer/Right/lbl_track.text = tracks[current_track].name
 		
 func _on_Track_R_pressed():
 	current_track = clamp(current_track+1, 0, tracks.size()-1)
@@ -79,7 +79,7 @@ func _on_Track_R_pressed():
 		current_track = clamp(current_track+1, 0, tracks.size()-1)
 	
 	$MarginContainer/HBoxContainer/Right/TrackSelect/TextureRect.texture = tracks[current_track].thumb
-	$MarginContainer/HBoxContainer/Right/Track_label.text = tracks[current_track].name
+	$MarginContainer/HBoxContainer/Right/lbl_track.text = tracks[current_track].name
 
 func _on_L_pressed():
 	current_car = clamp(current_car-1, 0, cars.size()-1)

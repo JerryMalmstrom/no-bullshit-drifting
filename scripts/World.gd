@@ -36,7 +36,7 @@ func _ready():
 	
 	$UI/Control/ColorRect2/Username_label.text = globals.user_data.name
 	
-	if !OS.has_touchscreen_ui_hint():
+	if OS.has_touchscreen_ui_hint():
 		var ts_c = load("res://TouchControls.tscn").instance()
 		$UI/Control.add_child(ts_c)
 		$car.touch_enabled = true
